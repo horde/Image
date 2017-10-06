@@ -20,6 +20,7 @@ addons:
 before_script:
   - export IMAGE_EXIF_TEST_CONFIG='{"image":{"exiftool":"/usr/bin/exiftool"}}';
   - phpenv config-rm xdebug.ini || echo "XDebug not enabled"
+  - pear channel-discover pear.horde.org
   - pear install channel://pear.horde.org/Horde_Test
   - pear install package.xml
 script:
