@@ -23,7 +23,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-09-19</date>
+ <date>2017-10-17</date>
  <version>
   <release>2.5.3</release>
   <api>2.5.0</api>
@@ -41,7 +41,6 @@
    <dir name="doc">
     <dir name="Horde">
      <dir name="Image">
-      <file name="COPYING" role="doc" />
       <file name="COPYING-EXIF" role="doc" />
       <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Image -->
@@ -410,6 +409,7 @@
     <file name="swf.php" role="test" />
     <file name="two_page.tif.tiff" role="test" />
    </dir> <!-- /test -->
+   <file name="LICENSE" role="doc" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -491,23 +491,11 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="COPYING" name="doc/Horde/Image/COPYING" />
    <install as="COPYING-EXIF" name="doc/Horde/Image/COPYING-EXIF" />
    <install as="UPGRADING" name="doc/Horde/Image/UPGRADING" />
    <install as="Horde/Image.php" name="lib/Horde/Image.php" />
    <install as="Horde/Image/Base.php" name="lib/Horde/Image/Base.php" />
    <install as="Horde/Image/Effect.php" name="lib/Horde/Image/Effect.php" />
-   <install as="Horde/Image/Exception.php" name="lib/Horde/Image/Exception.php" />
-   <install as="Horde/Image/Exif.php" name="lib/Horde/Image/Exif.php" />
-   <install as="Horde/Image/Gd.php" name="lib/Horde/Image/Gd.php" />
-   <install as="Horde/Image/Im.php" name="lib/Horde/Image/Im.php" />
-   <install as="Horde/Image/Imagick.php" name="lib/Horde/Image/Imagick.php" />
-   <install as="Horde/Image/Null.php" name="lib/Horde/Image/Null.php" />
-   <install as="Horde/Image/Png.php" name="lib/Horde/Image/Png.php" />
-   <install as="Horde/Image/Rgb.php" name="lib/Horde/Image/Rgb.php" />
-   <install as="Horde/Image/Svg.php" name="lib/Horde/Image/Svg.php" />
-   <install as="Horde/Image/Swf.php" name="lib/Horde/Image/Swf.php" />
-   <install as="Horde/Image/Translation.php" name="lib/Horde/Image/Translation.php" />
    <install as="Horde/Image/Effect/Border.php" name="lib/Horde/Image/Effect/Border.php" />
    <install as="Horde/Image/Effect/Gd/Blur.php" name="lib/Horde/Image/Effect/Gd/Blur.php" />
    <install as="Horde/Image/Effect/Gd/Border.php" name="lib/Horde/Image/Effect/Gd/Border.php" />
@@ -538,10 +526,11 @@
    <install as="Horde/Image/Effect/Imagick/SmartCrop.php" name="lib/Horde/Image/Effect/Imagick/SmartCrop.php" />
    <install as="Horde/Image/Effect/Imagick/TextWatermark.php" name="lib/Horde/Image/Effect/Imagick/TextWatermark.php" />
    <install as="Horde/Image/Effect/Imagick/Unsharpmask.php" name="lib/Horde/Image/Effect/Imagick/Unsharpmask.php" />
+   <install as="Horde/Image/Exception.php" name="lib/Horde/Image/Exception.php" />
+   <install as="Horde/Image/Exif.php" name="lib/Horde/Image/Exif.php" />
    <install as="Horde/Image/Exif/Base.php" name="lib/Horde/Image/Exif/Base.php" />
    <install as="Horde/Image/Exif/Bundled.php" name="lib/Horde/Image/Exif/Bundled.php" />
    <install as="Horde/Image/Exif/Exiftool.php" name="lib/Horde/Image/Exif/Exiftool.php" />
-   <install as="Horde/Image/Exif/Php.php" name="lib/Horde/Image/Exif/Php.php" />
    <install as="Horde/Image/Exif/Parser/Base.php" name="lib/Horde/Image/Exif/Parser/Base.php" />
    <install as="Horde/Image/Exif/Parser/Canon.php" name="lib/Horde/Image/Exif/Parser/Canon.php" />
    <install as="Horde/Image/Exif/Parser/Fujifilm.php" name="lib/Horde/Image/Exif/Parser/Fujifilm.php" />
@@ -550,7 +539,17 @@
    <install as="Horde/Image/Exif/Parser/Olympus.php" name="lib/Horde/Image/Exif/Parser/Olympus.php" />
    <install as="Horde/Image/Exif/Parser/Panasonic.php" name="lib/Horde/Image/Exif/Parser/Panasonic.php" />
    <install as="Horde/Image/Exif/Parser/Sanyo.php" name="lib/Horde/Image/Exif/Parser/Sanyo.php" />
-   <install as="locale/Horde_Image.pot" name="locale/Horde_Image.pot" />
+   <install as="Horde/Image/Exif/Php.php" name="lib/Horde/Image/Exif/Php.php" />
+   <install as="Horde/Image/Gd.php" name="lib/Horde/Image/Gd.php" />
+   <install as="Horde/Image/Im.php" name="lib/Horde/Image/Im.php" />
+   <install as="Horde/Image/Imagick.php" name="lib/Horde/Image/Imagick.php" />
+   <install as="Horde/Image/Null.php" name="lib/Horde/Image/Null.php" />
+   <install as="Horde/Image/Png.php" name="lib/Horde/Image/Png.php" />
+   <install as="Horde/Image/Rgb.php" name="lib/Horde/Image/Rgb.php" />
+   <install as="Horde/Image/Svg.php" name="lib/Horde/Image/Svg.php" />
+   <install as="Horde/Image/Swf.php" name="lib/Horde/Image/Swf.php" />
+   <install as="Horde/Image/Translation.php" name="lib/Horde/Image/Translation.php" />
+   <install as="LICENSE" name="LICENSE" />
    <install as="locale/ar/LC_MESSAGES/Horde_Image.mo" name="locale/ar/LC_MESSAGES/Horde_Image.mo" />
    <install as="locale/ar/LC_MESSAGES/Horde_Image.po" name="locale/ar/LC_MESSAGES/Horde_Image.po" />
    <install as="locale/bg/LC_MESSAGES/Horde_Image.mo" name="locale/bg/LC_MESSAGES/Horde_Image.mo" />
@@ -583,6 +582,7 @@
    <install as="locale/gl/LC_MESSAGES/Horde_Image.po" name="locale/gl/LC_MESSAGES/Horde_Image.po" />
    <install as="locale/he/LC_MESSAGES/Horde_Image.mo" name="locale/he/LC_MESSAGES/Horde_Image.mo" />
    <install as="locale/he/LC_MESSAGES/Horde_Image.po" name="locale/he/LC_MESSAGES/Horde_Image.po" />
+   <install as="locale/Horde_Image.pot" name="locale/Horde_Image.pot" />
    <install as="locale/hr/LC_MESSAGES/Horde_Image.mo" name="locale/hr/LC_MESSAGES/Horde_Image.mo" />
    <install as="locale/hr/LC_MESSAGES/Horde_Image.po" name="locale/hr/LC_MESSAGES/Horde_Image.po" />
    <install as="locale/hu/LC_MESSAGES/Horde_Image.mo" name="locale/hu/LC_MESSAGES/Horde_Image.mo" />
@@ -639,6 +639,15 @@
    <install as="conf.php.dist" name="test/conf.php.dist" />
    <install as="error.png" name="test/error.png" />
    <install as="gd.php" name="test/gd.php" />
+   <install as="Horde/Image/AllTests.php" name="test/Horde/Image/AllTests.php" />
+   <install as="Horde/Image/bootstrap.php" name="test/Horde/Image/bootstrap.php" />
+   <install as="Horde/Image/conf.php.dist" name="test/Horde/Image/conf.php.dist" />
+   <install as="Horde/Image/Exif/BundledTest.php" name="test/Horde/Image/Exif/BundledTest.php" />
+   <install as="Horde/Image/Exif/ExiftoolTest.php" name="test/Horde/Image/Exif/ExiftoolTest.php" />
+   <install as="Horde/Image/Exif/PhpTest.php" name="test/Horde/Image/Exif/PhpTest.php" />
+   <install as="Horde/Image/Exif/TestBase.php" name="test/Horde/Image/Exif/TestBase.php" />
+   <install as="Horde/Image/Fixtures/img_exif.jpg" name="test/Horde/Image/Fixtures/img_exif.jpg" />
+   <install as="Horde/Image/phpunit.xml" name="test/Horde/Image/phpunit.xml" />
    <install as="im.php" name="test/im.php" />
    <install as="img1.jpg" name="test/img1.jpg" />
    <install as="img2.jpg" name="test/img2.jpg" />
@@ -648,16 +657,7 @@
    <install as="svg.php" name="test/svg.php" />
    <install as="swf.php" name="test/swf.php" />
    <install as="two_page.tif.tiff" name="test/two_page.tif.tiff" />
-   <install as="Horde/Image/AllTests.php" name="test/Horde/Image/AllTests.php" />
-   <install as="Horde/Image/bootstrap.php" name="test/Horde/Image/bootstrap.php" />
-   <install as="Horde/Image/conf.php.dist" name="test/Horde/Image/conf.php.dist" />
-   <install as="Horde/Image/phpunit.xml" name="test/Horde/Image/phpunit.xml" />
-   <install as="Horde/Image/Exif/BundledTest.php" name="test/Horde/Image/Exif/BundledTest.php" />
-   <install as="Horde/Image/Exif/ExiftoolTest.php" name="test/Horde/Image/Exif/ExiftoolTest.php" />
-   <install as="Horde/Image/Exif/PhpTest.php" name="test/Horde/Image/Exif/PhpTest.php" />
-   <install as="Horde/Image/Exif/TestBase.php" name="test/Horde/Image/Exif/TestBase.php" />
-   <install as="Horde/Image/Fixtures/img_exif.jpg" name="test/Horde/Image/Fixtures/img_exif.jpg" />
-   </filelist>
+  </filelist>
  </phprelease>
  <changelog>
   <release>
@@ -1268,7 +1268,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-09-19</date>
+   <date>2017-10-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
