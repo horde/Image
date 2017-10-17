@@ -3,7 +3,7 @@
  * Copyright 2003 Torstein Hønsi <thoensi@netcom.no>
  * Copyright 2007-2017 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
+ * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author    Torstein Hønsi <thoensi@netcom.no>
