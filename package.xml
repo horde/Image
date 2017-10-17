@@ -42,7 +42,7 @@
     <dir name="Horde">
      <dir name="Image">
       <file name="COPYING-EXIF" role="doc" />
-      <file name="UPGRADING" role="doc" />
+      <file name="UPGRADING.rst" role="doc" />
      </dir> <!-- /doc/Horde/Image -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -492,7 +492,7 @@
  <phprelease>
   <filelist>
    <install as="COPYING-EXIF" name="doc/Horde/Image/COPYING-EXIF" />
-   <install as="UPGRADING" name="doc/Horde/Image/UPGRADING" />
+   <install as="UPGRADING.rst" name="doc/Horde/Image/UPGRADING.rst" />
    <install as="Horde/Image.php" name="lib/Horde/Image.php" />
    <install as="Horde/Image/Base.php" name="lib/Horde/Image/Base.php" />
    <install as="Horde/Image/Effect.php" name="lib/Horde/Image/Effect.php" />
