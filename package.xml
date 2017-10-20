@@ -23,7 +23,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-10-17</date>
+ <date>2017-10-20</date>
  <version>
   <release>2.5.3</release>
   <api>2.5.0</api>
@@ -392,7 +392,6 @@
       <file name="AllTests.php" role="test" />
       <file name="bootstrap.php" role="test" />
       <file name="conf.php.dist" role="test" />
-      <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Image -->
     </dir> <!-- /test/Horde -->
     <file name=".htaccess" role="test" />
@@ -647,7 +646,6 @@
    <install as="Horde/Image/Exif/PhpTest.php" name="test/Horde/Image/Exif/PhpTest.php" />
    <install as="Horde/Image/Exif/TestBase.php" name="test/Horde/Image/Exif/TestBase.php" />
    <install as="Horde/Image/Fixtures/img_exif.jpg" name="test/Horde/Image/Fixtures/img_exif.jpg" />
-   <install as="Horde/Image/phpunit.xml" name="test/Horde/Image/phpunit.xml" />
    <install as="im.php" name="test/im.php" />
    <install as="img1.jpg" name="test/img1.jpg" />
    <install as="img2.jpg" name="test/img2.jpg" />
@@ -1268,7 +1266,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-10-17</date>
+   <date>2017-10-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
