@@ -1,0 +1,514 @@
+---
+2.5.3:
+  api: 2.5.0
+  state:
+    release: stable
+    api: stable
+  date: 2017-10-20
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes:
+2.5.2:
+  api: 2.5.0
+  state:
+    release: stable
+    api: stable
+  date: 2017-09-19
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] SECURITY: Fix remote code execution vulnerability in Im driver (Thomas Jarosch <thomas.jarosch@intra2net.com>.
+2.5.1:
+  api: 2.5.0
+  state:
+    release: stable
+    api: stable
+  date: 2017-06-25
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [mjr] SECURITY: Fix more potential places for command injections.
+2.5.0:
+  api: 2.5.0
+  state:
+    release: stable
+    api: stable
+  date: 2017-06-21
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [mjr] SECURITY: Prevent DOS attack by preventing an infinite loop in certain conditions (CVE-2017-9773, reported by Fariskhi Vidyan <farislab@gmail.com>).
+    [mjr] SECURITY: Prevent RCE attacks by properly sanitizing shell arguments (CVE-2017-9774, reported by Fariskhi Vidyan <farislab@gmail.com>).
+    [jan] Add blur effect.
+2.4.1:
+  api: 2.4.0
+  state:
+    release: stable
+    api: stable
+  date: 2017-04-11
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [mjr] Fix returning stream data from NULL image driver (Bug #14608).
+2.4.0:
+  api: 2.4.0
+  state:
+    release: stable
+    api: stable
+  date: 2017-03-20
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Add blur effect.
+2.3.6:
+  api: 2.3.0
+  state:
+    release: stable
+    api: stable
+  date: 2016-07-12
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Fix parsing GPS exif data of a certain format.
+2.3.5:
+  api: 2.3.0
+  state:
+    release: stable
+    api: stable
+  date: 2016-03-21
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [mjr] Fix for PHP 7.1.
+2.3.4:
+  api: 2.3.0
+  state:
+    release: stable
+    api: stable
+  date: 2016-02-01
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Mark PHP 7 as supported.
+2.3.3:
+  api: 2.3.0
+  state:
+    release: stable
+    api: stable
+  date: 2015-09-07
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [cjh] Fix EXIF data not being returned in Bundled driver.
+2.3.2:
+  api: 2.3.0
+  state:
+    release: stable
+    api: stable
+  date: 2015-07-31
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Updated UK translation.
+2.3.1:
+  api: 2.3.0
+  state:
+    release: stable
+    api: stable
+  date: 2015-04-28
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Fix issues with certain locales like Turkish.
+2.3.0:
+  api: 2.3.0
+  state:
+    release: stable
+    api: stable
+  date: 2015-04-13
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Fix transparent rectangles in SVG backend.
+    [jan] Fix setting background color in SVG backend.
+    [jan] Add 'ratio' parameter to Horde_Image_Effect_Imagick_LiquidResize.
+    [jan] Fix catching exceptions from imagick extension.
+    [jan] Complete the backends' capabilities properties.
+    [jan] Fix SVG and SWF backends.
+    [jan] Fix setting background color in Horde_Image_Swf constructor.
+    [jan] Send Content-Type header in Horde_Image_Svg#display().
+    [jan] Improve arc rendering with Im backend.
+    [jan] Enable antialiasing in GD backend if available.
+    [jan] Implement Horde_Image_Imagick::arc().
+    [jan] Fix rounded rectangle drawing with GD backend.
+    [jan] Fix transparency issues with GD backend.
+    [jan] Fix autoloading of effect classes.
+    [jan] Fix border effect with GD driver.
+    [jan] Don't error out in effects if a logger hasn't been set.
+    [jan] Make getImageAtIndex() always return an image.
+    [jan] Don't error our when calling unsupported manipulation methods.
+    [jan] Make Horde_Image::arcPoints() work with any angles.
+    [jan] Fix some HTML color name to RGB value mappings.
+    [jan] Add Horde_Image_Rgb class and remove $horde_image_rgb_colors global.
+    [jan] Add Null driver for basics like just displaying the image.
+    [mjr] Fix incorrect color renderings in certain situations.
+2.2.0:
+  api: 2.2.0
+  state:
+    release: stable
+    api: stable
+  date: 2015-02-10
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [mjr] Improve stream handling in bundled EXIF driver (Request #13788).
+    [mms] Horde_Image_Exif_Bundled now supports reading data from a PHP stream, rather than a file.
+2.1.0:
+  api: 2.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2014-06-17
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [mjr] Add Horde_Image_Exif::getDescriptionFields() and Horde_Image_Exif::getTitleFields().
+2.0.9:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2014-06-10
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [mjr] Add "Title" and "Description" XMP fields.
+2.0.8:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2014-05-21
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Update Hungarian translation (Andras Galos <galosa@netinform.hu>).
+2.0.7:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2014-04-09
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [mjr] Update maximum allowed version for the PECL Imagick extension.
+2.0.6:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2014-04-03
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Fix converting to grayscale with imagick driver.
+    [jan] Add optional dependency on imagick PECL extension.
+2.0.5:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2013-07-13
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [mjr] Fix generating center image crops on Solaris systems that still use older Bourne shell.
+2.0.4:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2013-03-05
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Improve unit tests.
+2.0.3:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2013-01-29
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [mjr] Fix image watermarking for Imagick and ImageMagick drivers.
+2.0.2:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2013-01-09
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
+2.0.1:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2012-11-19
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [mms] Use new Horde_Test layout.
+2.0.0:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2012-10-30
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    First stable release for Horde 5.
+2.0.0beta2:
+  api: 1.0.0
+  state:
+    release: beta
+    api: stable
+  date: 2012-10-12
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Update Japanese translation.
+2.0.0beta1:
+  api: 1.0.0
+  state:
+    release: beta
+    api: stable
+  date: 2012-07-19
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    First beta release for Horde 5.
+2.0.0alpha1:
+  api: 1.0.0
+  state:
+    release: alpha
+    api: stable
+  date: 2012-07-05
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    First alpha release for Horde 5.
+1.0.10:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2012-02-22
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Update Spanish translation (Manuel P. Ayala <mayala@unex.es>).
+1.0.9:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2011-12-06
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Update Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
+1.0.8:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2011-11-22
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Update Croatian translation.
+    [jan] Update Latvian translation.
+1.0.7:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2011-11-03
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [mjr] Add a version of the convert command for center cropping with ImageMagick versions less than 6.3.8 (Bug #10687).
+1.0.6:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2011-10-19
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [mjr] Fix parsing GPS values for locales that do not use the decimal separator (Bug #10643).
+1.0.5:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2011-10-15
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [mjr] Added support for Lens and LensID EXIF fields)
+    [mjr] Ensure string values are parsed as strings (Bug #10646).
+    [mjr] Add basic unit tests for EXIF data
+1.0.4:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2011-07-27
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Update Latvian translation.
+1.0.3:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2011-07-05
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Update Lithuanian translation.
+    [jan] Update Brazilian Portuguese translation.
+1.0.2:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2011-06-01
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Updated Slovak translation.
+1.0.1:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2011-05-18
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [jan] Updated Spanish translation.
+1.0.0:
+  api: 1.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2011-04-06
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    First stable release for Horde 4.
+1.0.0RC2:
+  api: 1.0.0
+  state:
+    release: beta
+    api: beta
+  date: 2011-03-29
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    Second release candidate for Horde 4.
+1.0.0RC1:
+  api: 1.0.0
+  state:
+    release: beta
+    api: beta
+  date: 2011-03-22
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    First release candidate for Horde 4.
+1.0.0beta1:
+  api: 1.0.0
+  state:
+    release: beta
+    api: beta
+  date: 2011-03-16
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    First beta release for Horde 4.
+1.0.0alpha1:
+  api: 1.0.0
+  state:
+    release: alpha
+    api: alpha
+  date: 2011-03-08
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    First alpha release for Horde 4.
+0.0.1:
+  api: 0.0.1
+  state:
+    release: alpha
+    api: alpha
+  date: 2004-01-01
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    Initial release as a PEAR package
