@@ -23,7 +23,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-10-20</date>
+ <date>2017-10-27</date>
  <version>
   <release>2.5.3</release>
   <api>2.5.0</api>
@@ -40,6 +40,7 @@
    <dir name="doc">
     <dir name="Horde">
      <dir name="Image">
+      <file name="CHANGES" role="doc" />
       <file name="COPYING-EXIF" role="doc" />
       <file name="UPGRADING.rst" role="doc" />
      </dir> <!-- /doc/Horde/Image -->
@@ -489,6 +490,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="CHANGES" name="doc/Horde/Image/CHANGES" />
    <install as="COPYING-EXIF" name="doc/Horde/Image/COPYING-EXIF" />
    <install as="UPGRADING.rst" name="doc/Horde/Image/UPGRADING.rst" />
    <install as="Horde/Image.php" name="lib/Horde/Image.php" />
@@ -1265,7 +1267,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-10-20</date>
+   <date>2017-10-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
    </notes>
