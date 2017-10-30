@@ -1,0 +1,343 @@
+----------
+v2.5.3-git
+----------
+
+
+------
+v2.5.2
+------
+
+[jan] SECURITY: Fix remote code execution vulnerability in Im driver (Thomas
+      Jarosch <thomas.jarosch@intra2net.com>.
+
+
+------
+v2.5.1
+------
+
+[mjr] SECURITY: Fix more potential places for command injections.
+
+
+------
+v2.5.0
+------
+
+[mjr] SECURITY: Prevent DOS attack by preventing an infinite loop in certain
+      conditions (CVE-2017-9773, reported by Fariskhi Vidyan
+      <farislab@gmail.com>).
+[mjr] SECURITY: Prevent RCE attacks by properly sanitizing shell arguments
+      (CVE-2017-9774, reported by Fariskhi Vidyan <farislab@gmail.com>).
+[jan] Add blur effect.
+
+
+------
+v2.4.1
+------
+
+[mjr] Fix returning stream data from NULL image driver (Bug #14608).
+
+
+------
+v2.4.0
+------
+
+[jan] Add blur effect.
+
+
+------
+v2.3.6
+------
+
+[jan] Fix parsing GPS exif data of a certain format.
+
+
+------
+v2.3.5
+------
+
+[mjr] Fix for PHP 7.1.
+
+
+------
+v2.3.4
+------
+
+[jan] Mark PHP 7 as supported.
+
+
+------
+v2.3.3
+------
+
+[cjh] Fix EXIF data not being returned in Bundled driver.
+
+
+------
+v2.3.2
+------
+
+[jan] Updated UK translation.
+
+
+------
+v2.3.1
+------
+
+[jan] Fix issues with certain locales like Turkish.
+
+
+------
+v2.3.0
+------
+
+[jan] Fix transparent rectangles in SVG backend.
+[jan] Fix setting background color in SVG backend.
+[jan] Add 'ratio' parameter to Horde_Image_Effect_Imagick_LiquidResize.
+[jan] Fix catching exceptions from imagick extension.
+[jan] Complete the backends' capabilities properties.
+[jan] Fix SVG and SWF backends.
+[jan] Fix setting background color in Horde_Image_Swf constructor.
+[jan] Send Content-Type header in Horde_Image_Svg#display().
+[jan] Improve arc rendering with Im backend.
+[jan] Enable antialiasing in GD backend if available.
+[jan] Implement Horde_Image_Imagick::arc().
+[jan] Fix rounded rectangle drawing with GD backend.
+[jan] Fix transparency issues with GD backend.
+[jan] Fix autoloading of effect classes.
+[jan] Fix border effect with GD driver.
+[jan] Don't error out in effects if a logger hasn't been set.
+[jan] Make getImageAtIndex() always return an image.
+[jan] Don't error our when calling unsupported manipulation methods.
+[jan] Make Horde_Image::arcPoints() work with any angles.
+[jan] Fix some HTML color name to RGB value mappings.
+[jan] Add Horde_Image_Rgb class and remove $horde_image_rgb_colors global.
+[jan] Add Null driver for basics like just displaying the image.
+[mjr] Fix incorrect color renderings in certain situations.
+
+
+------
+v2.2.0
+------
+
+[mjr] Improve stream handling in bundled EXIF driver (Request #13788).
+[mms] Horde_Image_Exif_Bundled now supports reading data from a PHP stream,
+      rather than a file.
+
+
+------
+v2.1.0
+------
+
+[mjr] Add Horde_Image_Exif::getDescriptionFields() and
+      Horde_Image_Exif::getTitleFields().
+
+
+------
+v2.0.9
+------
+
+[mjr] Add "Title" and "Description" XMP fields.
+
+
+------
+v2.0.8
+------
+
+[jan] Update Hungarian translation (Andras Galos <galosa@netinform.hu>).
+
+
+------
+v2.0.7
+------
+
+[mjr] Update maximum allowed version for the PECL Imagick extension.
+
+
+------
+v2.0.6
+------
+
+[jan] Fix converting to grayscale with imagick driver.
+[jan] Add optional dependency on imagick PECL extension.
+
+
+------
+v2.0.5
+------
+
+[mjr] Fix generating center image crops on Solaris systems that still use older
+      Bourne shell.
+
+
+------
+v2.0.4
+------
+
+[jan] Improve unit tests.
+
+
+------
+v2.0.3
+------
+
+[mjr] Fix image watermarking for Imagick and ImageMagick drivers.
+
+
+------
+v2.0.2
+------
+
+[jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
+
+
+------
+v2.0.1
+------
+
+[mms] Use new Horde_Test layout.
+
+
+------
+v2.0.0
+------
+
+First stable release for Horde 5.
+
+
+-----------
+v2.0.0beta2
+-----------
+
+[jan] Update Japanese translation.
+
+
+-----------
+v2.0.0beta1
+-----------
+
+First beta release for Horde 5.
+
+
+------------
+v2.0.0alpha1
+------------
+
+First alpha release for Horde 5.
+
+
+-------
+v1.0.10
+-------
+
+[jan] Update Spanish translation (Manuel P. Ayala <mayala@unex.es>).
+
+
+------
+v1.0.9
+------
+
+[jan] Update Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
+
+
+------
+v1.0.8
+------
+
+[jan] Update Croatian translation.
+[jan] Update Latvian translation.
+
+
+------
+v1.0.7
+------
+
+[mjr] Add a version of the convert command for center cropping with ImageMagick
+      versions less than 6.3.8 (Bug #10687).
+
+
+------
+v1.0.6
+------
+
+[mjr] Fix parsing GPS values for locales that do not use the decimal separator
+      (Bug #10643).
+
+
+------
+v1.0.5
+------
+
+[mjr] Added support for Lens and LensID EXIF fields)
+[mjr] Ensure string values are parsed as strings (Bug #10646).
+[mjr] Add basic unit tests for EXIF data
+
+
+------
+v1.0.4
+------
+
+[jan] Update Latvian translation.
+
+
+------
+v1.0.3
+------
+
+[jan] Update Lithuanian translation.
+[jan] Update Brazilian Portuguese translation.
+
+
+------
+v1.0.2
+------
+
+[jan] Updated Slovak translation.
+
+
+------
+v1.0.1
+------
+
+[jan] Updated Spanish translation.
+
+
+------
+v1.0.0
+------
+
+First stable release for Horde 4.
+
+
+---------
+v1.0.0RC2
+---------
+
+Second release candidate for Horde 4.
+
+
+---------
+v1.0.0RC1
+---------
+
+First release candidate for Horde 4.
+
+
+-----------
+v1.0.0beta1
+-----------
+
+First beta release for Horde 4.
+
+
+------------
+v1.0.0alpha1
+------------
+
+First alpha release for Horde 4.
+
+
+------
+v0.0.1
+------
+
+Initial release as a PEAR package
