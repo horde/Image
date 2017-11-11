@@ -49,7 +49,9 @@ dependencies:
     pear:
       pear.horde.org/Horde_Test: ^2.1
       pear.php.net/XML_SVG: '*'
-      pecl.php.net/imagick: ^2 <4
+      pecl.php.net/imagick:
+        version: ^2 || ^3
+        providesextension: imagick
     ext:
       gd: '*'
       json: '*'
