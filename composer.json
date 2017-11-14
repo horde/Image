@@ -1,8 +1,8 @@
 {
     "name": "horde/image",
-    "description": "Horde Image API",
+    "description": "Image library",
     "type": "library",
-    "homepage": "https://pear.horde.org",
+    "homepage": "https://www.horde.org/libraries/Horde_Image",
     "license": "LGPL-2.1",
     "authors": [
         {
@@ -17,7 +17,7 @@
         }
     ],
     "version": "2.5.3",
-    "time": "2017-09-19",
+    "time": "2017-11-14",
     "repositories": [
         {
             "type": "pear",
@@ -35,7 +35,7 @@
     "suggest": {
         "pear-pear.horde.org/Horde_Test": "^2.1",
         "pear-pear.php.net/XML_SVG": "*",
-        "pear-pecl.php.net/imagick": "^2 <4",
+        "pear-pecl.php.net/imagick": "^2 || ^3",
         "ext-gd": "*",
         "ext-json": "*",
         "ext-zlib": "*"
