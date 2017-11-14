@@ -395,7 +395,6 @@
       <file name="AllTests.php" role="test" />
       <file name="bootstrap.php" role="test" />
       <file name="conf.php.dist" role="test" />
-      <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Image -->
     </dir> <!-- /test/Horde -->
     <file name=".htaccess" role="test" />
@@ -654,7 +653,6 @@
    <install as="Horde/Image/AllTests.php" name="test/Horde/Image/AllTests.php" />
    <install as="Horde/Image/bootstrap.php" name="test/Horde/Image/bootstrap.php" />
    <install as="Horde/Image/conf.php.dist" name="test/Horde/Image/conf.php.dist" />
-   <install as="Horde/Image/phpunit.xml" name="test/Horde/Image/phpunit.xml" />
    <install as="Horde/Image/Exif/BundledTest.php" name="test/Horde/Image/Exif/BundledTest.php" />
    <install as="Horde/Image/Exif/ExiftoolTest.php" name="test/Horde/Image/Exif/ExiftoolTest.php" />
    <install as="Horde/Image/Exif/PhpTest.php" name="test/Horde/Image/Exif/PhpTest.php" />
