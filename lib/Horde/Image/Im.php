@@ -261,7 +261,7 @@ class Horde_Image_Im extends Horde_Image_Base
         } else {
             $this->_postSrcOperations[] =
                 ($keepProfile ? '-resize' : '-thumbnail')
-                . sprintf(' %dx%d', $width, $height);
+                . sprintf(' %dx%d!', $width, $height);
         }
 
         // Refresh the data
