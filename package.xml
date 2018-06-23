@@ -24,7 +24,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2017-11-14</date>
+ <date>2018-06-23</date>
  <version>
   <release>2.5.3</release>
   <api>2.5.0</api>
@@ -1345,7 +1345,7 @@
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2017-10-20</date>
+   <date>2018-06-23</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix regression in resizing images (PR: 1, chris@chris-lamb.co.uk).
