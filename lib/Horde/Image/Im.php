@@ -371,7 +371,7 @@ class Horde_Image_Im extends Horde_Image_Base
         $fontsize = 'small'
     )
     {
-        $string = escapeshellarg($string);
+        $string = addslashes($string);
         $fontsize = Horde_Image::getFontSize($fontsize);
         $command = 'text ' . (integer)$x . ',' . (integer)$y . ' ' . $string;
         $this->_postSrcOperations[] = '-fill ' . escapeshellarg($color)
