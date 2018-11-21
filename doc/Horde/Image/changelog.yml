@@ -8,9 +8,9 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |+
+  notes: |
+    [mjr] SECURITY: Sanitize image type parameter (PR: 2, Fariskhi Vidyan <farislab@gmail.com>).
     [mjr] Fix regression in resizing images (PR: 1, chris@chris-lamb.co.uk).
-    
 2.5.2:
   api: 2.5.0
   state:
