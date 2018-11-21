@@ -1,4 +1,13 @@
 ------
+v2.5.4
+------
+
+[mjr] SECURITY: Sanitize image type parameter (PR: 2, Fariskhi Vidyan
+      <farislab@gmail.com>).
+|
+
+
+------
 v2.5.3
 ------
 
