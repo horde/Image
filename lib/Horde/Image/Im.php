@@ -139,7 +139,7 @@ class Horde_Image_Im extends Horde_Image_Base
                 $this->_width,
                 $this->_height,
                 escapeshellarg($this->_background),
-                $this->_type
+                escapeshellarg($this->_type)
             );
             $this->executeConvertCmd($cmd);
         }
@@ -200,7 +200,7 @@ class Horde_Image_Im extends Horde_Image_Base
         $command = $this->_convert . ' ' . implode(' ', $this->_operations)
             . ' "' . $tmpin . '"\'[' . (integer)$options['index'] . ']\' '
             . implode(' ', $this->_postSrcOperations)
-            . ' -strip ' . $this->_type . ':"' . $tmpout . '" 2>&1';
+            . ' -strip ' . escapeshellarg($this->_type) . ':"' . $tmpout . '" 2>&1';
         $this->_logDebug(sprintf("convert command executed by Horde_Image_im::raw(): %s", $command));
         exec($command, $output, $retval);
         if ($retval) {
@@ -371,7 +371,7 @@ class Horde_Image_Im extends Horde_Image_Base
         $fontsize = 'small'
     )
     {
-        $string = addslashes('"' . $string . '"');
+        $string = escapeshellarg($string);
         $fontsize = Horde_Image::getFontSize($fontsize);
         $command = 'text ' . (integer)$x . ',' . (integer)$y . ' ' . $string;
         $this->_postSrcOperations[] = '-fill ' . escapeshellarg($color)
