@@ -368,18 +368,44 @@ class Horde_Image_Im extends Horde_Image_Base
      */
     public function text(
         $string, $x, $y, $font = '', $color = 'black', $direction = 0,
-        $fontsize = 'small'
-    )
+        $fontsize = 'small')
     {
-        $string = addslashes($string);
+        $string = $this->_escapeMvgString($string);
+
         $fontsize = Horde_Image::getFontSize($fontsize);
         $command = 'text ' . (integer)$x . ',' . (integer)$y . ' ' . $string;
         $this->_postSrcOperations[] = '-fill ' . escapeshellarg($color)
             . (!empty($font) ? ' -font ' . escapeshellarg($font) : '')
             . sprintf(
-                ' -pointsize %d -gravity northwest -draw "%s" -fill none',
+                ' -pointsize %d -gravity northwest -draw \'%s\' -fill none',
                 $fontsize, $command
             );
+    }
+
+    /**
+     * Escape a string used as the MVG string parameter to the Im -draw
+     * command when the -draw command's argument is surronded by single quotes.
+     *
+     * http://www.imagemagick.org/Usage/draw/#quote
+     *
+     * @param string $string  The string to escape.
+     *
+     * @return  The string escaped for use with a draw command.
+     */
+    protected function _escapeMvgString($string)
+    {
+        // First escape any existing backslashes - before we add our own.
+        $string = str_replace('\\', '\\\\', $string);
+
+        // Now see if we need to deal with single quotes, which need to
+        // be escaped, but outside the shell's single quote mode.
+        $string = str_replace("'", "'\''", $string);
+
+        // The only other characters that need to be escaped are double quotes
+        //
+        $string = str_replace('"', '\\"', $string);
+
+        return sprintf('"%s"', $string);
     }
 
     /**
