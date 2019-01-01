@@ -26,7 +26,7 @@
  </lead>
  <date>2019-01-01</date>
  <version>
-  <release>2.5.4</release>
+  <release>2.5.5</release>
   <api>2.5.0</api>
  </version>
  <stability>
@@ -35,9 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] SECURITY: Fix potential RCE in the text method when using the Imagemagick backend.
-* [mjr] SECURITY: Sanitize image type parameter (PR: 2, Fariskhi Vidyan &lt;farislab@gmail.com&gt;).
-* [mjr] Fix issues with escaping single and double quote characters in the text method when using the Imagemagick backend.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1368,6 +1366,21 @@
 * [mjr] SECURITY: Fix potential RCE in the text method when using the Imagemagick backend.
 * [mjr] SECURITY: Sanitize image type parameter (PR: 2, Fariskhi Vidyan &lt;farislab@gmail.com&gt;).
 * [mjr] Fix issues with escaping single and double quote characters in the text method when using the Imagemagick backend.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.5.5</release>
+    <api>2.5.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2019-01-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
