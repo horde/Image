@@ -2,6 +2,8 @@
 v2.5.4
 ------
 
+[mjr] SECURITY: Fix potential RCE in the text method when using the
+      Imagemagick backend.
 [mjr] SECURITY: Sanitize image type parameter (PR: 2, Fariskhi Vidyan
       <farislab@gmail.com>).
 
