@@ -2,12 +2,12 @@
 v2.5.4
 ------
 
-[mjr] Fix issues with escaping single and double quote characters in the text
-      method when using the Imagemagick backend.
 [mjr] SECURITY: Fix potential RCE in the text method when using the
       Imagemagick backend.
 [mjr] SECURITY: Sanitize image type parameter (PR: 2, Fariskhi Vidyan
       <farislab@gmail.com>).
+[mjr] Fix issues with escaping single and double quote characters in the text
+      method when using the Imagemagick backend.
 
 
 ------
