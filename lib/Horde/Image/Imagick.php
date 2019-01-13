@@ -807,7 +807,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
      */
     public function getImageAtIndex($index, $flatten = false, $bgColor = 'white')
     {
-        if ($index >= $this->getImagePageCount()) {
+        if ($index > 0 && $index >= $this->getImagePageCount()) {
             throw new Horde_Image_Exception('Image index out of bounds.');
         }
 

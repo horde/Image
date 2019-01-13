@@ -809,7 +809,8 @@ class Horde_Image_Im extends Horde_Image_Base
     public function getImageAtIndex($index, $flatten = false, $bgColor = 'white')
     {
         $this->_logDebug('Horde_Image_Im#getImageAtIndex: ' . $index);
-        if ($index >= $this->getImagePageCount()) {
+
+        if ($index > 0 && $index >= $this->getImagePageCount()) {
             throw new Horde_Image_Exception('Image index out of bounds.');
         }
         $rawImage = $this->_raw(true, array('index' => $index, 'preserve_data' => true));
