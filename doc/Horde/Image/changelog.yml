@@ -1,4 +1,15 @@
 ---
+2.5.5:
+  api: 2.5.0
+  state:
+    release: stable
+    api: stable
+  date: 2019-01-01
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [mjr] Improve support for multi-page image objects.
 2.5.4:
   api: 2.5.0
   state:
