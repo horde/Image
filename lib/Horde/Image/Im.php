@@ -798,10 +798,15 @@ class Horde_Image_Im extends Horde_Image_Base
      * Request a specific image from the collection of images.
      *
      * @param integer $index  The index to return
-     *
+     * @param boolean $flatten  If true, flatten the returned image using
+     *                          $bgColor as the background color. Useful
+     *                          for PDF files to remove transparency before
+     *                          rendering.
+     * @param string $bgColor   The background color to use when flattening the
+     *                          image.
      * @return Horde_Image_Base
      */
-    public function getImageAtIndex($index)
+    public function getImageAtIndex($index, $flatten = false, $bgColor = 'white')
     {
         $this->_logDebug('Horde_Image_Im#getImageAtIndex: ' . $index);
         if ($index >= $this->getImagePageCount()) {
@@ -810,7 +815,21 @@ class Horde_Image_Im extends Horde_Image_Base
         $rawImage = $this->_raw(true, array('index' => $index, 'preserve_data' => true));
         $image = new Horde_Image_Im(array('data' => $rawImage), $this->_context);
 
+        if ($flatten) {
+            $image->flattenImage($bgColor);
+        }
         return $image;
+    }
+
+    /**
+     * Flatten this image and remove transparency.
+     *
+     * @param string $bgColor  The background color to use.
+     */
+    public function flattenImage($bgColor = 'white')
+    {
+        $this->_postSrcOperations[] = sprintf('-background %s -flatten', $bgColor);
+        $this->raw(false, array('stream' => true));
     }
 
     /**
@@ -821,8 +840,7 @@ class Horde_Image_Im extends Horde_Image_Base
     public function getImagePageCount()
     {
         if (is_null($this->_pages)) {
-            $pages = $this->_getImagePages();
-            $this->_pages = array_pop($pages);
+            $this->_pages = $this->_getImagePages();
         }
         $this->_logDebug('Horde_Image_Im#getImagePageCount: ' . $this->_pages);
 
@@ -834,11 +852,15 @@ class Horde_Image_Im extends Horde_Image_Base
     {
         $this->_logDebug('Horde_Image_Im#_getImagePages');
         $filename = $this->toFile();
-        $cmd = $this->_identify . ' -format "%n" ' . $filename;
+        $cmd = $this->_identify . ' -format "%n " ' . $filename;
+        $this->_logDebug($cmd);
         exec($cmd, $output, $retval);
         if ($retval) {
             $this->_logErr(sprintf("Error running command: %s", $cmd . "\n" . implode("\n", $output)));
         }
+        $output = array_pop($output);
+        $output = substr($output, 0, strpos($output, ' ') + 1);
+        $this->_logDebug(print_r($output, true));
         unlink($filename);
 
         return $output;

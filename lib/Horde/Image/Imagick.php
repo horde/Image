@@ -795,13 +795,19 @@ class Horde_Image_Imagick extends Horde_Image_Base
     /**
      * Returns a specific image from the pages of images.
      *
-     * @param integer $index  The index to return.
+     * @param integer $index    The index to return.
+     * @param boolean $flatten  If true, flatten the returned image using
+     *                          $bgColor as the background color. Useful
+     *                          for PDF files to remove transparency before
+     *                          rendering.
+     * @param string $bgColor   The background color to use when flattening the
+     *                          image.
      *
      * @return Horde_Image_Imagick  The requested image
      */
-    public function getImageAtIndex($index)
+    public function getImageAtIndex($index, $flatten = false, $bgColor = 'white')
     {
-        if ($index >= $this->_imagick->getNumberImages()) {
+        if ($index >= $this->getImagePageCount()) {
             throw new Horde_Image_Exception('Image index out of bounds.');
         }
 
@@ -810,7 +816,27 @@ class Horde_Image_Imagick extends Horde_Image_Base
         $image = $this->current();
         $this->_imagick->setIteratorIndex($currentIndex);
 
+        if ($flatten) {
+            $image->flattenImage($bgColor);
+        }
+
         return $image;
+    }
+
+    /**
+     * Flatten the provided image and remove transparency.
+     *
+     * @param string $bgColor  The background color to use.
+     */
+    public function flattenImage($bgColor = 'white')
+    {
+        $this->imagick->setImageBackgroundColor($bgColor);
+        if (defined('imagick::ALPHACHANNEL_REMOVE')) {
+            $this->imagick->setImageAlphaChannel(imagick::ALPHACHANNEL_REMOVE);
+        }
+        $this->loadString(
+            $this->imagick->mergeImageLayers(imagick::LAYERMETHOD_FLATTEN)->getImageBlob()
+        );
     }
 
     /**
@@ -820,7 +846,9 @@ class Horde_Image_Imagick extends Horde_Image_Base
      */
     public function getImagePageCount()
     {
-        return $this->_imagick->getNumberImages();
+        $pages = $this->_imagick->getNumberImages();
+        $this->_logDebug('Horde_Image_Imagick#getImagePageCount: ' . $pages);
+        return $pages;
     }
 
 
