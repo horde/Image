@@ -1,4 +1,15 @@
 ---
+2.6.0:
+  api: 2.5.0
+  state:
+    release: stable
+    api: stable
+  date: 2019-01-13
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: |
+    [mjr] Release only to fix minor version number.
 2.5.5:
   api: 2.5.0
   state:
