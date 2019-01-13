@@ -35,7 +35,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Release only to fix minor version number.
+* |+
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1395,7 +1396,8 @@
    <date>2019-01-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Release only to fix minor version number.
+* |+
    </notes>
   </release>
  </changelog>
