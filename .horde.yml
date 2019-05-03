@@ -3,14 +3,7 @@ id: Image
 name: Image
 full: Image library
 description: |
-  An Image utility API, with backends for:
-  * GD
-  * GIF
-  * PNG
-  * SVG
-  * SWF
-  * ImageMagick convert command line tool
-  * Imagick Extension
+  An image library, with backends for GD, GIF, PNG, SVG, SWF, ImageMagick's "convert" command line tool, imagick Extension.
 list: dev
 type: library
 homepage: https://www.horde.org/libraries/Horde_Image
