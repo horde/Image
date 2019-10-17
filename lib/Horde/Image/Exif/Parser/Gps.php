@@ -152,7 +152,7 @@ class Horde_Image_Exif_Parser_Gps extends Horde_Image_Exif_Parser_Base
         case 'ASCII':
             // Latitude Reference, Longitude Reference
             if ($tag == '0001' || $tag == '0003') {
-                $data = ($data{1} == $data{2} && $data{1} == $data{3}) ? $data{0} : $data;
+                $data = ($data[1] == $data[2] && $data[1] == $data[3]) ? $data[0] : $data;
             }
             break;
 
