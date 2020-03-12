@@ -21,8 +21,8 @@ authors:
     active: false
     role: lead
 version:
-  release: 2.5.4
-  api: 2.5.0
+  release: 2.6.1
+  api: 2.6.0
 state:
   release: stable
   api: stable
