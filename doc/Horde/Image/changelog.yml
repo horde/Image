@@ -8,8 +8,8 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |+
-    
+  notes: |
+    [jan] Fix deprecation warnings with PHP 7.4 (Remi Collet <remi@remirepo.net>, GH PR #3).
 2.6.0:
   api: 2.6.0
   state:
@@ -22,7 +22,7 @@
   notes: |
     [mjr] Release only to fix minor version number.
 2.5.5:
-  api: 2.5.0
+  api: 2.6.0
   state:
     release: stable
     api: stable
