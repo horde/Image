@@ -19,7 +19,7 @@
  </lead>
  <date>2020-03-12</date>
  <version>
-  <release>2.6.1</release>
+  <release>2.6.2</release>
   <api>2.6.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix deprecation warnings with PHP 7.4 (Remi Collet &lt;remi@remirepo.net&gt;, GH PR #3).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -654,6 +654,54 @@
   </filelist>
  </phprelease>
  <changelog>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
   <release>
    <version>
     <release>0.0.1</release>
@@ -1400,10 +1448,25 @@
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2019-01-13</date>
+   <date>2020-03-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix deprecation warnings with PHP 7.4 (Remi Collet &lt;remi@remirepo.net&gt;, GH PR #3).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.6.2</release>
+    <api>2.6.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2020-03-12</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
