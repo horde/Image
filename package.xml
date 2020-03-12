@@ -3,14 +3,7 @@
  <name>Horde_Image</name>
  <channel>pear.horde.org</channel>
  <summary>Image library</summary>
- <description>An Image utility API, with backends for:
-* GD
-* GIF
-* PNG
-* SVG
-* SWF
-* ImageMagick convert command line tool
-* Imagick Extension
+ <description>An image library, with backends for GD, GIF, PNG, SVG, SWF, ImageMagick&apos;s "convert" command line tool, imagick Extension.
 </description>
  <lead>
   <name>Michael J Rubinsky</name>
@@ -22,12 +15,12 @@
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
-  <active>yes</active>
+  <active>no</active>
  </lead>
- <date>2017-11-11</date>
+ <date>2020-03-12</date>
  <version>
-  <release>2.5.3</release>
-  <api>2.5.0</api>
+  <release>2.6.1</release>
+  <api>2.6.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -35,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix regression in resizing images (PR: 1, chris@chris-lamb.co.uk).
+* [jan] Fix deprecation warnings with PHP 7.4 (Remi Collet &lt;remi@remirepo.net&gt;, GH PR #3).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1366,6 +1359,51 @@
 * [mjr] SECURITY: Fix potential RCE in the text method when using the Imagemagick backend.
 * [mjr] SECURITY: Sanitize image type parameter (PR: 2, Fariskhi Vidyan &lt;farislab@gmail.com&gt;).
 * [mjr] Fix issues with escaping single and double quote characters in the text method when using the Imagemagick backend.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.5.5</release>
+    <api>2.6.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2019-01-14</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Improve support for multi-page image objects.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.6.0</release>
+    <api>2.6.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2019-01-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Release only to fix minor version number.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.6.1</release>
+    <api>2.6.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2019-01-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix deprecation warnings with PHP 7.4 (Remi Collet &lt;remi@remirepo.net&gt;, GH PR #3).
    </notes>
   </release>
  </changelog>

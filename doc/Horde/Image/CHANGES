@@ -1,4 +1,26 @@
 ------
+v2.6.1
+------
+
+[jan] Fix deprecation warnings with PHP 7.4 (Remi Collet <remi@remirepo.net>,
+      GH PR #3).
+
+
+------
+v2.6.0
+------
+
+[mjr] Release only to fix minor version number.
+
+
+------
+v2.5.5
+------
+
+[mjr] Improve support for multi-page image objects.
+
+
+------
 v2.5.4
 ------
 
