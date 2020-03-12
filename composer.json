@@ -16,8 +16,8 @@
             "role": "lead"
         }
     ],
-    "version": "2.6.0",
-    "time": "2019-01-13",
+    "version": "2.6.1",
+    "time": "2020-03-12",
     "repositories": [
         {
             "type": "pear",

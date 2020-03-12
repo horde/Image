@@ -3,14 +3,7 @@
  <name>Horde_Image</name>
  <channel>pear.horde.org</channel>
  <summary>Image library</summary>
- <description>An Image utility API, with backends for:
-* GD
-* GIF
-* PNG
-* SVG
-* SWF
-* ImageMagick convert command line tool
-* Imagick Extension
+ <description>An image library, with backends for GD, GIF, PNG, SVG, SWF, ImageMagick&apos;s "convert" command line tool, imagick Extension.
 </description>
  <lead>
   <name>Michael J Rubinsky</name>
@@ -24,7 +17,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2019-01-13</date>
+ <date>2020-03-12</date>
  <version>
   <release>2.6.1</release>
   <api>2.6.0</api>
@@ -35,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix deprecation warnings with PHP 7.4 (Remi Collet &lt;remi@remirepo.net&gt;, GH PR #3).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1371,13 +1364,13 @@
   <release>
    <version>
     <release>2.5.5</release>
-    <api>2.5.0</api>
+    <api>2.6.0</api>
    </version>
    <stability>
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2019-01-13</date>
+   <date>2019-01-14</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Improve support for multi-page image objects.
@@ -1410,7 +1403,7 @@
    <date>2019-01-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix deprecation warnings with PHP 7.4 (Remi Collet &lt;remi@remirepo.net&gt;, GH PR #3).
    </notes>
   </release>
  </changelog>

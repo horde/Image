@@ -2,7 +2,8 @@
 v2.6.1
 ------
 
-
+[jan] Fix deprecation warnings with PHP 7.4 (Remi Collet <remi@remirepo.net>,
+      GH PR #3).
 
 
 ------
