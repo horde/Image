@@ -17,7 +17,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2020-03-12</date>
+ <date>2020-03-13</date>
  <version>
   <release>2.6.2</release>
   <api>2.6.0</api>
@@ -404,6 +404,7 @@
     <file name="two_page.tif.tiff" role="test" />
    </dir> <!-- /test -->
    <file name="LICENSE" role="doc" />
+   <file name="README.rst" role="doc" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -630,6 +631,7 @@
    <install as="locale/zh_CN/LC_MESSAGES/Horde_Image.po" name="locale/zh_CN/LC_MESSAGES/Horde_Image.po" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Image.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Image.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Image.po" name="locale/zh_TW/LC_MESSAGES/Horde_Image.po" />
+   <install as="README.rst" name="README.rst" />
    <install as=".htaccess" name="test/.htaccess" />
    <install as="conf.php.dist" name="test/conf.php.dist" />
    <install as="error.png" name="test/error.png" />
@@ -1463,7 +1465,7 @@
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2020-03-12</date>
+   <date>2020-03-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
