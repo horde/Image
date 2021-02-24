@@ -48,9 +48,6 @@
     "autoload": {
         "psr-0": {
             "Horde_Image": "lib/"
-        },
-        "psr-4": {
-            "Horde\\Image\\": "src/"
         }
     }
 }
