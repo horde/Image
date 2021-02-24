@@ -30,20 +30,20 @@
     ],
     "require": {
         "horde/horde-installer-plugin": "*",
-        "php": "^5.3 || ^7",
-        "horde/exception": "^2",
-        "horde/stream": "^1.6.2",
-        "horde/support": "^2",
-        "horde/translation": "^2.2",
-        "horde/util": "^2"
+        "php": "^7",
+        "horde/exception": "^3",
+        "horde/stream": "^2",
+        "horde/support": "^3",
+        "horde/translation": "^3",
+        "horde/util": "^3"
     },
     "suggest": {
-        "horde/test": "^2.1",
+        "horde/test": "^3",
         "pear-pear.php.net/XML_SVG": "*",
-        "ext-imagick": "^2 || ^3",
         "ext-gd": "*",
         "ext-json": "*",
-        "ext-zlib": "*"
+        "ext-zlib": "*",
+        "ext-imagick": "*"
     },
     "autoload": {
         "psr-0": {
