@@ -1,7 +1,7 @@
 {
     "name": "horde/image",
     "description": "Image library",
-    "type": "library",
+    "type": "horde-library",
     "homepage": "https://www.horde.org/libraries/Horde_Image",
     "license": "LGPL-2.1",
     "authors": [
@@ -16,37 +16,41 @@
             "role": "lead"
         }
     ],
-    "version": "2.6.2",
-    "time": "2020-03-13",
+    "version": "3.0.0alpha1",
+    "time": "2021-02-24",
     "repositories": [
         {
-            "type": "pear",
-            "url": "https://pear.horde.org"
+            "type": "composer",
+            "url": "https://horde-satis.maintaina.com/"
+        },
+        {
+            "url": "https://pear.php.net",
+            "type": "pear"
         }
     ],
     "require": {
+        "horde/horde-installer-plugin": "*",
         "php": "^5.3 || ^7",
-        "pear-pear.horde.org/Horde_Exception": "^2",
-        "pear-pear.horde.org/Horde_Stream": "^1.6.2",
-        "pear-pear.horde.org/Horde_Support": "^2",
-        "pear-pear.horde.org/Horde_Translation": "^2.2",
-        "pear-pear.horde.org/Horde_Util": "^2"
+        "horde/exception": "^2",
+        "horde/stream": "^1.6.2",
+        "horde/support": "^2",
+        "horde/translation": "^2.2",
+        "horde/util": "^2"
     },
     "suggest": {
-        "pear-pear.horde.org/Horde_Test": "^2.1",
+        "horde/test": "^2.1",
         "pear-pear.php.net/XML_SVG": "*",
-        "pear-pecl.php.net/imagick": "^2 || ^3",
+        "ext-imagick": "^2 || ^3",
         "ext-gd": "*",
         "ext-json": "*",
         "ext-zlib": "*"
     },
-    "replace": {
-        "pear-pear.horde.org/Horde_Image": "2.*",
-        "pear-horde/Horde_Image": "2.*"
-    },
     "autoload": {
         "psr-0": {
             "Horde_Image": "lib/"
+        },
+        "psr-4": {
+            "Horde\\Image\\": "src/"
         }
     }
 }
