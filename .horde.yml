@@ -41,8 +41,7 @@ dependencies:
   optional:
     composer:
       horde/test: ^3
-    pear:
-      pear.php.net/XML_SVG: '*'
+      pear/xml_svg: '*'
     ext:
       gd: '*'
       json: '*'

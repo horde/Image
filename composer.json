@@ -1,5 +1,4 @@
 {
-    "minimum-stability": "dev",
     "name": "horde/image",
     "description": "Image library",
     "type": "library",
@@ -17,28 +16,24 @@
             "role": "lead"
         }
     ],
-    "time": "2021-03-13",
+    "time": "2021-03-15",
     "repositories": [
         {
             "type": "composer",
             "url": "https://horde-satis.maintaina.com/"
-        },
-        {
-            "url": "https://pear.php.net",
-            "type": "pear"
         }
     ],
     "require": {
         "php": "^7",
-        "horde/exception": "^3 || dev-FRAMEWORK_6_0",
-        "horde/stream": "^2 || dev-FRAMEWORK_6_0",
-        "horde/support": "^3 || dev-FRAMEWORK_6_0",
-        "horde/translation": "^3 || dev-FRAMEWORK_6_0",
-        "horde/util": "^3 || dev-FRAMEWORK_6_0"
+        "horde/exception": "^3",
+        "horde/stream": "^2",
+        "horde/support": "^3",
+        "horde/translation": "^3",
+        "horde/util": "^3"
     },
     "suggest": {
-        "horde/test": "^3 || dev-FRAMEWORK_6_0",
-        "pear-pear.php.net/XML_SVG": "*",
+        "horde/test": "^3",
+        "pear/xml_svg": "*",
         "ext-gd": "*",
         "ext-json": "*",
         "ext-zlib": "*",
