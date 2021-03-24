@@ -9,7 +9,6 @@
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
 namespace Horde\Image\Exif;
-use Horde_Image_Exif_TestBase as TestBase;
 use \Horde_Image_Exif_Php;
 
 class PhpTest extends TestBase
