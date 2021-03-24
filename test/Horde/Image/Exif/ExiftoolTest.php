@@ -9,7 +9,6 @@
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
 namespace Horde\Image\Exif;
-use Horde_Image_Exif_TestBase as TestBase;
 
 class ExiftoolTest extends TestBase
 {

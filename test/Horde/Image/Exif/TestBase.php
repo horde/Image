@@ -8,8 +8,11 @@
  * @subpackage UnitTests
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
+namespace Horde\Image\Exif;
+use Horde_Test_Case as TestCase;
+use \Horde_Image_Exif;
 
-class Horde_Image_Exif_TestBase extends Horde_Test_Case
+class TestBase extends TestCase
 {
     /**
      * @var Horde_Image_Exif_Base
