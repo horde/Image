@@ -8,9 +8,11 @@
  * @subpackage UnitTests
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
-class Horde_Image_Exif_ExiftoolTest extends Horde_Image_Exif_TestBase
+namespace Horde\Image\Exif;
+
+class ExiftoolTest extends TestBase
 {
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         $config = self::getConfig('IMAGE_EXIF_TEST_CONFIG', __DIR__ . '/..');
         self::$_exif = ($config && !empty($config['image']['exiftool']))

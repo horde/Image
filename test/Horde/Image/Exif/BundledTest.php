@@ -8,9 +8,12 @@
  * @subpackage UnitTests
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
-class Horde_Image_Exif_BundledTest extends Horde_Image_Exif_TestBase
+namespace Horde\Image\Exif;
+use \Horde_Image_Exif_Bundled;
+
+class BundledTest extends TestBase
 {
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         self::$_exif = new Horde_Image_Exif_Bundled();
     }
