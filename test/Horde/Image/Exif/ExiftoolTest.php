@@ -10,7 +10,7 @@
  */
 class Horde_Image_Exif_ExiftoolTest extends Horde_Image_Exif_TestBase
 {
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         $config = self::getConfig('IMAGE_EXIF_TEST_CONFIG', __DIR__ . '/..');
         self::$_exif = ($config && !empty($config['image']['exiftool']))
@@ -20,7 +20,7 @@ class Horde_Image_Exif_ExiftoolTest extends Horde_Image_Exif_TestBase
 
     protected function _testKeywordIsString()
     {
-        $this->assertInternalType('string', self::$_data['Keywords']);
+        $this->assertIsString(self::$_data['Keywords']);
     }
 
     protected function _testKeywords()

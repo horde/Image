@@ -20,7 +20,7 @@ class Horde_Image_Exif_TestBase extends Horde_Test_Case
      */
     protected static $_data;
 
-    public function setUp()
+    public function setUp(): void
     {
         if (self::$_exif === null) {
             $this->markTestSkipped('No exif driver');
@@ -51,7 +51,7 @@ class Horde_Image_Exif_TestBase extends Horde_Test_Case
         $fixture = __DIR__ . '/../Fixtures/img_exif.jpg';
         setlocale(LC_ALL, 'de_DE');
         self::$_data = self::$_exif->getData($fixture);
-        $this->assertInternalType('array', self::$_data);
+        $this->assertIsArray(self::$_data);
     }
 
     /**

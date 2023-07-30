@@ -10,12 +10,12 @@
  */
 class Horde_Image_Exif_PhpTest extends Horde_Image_Exif_TestBase
 {
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         self::$_exif = new Horde_Image_Exif_Php();
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         if (!extension_loaded('exif')) {
             $this->markTestSkipped('exif extension not available');

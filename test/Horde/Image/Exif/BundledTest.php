@@ -10,7 +10,7 @@
  */
 class Horde_Image_Exif_BundledTest extends Horde_Image_Exif_TestBase
 {
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         self::$_exif = new Horde_Image_Exif_Bundled();
     }
