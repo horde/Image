@@ -18,31 +18,23 @@
     ],
     "version": "2.6.2",
     "time": "2020-03-12",
-    "repositories": [
-        {
-            "type": "pear",
-            "url": "https://pear.horde.org"
-        }
-    ],
     "require": {
         "php": "^5.3 || ^7",
-        "pear-pear.horde.org/Horde_Exception": "^2",
-        "pear-pear.horde.org/Horde_Stream": "^1.6.2",
-        "pear-pear.horde.org/Horde_Support": "^2",
-        "pear-pear.horde.org/Horde_Translation": "^2.2",
-        "pear-pear.horde.org/Horde_Util": "^2"
+        "horde/exception": "^2",
+        "horde/stream": "^1.6.2",
+        "horde/support": "^2",
+        "horde/translation": "^2.2",
+        "horde/util": "^2"
     },
     "suggest": {
-        "pear-pear.horde.org/Horde_Test": "^2.1",
-        "pear-pear.php.net/XML_SVG": "*",
-        "pear-pecl.php.net/imagick": "^2 || ^3",
+        "horde/test": "^2.1",
+        "pear/xml_svg": "*",
+        "ext-imagick": "^2 || ^3",
         "ext-gd": "*",
         "ext-json": "*",
         "ext-zlib": "*"
     },
     "replace": {
-        "pear-pear.horde.org/Horde_Image": "2.*",
-        "pear-horde/Horde_Image": "2.*"
     },
     "autoload": {
         "psr-0": {
