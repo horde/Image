@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2026 Horde LLC (http://www.horde.org/)
  *
  * @author     Michael J Rubinsky <mrubinsk@horde.org>
  * @category   Horde
@@ -8,10 +9,15 @@
  * @subpackage UnitTests
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
-namespace Horde\Image\Exif;
-use Horde_Test_Case as TestCase;
-use \Horde_Image_Exif;
 
+namespace Horde\Image\Exif;
+
+use PHPUnit\Framework\TestCase;
+use Horde_Image_Exif;
+
+/**
+ * @coversNothing
+ */
 class TestBase extends TestCase
 {
     /**
@@ -23,6 +29,93 @@ class TestBase extends TestCase
      * Cache of retrieved EXIF data
      */
     protected static $_data;
+
+    /**
+     * Load test configuration from environment or file, with auto-detection fallback
+     *
+     * @param string $env Environment variable name
+     * @param string $path Path to conf.php file
+     * @param array $default Default values
+     * @return mixed Configuration array or null
+     */
+    protected static function getConfig(string $env, ?string $path = null, array $default = []): mixed
+    {
+        // Check environment variable
+        $config = getenv($env);
+        if ($config) {
+            $json = json_decode($config, true);
+            if ($json) {
+                return array_replace_recursive($default, $json);
+            }
+        }
+
+        // Try loading from conf.php file
+        if (!$path) {
+            $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
+            $caller = $backtrace[1] ?? $backtrace[0];
+            $path = dirname($caller['file']);
+        }
+
+        $configFile = $path . '/conf.php';
+        if (file_exists($configFile)) {
+            $conf = null;
+            require $configFile;
+            return $conf;
+        }
+
+        // Auto-detect available image extensions if no config found
+        return self::autoDetectConfig($default);
+    }
+
+    /**
+     * Auto-detect available image processing extensions and tools
+     *
+     * @param array $default Default configuration values
+     * @return array Configuration with auto-detected capabilities
+     */
+    protected static function autoDetectConfig(array $default = []): array
+    {
+        $config = $default;
+
+        // Detect GD extension
+        if (extension_loaded('gd')) {
+            $config['image']['gd'] = true;
+        }
+
+        // Detect Imagick extension
+        if (extension_loaded('imagick')) {
+            $config['image']['imagick'] = true;
+        }
+
+        // Detect EXIF extension
+        if (extension_loaded('exif')) {
+            $config['image']['exif'] = true;
+        }
+
+        // Try to find exiftool binary
+        $exiftoolPaths = [
+            '/usr/bin/exiftool',
+            '/usr/local/bin/exiftool',
+            '/opt/homebrew/bin/exiftool',
+        ];
+
+        foreach ($exiftoolPaths as $exiftoolPath) {
+            if (file_exists($exiftoolPath) && is_executable($exiftoolPath)) {
+                $config['image']['exiftool'] = $exiftoolPath;
+                break;
+            }
+        }
+
+        // Also check PATH
+        if (empty($config['image']['exiftool'])) {
+            $which = trim(shell_exec('which exiftool 2>/dev/null') ?: '');
+            if ($which && file_exists($which) && is_executable($which)) {
+                $config['image']['exiftool'] = $which;
+            }
+        }
+
+        return $config;
+    }
 
     public function setUp(): void
     {

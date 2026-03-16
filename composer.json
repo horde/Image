@@ -1,5 +1,4 @@
 {
-    "minimum-stability": "dev",
     "name": "horde/image",
     "description": "Image library",
     "type": "library",
@@ -17,24 +16,18 @@
             "role": "lead"
         }
     ],
-    "time": "2022-11-04",
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://horde-satis.maintaina.com"
-        }
-    ],
+    "time": "2026-03-16",
+    "repositories": [],
     "require": {
         "php": "^7.4 || ^8",
-        "horde/exception": "^3 || dev-FRAMEWORK_6_0",
-        "horde/stream": "^2 || dev-FRAMEWORK_6_0",
-        "horde/support": "^3 || dev-FRAMEWORK_6_0",
-        "horde/translation": "^3 || dev-FRAMEWORK_6_0",
-        "horde/util": "^3 || dev-FRAMEWORK_6_0"
+        "horde/exception": "^3",
+        "horde/stream": "^2",
+        "horde/support": "^3",
+        "horde/translation": "^3",
+        "horde/util": "^3"
     },
     "require-dev": {},
     "suggest": {
-        "horde/test": "^3 || dev-FRAMEWORK_6_0",
         "pear/xml_svg": "*",
         "ext-gd": "*",
         "ext-json": "*",
@@ -52,8 +45,11 @@
         }
     },
     "config": {
-        "allow-plugins": {
-            "horde/horde-installer-plugin": true
+        "allow-plugins": {}
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-FRAMEWORK_6_0": "3.x-dev"
         }
     }
 }

@@ -1,9 +1,8 @@
 <?php
+
 $autoload = __DIR__ . '/../../../vendor/autoload.php';
 if (file_exists($autoload)) {
-    require_once $autoload;
+    $loader = require_once $autoload;
+    // Register test namespace for PSR-4 autoloading
+    $loader->addPsr4('Horde\\Image\\', __DIR__);
 }
-if (!class_exists('Horde_Test_Bootstrap')) {
-    require_once 'Horde/Test/Bootstrap.php';
-}
-Horde_Test_Bootstrap::bootstrap(dirname(__FILE__));

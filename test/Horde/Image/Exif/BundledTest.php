@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2026 Horde LLC (http://www.horde.org/)
  *
  * @author     Michael J Rubinsky <mrubinsk@horde.org>
  * @category   Horde
@@ -8,9 +9,14 @@
  * @subpackage UnitTests
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
-namespace Horde\Image\Exif;
-use \Horde_Image_Exif_Bundled;
 
+namespace Horde\Image\Exif;
+
+use Horde_Image_Exif_Bundled;
+
+/**
+ * @coversNothing
+ */
 class BundledTest extends TestBase
 {
     public static function setUpBeforeClass(): void

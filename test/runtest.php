@@ -7,12 +7,12 @@ require_once $horde . '/lib/Application.php';
 
 Horde_Registry::appInit(
     'horde',
-    array('authentication' => 'none', 'session_control' => 'none')
+    ['authentication' => 'none', 'session_control' => 'none']
 );
 
 header('Content-Type: text/html');
 
-$allTests = array(
+$allTests = [
     'testInitialState' => 'Test initial state. Solid blue square',
     'testDefaultImageFormatDuringLoad' => 'Should load as default image type of PNG even though source file is JPG',
     'testForceImageFormatDuringLoad' => 'Forces image format to JPG during loadFile (Default is PNG)',
@@ -42,8 +42,8 @@ $allTests = array(
     'multipage' => 'Test Multipage tiffs',
     'liquid' => 'Test Seam Carving',
     'smart' => 'Test Smart Crop (Center of Edginess)',
-    'crop' => 'Basic Crop Test'
-);
+    'crop' => 'Basic Crop Test',
+];
 ?>
 <html>
  <head>
@@ -63,11 +63,11 @@ foreach ($allTests as $name => $description) {
     echo '<tr><td text-align="top">' . $description . '</td><td>';
     echo '<img src="' . $url->copy()->add('test', $name) . '" />';
     echo '</td><td text-align="top">';
-    echo '<img src="' . $url->copy()->add(array('test' => $name, 'driver' => 'Imagick')) . '" />';
+    echo '<img src="' . $url->copy()->add(['test' => $name, 'driver' => 'Imagick']) . '" />';
     echo '</td><td text-align="top">';
-    echo '<img src="' . $url->copy()->add(array('test' => $name, 'driver' => 'Gd')) . '" />';
+    echo '<img src="' . $url->copy()->add(['test' => $name, 'driver' => 'Gd']) . '" />';
     echo '</td><td text-align="top">';
-    echo '<img src="' . $url->copy()->add(array('test' => $name, 'driver' => 'Svg')) . '" />';
+    echo '<img src="' . $url->copy()->add(['test' => $name, 'driver' => 'Svg']) . '" />';
     echo '</td></tr>';
 }
 echo '</table>';

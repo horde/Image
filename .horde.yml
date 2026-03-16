@@ -40,7 +40,6 @@ dependencies:
       horde/util: ^3
   optional:
     composer:
-      horde/test: ^3
       pear/xml_svg: '*'
     ext:
       gd: '*'
