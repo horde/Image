@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2007-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -33,12 +34,12 @@ class Horde_Image_Effect_Gd_TextWatermark extends Horde_Image_Effect
      *
      * @var array
      */
-    protected $_params = array(
+    protected $_params = [
         'halign'   => 'right',
         'valign'   => 'bottom',
         'font'     => 'courier',
-        'fontsize' => 'small'
-    );
+        'fontsize' => 'small',
+    ];
 
     /**
      * Applies the effect.
@@ -47,11 +48,11 @@ class Horde_Image_Effect_Gd_TextWatermark extends Horde_Image_Effect
     {
         $color = $this->_image->call(
             'imageColorClosest',
-            array($this->_image->_im, 255, 255, 255)
+            [$this->_image->_im, 255, 255, 255]
         );
         $shadow = $this->_image->call(
             'imageColorClosest',
-            array($this->_image->_im, 0, 0, 0)
+            [$this->_image->_im, 0, 0, 0]
         );
 
         // Shadow offset in pixels.
@@ -64,8 +65,8 @@ class Horde_Image_Effect_Gd_TextWatermark extends Horde_Image_Effect
         $padding = 10;
 
         $f = $this->_image->getFont($this->_params['fontsize']);
-        $fontwidth = $this->_image->call('imageFontWidth', array($f));
-        $fontheight = $this->_image->call('imageFontHeight', array($f));
+        $fontwidth = $this->_image->call('imageFontWidth', [$f]);
+        $fontheight = $this->_image->call('imageFontHeight', [$f]);
 
         // So that shadow is not off the image with right align and bottom
         // valign.
@@ -79,102 +80,102 @@ class Horde_Image_Effect_Gd_TextWatermark extends Horde_Image_Effect
         $lines = explode("\n", $text);
 
         switch ($this->_params['valign']) {
-        case 'center':
-            $y = ($this->_image->call('imageSY', array($this->_image->_im))
-                  - ($fontheight * count($lines)))
-                / 2;
-            break;
+            case 'center':
+                $y = ($this->_image->call('imageSY', [$this->_image->_im])
+                      - ($fontheight * count($lines)))
+                    / 2;
+                break;
 
-        case 'bottom':
-            $y = $this->_image->call('imageSY', array($this->_image->_im))
-                - (($fontheight * count($lines)) + $margin);
-            break;
+            case 'bottom':
+                $y = $this->_image->call('imageSY', [$this->_image->_im])
+                    - (($fontheight * count($lines)) + $margin);
+                break;
 
-        default:
-            $y = $margin;
-            break;
+            default:
+                $y = $margin;
+                break;
         }
 
         switch ($this->_params['halign']) {
-        case 'right':
-            foreach ($lines as $line) {
-                $this->_image->call(
-                    'imageString',
-                    array(
-                        $this->_image->_im,
-                        $f,
-                        $this->_image->call('imageSX', array($this->_image->_im))
-                            - $fontwidth * strlen($line) - $margin + $drop,
-                        $y + $drop,
-                        $line,
-                        $shadow
-                    )
-                );
-                $this->_image->call(
-                    'imageString',
-                    array(
-                        $this->_image->_im,
-                        $f,
-                        $this->_image->call('imageSX', array($this->_image->_im))
-                            - $fontwidth * strlen($line) - $margin,
-                        $y,
-                        $line,
-                        $color
-                    )
-                );
-                $y += $fontheight;
-            }
-            break;
+            case 'right':
+                foreach ($lines as $line) {
+                    $this->_image->call(
+                        'imageString',
+                        [
+                            $this->_image->_im,
+                            $f,
+                            $this->_image->call('imageSX', [$this->_image->_im])
+                                - $fontwidth * strlen($line) - $margin + $drop,
+                            $y + $drop,
+                            $line,
+                            $shadow,
+                        ]
+                    );
+                    $this->_image->call(
+                        'imageString',
+                        [
+                            $this->_image->_im,
+                            $f,
+                            $this->_image->call('imageSX', [$this->_image->_im])
+                                - $fontwidth * strlen($line) - $margin,
+                            $y,
+                            $line,
+                            $color,
+                        ]
+                    );
+                    $y += $fontheight;
+                }
+                break;
 
-        case 'center':
-            foreach ($lines as $line) {
-                $this->_image->call(
-                    'imageString',
-                    array(
-                        $this->_image->_im,
-                        $f,
-                        floor(($this->_image->call('imageSX', array($this->_image->_im)) - $fontwidth * strlen($line)) / 2)
-                            + $drop,
-                        $y + $drop,
-                        $line,
-                        $shadow
-                    )
-                );
-                $this->_image->call(
-                    'imageString',
-                    array(
-                        $this->_image->_im,
-                        $f,
-                        floor(($this->_image->call('imageSX', array($this->_image->_im)) - $fontwidth * strlen($line)) / 2),
-                        $y,
-                        $line,
-                        $color
-                    )
-                );
-                $y += $fontheight;
-            }
-            break;
+            case 'center':
+                foreach ($lines as $line) {
+                    $this->_image->call(
+                        'imageString',
+                        [
+                            $this->_image->_im,
+                            $f,
+                            floor(($this->_image->call('imageSX', [$this->_image->_im]) - $fontwidth * strlen($line)) / 2)
+                                + $drop,
+                            $y + $drop,
+                            $line,
+                            $shadow,
+                        ]
+                    );
+                    $this->_image->call(
+                        'imageString',
+                        [
+                            $this->_image->_im,
+                            $f,
+                            floor(($this->_image->call('imageSX', [$this->_image->_im]) - $fontwidth * strlen($line)) / 2),
+                            $y,
+                            $line,
+                            $color,
+                        ]
+                    );
+                    $y += $fontheight;
+                }
+                break;
 
-        default:
-            foreach ($lines as $line) {
-                $this->_image->call(
-                    'imageString',
-                    array(
-                        $this->_image->_im,
-                        $f,
-                        $margin + $drop,
-                        $y + $drop,
-                        $line,
-                        $shadow
-                    )
-                );
-                $this->_image->call(
-                    'imageString',
-                    array($this->_image->_im, $f, $margin, $y, $line, $color)
-                );
-                $y += $fontheight;
-            }
-            break;
+            default:
+                foreach ($lines as $line) {
+                    $this->_image->call(
+                        'imageString',
+                        [
+                            $this->_image->_im,
+                            $f,
+                            $margin + $drop,
+                            $y + $drop,
+                            $line,
+                            $shadow,
+                        ]
+                    );
+                    $this->_image->call(
+                        'imageString',
+                        [$this->_image->_im, $f, $margin, $y, $line, $color]
+                    );
+                    $y += $fontheight;
+                }
+                break;
         }
     }
 }

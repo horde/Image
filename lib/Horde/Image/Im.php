@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -33,7 +34,7 @@ class Horde_Image_Im extends Horde_Image_Base
      *
      * @var string[]
      */
-    protected $_capabilities = array(
+    protected $_capabilities = [
         'arc',
         'canvas',
         'circle',
@@ -53,7 +54,7 @@ class Horde_Image_Im extends Horde_Image_Base
         'roundedRectangle',
         'sepia',
         'text',
-    );
+    ];
 
     /**
      * Operations to be performed before the source filename is specified on
@@ -61,7 +62,7 @@ class Horde_Image_Im extends Horde_Image_Base
      *
      * @var array
      */
-    protected $_operations = array();
+    protected $_operations = [];
 
     /**
      * Operations to be added after the source filename is specified on the
@@ -69,7 +70,7 @@ class Horde_Image_Im extends Horde_Image_Base
      *
      * @var array
      */
-    protected $_postSrcOperations = array();
+    protected $_postSrcOperations = [];
 
     /**
      * An array of temporary filenames that need to be unlinked at the end of
@@ -80,7 +81,7 @@ class Horde_Image_Im extends Horde_Image_Base
      *
      * @var array
      */
-    protected $_toClean = array();
+    protected $_toClean = [];
 
     /**
      * Path to the convert binary.
@@ -115,7 +116,7 @@ class Horde_Image_Im extends Horde_Image_Base
      *
      * @see Horde_Image_Base::_construct
      */
-    public function __construct($params, $context = array())
+    public function __construct($params, $context = [])
     {
         parent::__construct($params, $context);
 
@@ -157,7 +158,7 @@ class Horde_Image_Im extends Horde_Image_Base
      *
      * @return mixed  The raw image data either as a string or stream resource.
      */
-    public function raw($convert = false, $options = array())
+    public function raw($convert = false, $options = [])
     {
         if (!empty($options['stream'])) {
             return $this->_raw($convert)->stream;
@@ -179,26 +180,26 @@ class Horde_Image_Im extends Horde_Image_Base
      *
      * @return Horde_Stream  The data, in a Horde_Stream object.
      */
-    private function _raw($convert = false, $options = array())
+    private function _raw($convert = false, $options = [])
     {
         $options = array_merge(
-            array('index' => 0, 'preserve_data' => false),
+            ['index' => 0, 'preserve_data' => false],
             $options
         );
 
-        if (empty($this->_data) ||
+        if (empty($this->_data)
             // If there are no operations, and we already have data, don't
             // bother writing out files, just return the current data.
-            (!$convert &&
-             !count($this->_operations) &&
-             !count($this->_postSrcOperations))) {
+            || (!$convert
+             && !count($this->_operations)
+             && !count($this->_postSrcOperations))) {
             return $this->_data;
         }
 
         $tmpin = $this->toFile($this->_data);
         $tmpout = Horde_Util::getTempFile('img', false, $this->_tmpdir);
         $command = $this->_convert . ' ' . implode(' ', $this->_operations)
-            . ' "' . $tmpin . '"\'[' . (integer)$options['index'] . ']\' '
+            . ' "' . $tmpin . '"\'[' . (int) $options['index'] . ']\' '
             . implode(' ', $this->_postSrcOperations)
             . ' -strip ' . escapeshellarg($this->_type) . ':"' . $tmpout . '" 2>&1';
         $this->_logDebug(sprintf("convert command executed by Horde_Image_im::raw(): %s", $command));
@@ -210,8 +211,8 @@ class Horde_Image_Im extends Horde_Image_Base
         }
 
         /* Empty the operations queue */
-        $this->_operations = array();
-        $this->_postSrcOperations = array();
+        $this->_operations = [];
+        $this->_postSrcOperations = [];
 
         /* Load the result */
         $fp = fopen($tmpout, 'r');
@@ -236,8 +237,8 @@ class Horde_Image_Im extends Horde_Image_Base
     public function reset()
     {
         parent::reset();
-        $this->_operations = array();
-        $this->_postSrcOperations = array();
+        $this->_operations = [];
+        $this->_postSrcOperations = [];
         $this->clearGeometry();
     }
 
@@ -255,17 +256,17 @@ class Horde_Image_Im extends Horde_Image_Base
         $resHeight = $height * 2;
         $this->_operations[] = "-size {$resWidth}x{$resHeight}";
         if ($ratio) {
-            $this->_postSrcOperations[] =
-                ($keepProfile ? '-resize' : '-thumbnail')
+            $this->_postSrcOperations[]
+                = ($keepProfile ? '-resize' : '-thumbnail')
                 . sprintf(' %dx%d', $width, $height);
         } else {
-            $this->_postSrcOperations[] =
-                ($keepProfile ? '-resize' : '-thumbnail')
+            $this->_postSrcOperations[]
+                = ($keepProfile ? '-resize' : '-thumbnail')
                 . sprintf(' %dx%d!', $width, $height);
         }
 
         // Refresh the data
-        $this->raw(false, array('stream' => true));
+        $this->raw(false, ['stream' => true]);
 
         // Reset the width and height instance variables since after resize we
         // don't know the *exact* dimensions yet (especially if we maintained
@@ -283,11 +284,11 @@ class Horde_Image_Im extends Horde_Image_Base
      */
     public function crop($x1, $y1, $x2, $y2)
     {
-        $line = ($x2 - $x1) . 'x' . ($y2 - $y1) . '+' . (integer)$x1 . '+' . (integer)$y1;
+        $line = ($x2 - $x1) . 'x' . ($y2 - $y1) . '+' . (int) $x1 . '+' . (int) $y1;
         $this->_operations[] = '-crop ' . $line . ' +repage';
 
         // Reset width/height since these might change
-        $this->raw(false, array('stream' => true));
+        $this->raw(false, ['stream' => true]);
         $this->clearGeometry();
     }
 
@@ -300,13 +301,13 @@ class Horde_Image_Im extends Horde_Image_Base
      */
     public function rotate($angle, $background = 'white')
     {
-        $this->raw(false, array('stream' => true));
+        $this->raw(false, ['stream' => true]);
         $this->_operations[] = sprintf(
             '-background %s -rotate %d',
             escapeshellarg($this->_background),
-            (integer)$angle
+            (int) $angle
         );
-        $this->raw(false, array('stream' => true));
+        $this->raw(false, ['stream' => true]);
 
         // Reset width/height since these might have changed
         $this->clearGeometry();
@@ -343,7 +344,7 @@ class Horde_Image_Im extends Horde_Image_Base
      */
     public function sepia($threshold = 85)
     {
-        $this->_operations[] = '-sepia-tone ' . (integer)$threshold . '%';
+        $this->_operations[] = '-sepia-tone ' . (int) $threshold . '%';
     }
 
     /**
@@ -367,18 +368,23 @@ class Horde_Image_Im extends Horde_Image_Base
      * @param string $fontsize    Size of the font (small, medium, large, giant)
      */
     public function text(
-        $string, $x, $y, $font = '', $color = 'black', $direction = 0,
+        $string,
+        $x,
+        $y,
+        $font = '',
+        $color = 'black',
+        $direction = 0,
         $fontsize = 'small'
-    )
-    {
+    ) {
         $string = addslashes($string);
         $fontsize = Horde_Image::getFontSize($fontsize);
-        $command = 'text ' . (integer)$x . ',' . (integer)$y . ' ' . $string;
+        $command = 'text ' . (int) $x . ',' . (int) $y . ' ' . $string;
         $this->_postSrcOperations[] = '-fill ' . escapeshellarg($color)
             . (!empty($font) ? ' -font ' . escapeshellarg($font) : '')
             . sprintf(
                 ' -pointsize %d -gravity northwest -draw "%s" -fill none',
-                $fontsize, $command
+                $fontsize,
+                $command
             );
     }
 
@@ -396,7 +402,12 @@ class Horde_Image_Im extends Horde_Image_Base
         $xMax = $x + $r;
         $this->_postSrcOperations[] = sprintf(
             '-stroke %s -fill %s -draw "circle %d,%d %d,%d" -stroke none -fill none',
-            escapeshellarg($color), escapeshellarg($fill), $x, $y, $xMax, $y
+            escapeshellarg($color),
+            escapeshellarg($fill),
+            $x,
+            $y,
+            $xMax,
+            $y
         );
     }
 
@@ -416,7 +427,8 @@ class Horde_Image_Im extends Horde_Image_Base
         }
         $this->_postSrcOperations[] = sprintf(
             '-stroke %s -fill %s -draw "polygon $command" -stroke none -fill none',
-            escapeshellarg($color), escapeshellarg($fill)
+            escapeshellarg($color),
+            escapeshellarg($fill)
         );
     }
 
@@ -436,7 +448,12 @@ class Horde_Image_Im extends Horde_Image_Base
         $yMax = $y + $height;
         $this->_postSrcOperations[] = sprintf(
             '-stroke %s -fill %s -draw "rectangle %d,%d %d,%d" -stroke none -fill none',
-            escapeshellarg($color), escapeshellarg($fill), $x, $y, $xMax, $yMax
+            escapeshellarg($color),
+            escapeshellarg($fill),
+            $x,
+            $y,
+            $xMax,
+            $yMax
         );
 
     }
@@ -453,14 +470,26 @@ class Horde_Image_Im extends Horde_Image_Base
      * @param string  $fill    The color to fill the rounded rectangle with.
      */
     public function roundedRectangle(
-        $x, $y, $width, $height, $round, $color, $fill
-    )
-    {
+        $x,
+        $y,
+        $width,
+        $height,
+        $round,
+        $color,
+        $fill
+    ) {
         $x1 = $x + $width;
         $y1 = $y + $height;
         $this->_postSrcOperations[] = sprintf(
             '-stroke %s -fill %s -draw "roundRectangle %d,%d %d,%d %d,%d" -stroke none -fill none',
-            escapeshellarg($color), escapeshellarg($fill), $x, $y, $x1, $y1, $round, $round
+            escapeshellarg($color),
+            escapeshellarg($fill),
+            $x,
+            $y,
+            $x1,
+            $y1,
+            $round,
+            $round
         );
     }
 
@@ -478,7 +507,12 @@ class Horde_Image_Im extends Horde_Image_Base
     {
         $this->_operations[] = sprintf(
             '-stroke %s -strokewidth %d -draw "line %d,%d %d,%d"',
-            escapeshellarg($color), $width, $x0, $y0, $x1, $y1
+            escapeshellarg($color),
+            $width,
+            $x0,
+            $y0,
+            $x1,
+            $y1
         );
     }
 
@@ -495,13 +529,23 @@ class Horde_Image_Im extends Horde_Image_Base
      * @param integer $dash_space   The length of a space in the dashed line
      */
     public function dashedLine(
-        $x0, $y0, $x1, $y1, $color = 'black', $width = 1, $dash_length = 2,
+        $x0,
+        $y0,
+        $x1,
+        $y1,
+        $color = 'black',
+        $width = 1,
+        $dash_length = 2,
         $dash_space = 2
-    )
-    {
+    ) {
         $this->_operations[] = sprintf(
             '-stroke %s -strokewidth %d -draw "line %d,%d %d,%d"',
-            escapeshellarg($color), $width, $x0, $y0, $x1, $y1
+            escapeshellarg($color),
+            $width,
+            $x0,
+            $y0,
+            $x1,
+            $y1
         );
     }
 
@@ -522,7 +566,8 @@ class Horde_Image_Im extends Horde_Image_Base
         }
         $this->_operations[] = sprintf(
             '-stroke %s -strokewidth %d -fill none -draw "polyline $command" -strokewidth 1 -stroke none -fill none',
-            escapeshellarg($color), $width
+            escapeshellarg($color),
+            $width
         );
     }
 
@@ -538,13 +583,19 @@ class Horde_Image_Im extends Horde_Image_Base
      * @param string  $fill   The fill color of the arc (defaults to none).
      */
     public function arc(
-        $x, $y, $r, $start, $end, $color = 'black', $fill = 'none'
-    )
-    {
+        $x,
+        $y,
+        $r,
+        $start,
+        $end,
+        $color = 'black',
+        $fill = 'none'
+    ) {
         // Split up arcs greater than 180 degrees into two pieces.
         $this->_postSrcOperations[] = sprintf(
             '-stroke %s -fill %s',
-            escapeshellarg($color), escapeshellarg($fill)
+            escapeshellarg($color),
+            escapeshellarg($fill)
         );
         $mid = round(($start + $end) / 2);
         $x = round($x);
@@ -553,42 +604,57 @@ class Horde_Image_Im extends Horde_Image_Base
         if ($mid > 90) {
             $this->_postSrcOperations[] = sprintf(
                 '-draw "ellipse %d,%d %d,%d %d,%d"',
-                $x, $y, $r, $r, $start, $mid
+                $x,
+                $y,
+                $r,
+                $r,
+                $start,
+                $mid
             );
             $this->_postSrcOperations[] = sprintf(
                 '-draw "ellipse %d,%d %d,%d %d,%d"',
-                $x, $y, $r, $r, $mid, $end
+                $x,
+                $y,
+                $r,
+                $r,
+                $mid,
+                $end
             );
         } else {
             $this->_postSrcOperations[] = sprintf(
                 '-draw "ellipse %d,%d %d,%d %d,%d"',
-                $x, $y, $r, $r, $start, $end
+                $x,
+                $y,
+                $r,
+                $r,
+                $start,
+                $end
             );
         }
 
         // If filled, draw the outline.
         if (!empty($fill)) {
-            list($x1, $y1) = Horde_Image::circlePoint($start, $r * 2);
-            list($x2, $y2) = Horde_Image::circlePoint($mid, $r * 2);
-            list($x3, $y3) = Horde_Image::circlePoint($end, $r * 2);
+            [$x1, $y1] = Horde_Image::circlePoint($start, $r * 2);
+            [$x2, $y2] = Horde_Image::circlePoint($mid, $r * 2);
+            [$x3, $y3] = Horde_Image::circlePoint($end, $r * 2);
 
-            $verts = array(
-                array('x' => $x + round($x3), 'y' => $y + round($y3)),
-                array('x' => $x, 'y' => $y),
-                array('x' => $x + round($x1), 'y' => $y + round($y1))
-            );
+            $verts = [
+                ['x' => $x + round($x3), 'y' => $y + round($y3)],
+                ['x' => $x, 'y' => $y],
+                ['x' => $x + round($x1), 'y' => $y + round($y1)],
+            ];
 
             if ($mid > 90) {
-                $verts1 = array(
-                    array('x' => $x + round($x2), 'y' => $y + round($y2)),
-                    array('x' => $x, 'y' => $y),
-                    array('x' => $x + round($x1), 'y' => $y + round($y1))
-                );
-                $verts2 = array(
-                    array('x' => $x + round($x3), 'y' => $y + round($y3)),
-                    array('x' => $x, 'y' => $y),
-                    array('x' => $x + round($x2), 'y' => $y + round($y2))
-                );
+                $verts1 = [
+                    ['x' => $x + round($x2), 'y' => $y + round($y2)],
+                    ['x' => $x, 'y' => $y],
+                    ['x' => $x + round($x1), 'y' => $y + round($y1)],
+                ];
+                $verts2 = [
+                    ['x' => $x + round($x3), 'y' => $y + round($y3)],
+                    ['x' => $x, 'y' => $y],
+                    ['x' => $x + round($x2), 'y' => $y + round($y2)],
+                ];
 
                 $this->polygon($verts1, $fill, $fill);
                 $this->polygon($verts2, $fill, $fill);
@@ -607,7 +673,7 @@ class Horde_Image_Im extends Horde_Image_Base
      */
     public function applyEffects()
     {
-        $this->raw(false, array('stream' => true));
+        $this->raw(false, ['stream' => true]);
         foreach ($this->_toClean as $tempfile) {
             @unlink($tempfile);
         }
@@ -628,7 +694,7 @@ class Horde_Image_Im extends Horde_Image_Base
      * @param string $cmd    The command string, with substitutable tokens
      * @param array $values  Any values that should be substituted for tokens.
      */
-    public function executeConvertCmd($cmd, $values = array())
+    public function executeConvertCmd($cmd, $values = [])
     {
         // First, get a temporary file for the input
         if (strpos($cmd, '__FILEIN__') !== false) {
@@ -642,8 +708,8 @@ class Horde_Image_Im extends Horde_Image_Base
 
         // Substitue them in the cmd string
         $cmd = str_replace(
-            array('__FILEIN__', '__FILEOUT__', '__CONVERT__'),
-            array('"' . $tmpin . '"', '"' . $tmpout . '"', $this->_convert),
+            ['__FILEIN__', '__FILEOUT__', '__CONVERT__'],
+            ['"' . $tmpin . '"', '"' . $tmpout . '"', $this->_convert],
             $cmd
         );
 
@@ -684,7 +750,7 @@ class Horde_Image_Im extends Horde_Image_Base
                 $version = $matches;
                 return $matches;
             } else {
-               return false;
+                return false;
             }
         }
 
@@ -787,8 +853,8 @@ class Horde_Image_Im extends Horde_Image_Base
         if ($index > 0 && $index >= $this->getImagePageCount()) {
             throw new Horde_Image_Exception('Image index out of bounds.');
         }
-        $rawImage = $this->_raw(true, array('index' => $index, 'preserve_data' => true));
-        $image = new Horde_Image_Im(array('data' => $rawImage), $this->_context);
+        $rawImage = $this->_raw(true, ['index' => $index, 'preserve_data' => true]);
+        $image = new Horde_Image_Im(['data' => $rawImage], $this->_context);
 
         if ($flatten) {
             $image->flattenImage($bgColor);
@@ -804,7 +870,7 @@ class Horde_Image_Im extends Horde_Image_Base
     public function flattenImage($bgColor = 'white')
     {
         $this->_postSrcOperations[] = sprintf('-background %s -flatten', $bgColor);
-        $this->raw(false, array('stream' => true));
+        $this->raw(false, ['stream' => true]);
     }
 
     /**

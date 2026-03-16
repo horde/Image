@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -37,7 +38,7 @@ abstract class Horde_Image_Exif_Base
      * @param array $params  Parameter array:
      *        - logger: Horde_Log_Logger  Logger instance.
      */
-    public function __construct($params = array())
+    public function __construct($params = [])
     {
         if (!empty($params['logger'])) {
             $this->_logger = $params['logger'];
@@ -56,13 +57,13 @@ abstract class Horde_Image_Exif_Base
     protected function _processData($exif)
     {
         if (!$exif) {
-            return array();
+            return [];
         }
 
-        $results = array();
+        $results = [];
         $fields = Horde_Image_Exif::getFields($this);
         foreach ($fields as $field => $data) {
-            $value = isset($exif[$field]) ? $exif[$field] : '';
+            $value = $exif[$field] ?? '';
             // Don't store empty fields.
             if ($value === '') {
                 continue;
@@ -71,16 +72,16 @@ abstract class Horde_Image_Exif_Base
             /* Special handling of GPS data */
             if ($data['type'] == 'gps') {
                 $value = $this->_parseGPSData($exif[$field]);
-                if (!empty($exif[$field . 'Ref']) &&
-                    in_array($exif[$field . 'Ref'], array('S', 'South', 'W', 'West'))) {
+                if (!empty($exif[$field . 'Ref'])
+                    && in_array($exif[$field . 'Ref'], ['S', 'South', 'W', 'West'])) {
                     $value = - abs($value);
                 }
             }
 
             /* Date fields are converted to a timestamp.*/
             if ($data['type'] == 'date') {
-                @list($ymd, $hms) = explode(' ', $value, 2);
-                @list($year, $month, $day) = explode(':', $ymd, 3);
+                @[$ymd, $hms] = explode(' ', $value, 2);
+                @[$year, $month, $day] = explode(':', $ymd, 3);
                 if (!empty($hms) && !empty($year) && !empty($month) && !empty($day)) {
                     $time = "$month/$day/$year $hms";
                     $value = strtotime($time);
@@ -116,7 +117,7 @@ abstract class Horde_Image_Exif_Base
             // Assume a scalar is a decimal representation. Cast it to a float
             // which will get rid of any stray ordinal indicators. (N, S,
             // etc...)
-            return (double)$data;
+            return (float) $data;
         }
 
         if ($data[0] == 0) {
@@ -170,7 +171,7 @@ abstract class Horde_Image_Exif_Base
      */
     protected function _degToDecimal($degrees, $minutes, $seconds)
     {
-        $degs = (double)($degrees + ($minutes / 60) + ($seconds / 3600));
+        $degs = (float) ($degrees + ($minutes / 60) + ($seconds / 3600));
 
         return round($degs, 6);
     }

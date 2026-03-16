@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2007-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -44,7 +45,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
      *
      * @var string[]
      */
-    protected $_capabilities = array(
+    protected $_capabilities = [
         'canvas',
         'circle',
         'crop',
@@ -63,14 +64,14 @@ class Horde_Image_Imagick extends Horde_Image_Base
         'roundedRectangle',
         'sepia',
         'text',
-    );
+    ];
 
     /**
      * Constructor.
      *
      * @see Horde_Image_Base::_construct
      */
-    public function __construct($params, $context = array())
+    public function __construct($params, $context = [])
     {
         if (!Horde_Util::loadExtension('imagick')) {
             throw new Horde_Image_Exception(
@@ -84,11 +85,11 @@ class Horde_Image_Imagick extends Horde_Image_Base
         $this->_imagick = new Imagick();
         if (!empty($params['filename'])) {
             $this->loadFile($params['filename']);
-        } elseif(!empty($params['data'])) {
+        } elseif (!empty($params['data'])) {
             $this->loadString($params['data']);
         } else {
-            $this->_width = max(array($this->_width, 1));
-            $this->_height = max(array($this->_height, 1));
+            $this->_width = max([$this->_width, 1]);
+            $this->_height = max([$this->_height, 1]);
             try {
                 $color = new ImagickPixel($this->_background);
             } catch (ImagickPixelException $e) {
@@ -96,7 +97,9 @@ class Horde_Image_Imagick extends Horde_Image_Base
             }
             try {
                 $this->_imagick->newImage(
-                    $this->_width, $this->_height, $color
+                    $this->_width,
+                    $this->_height,
+                    $color
                 );
             } catch (ImagickException $e) {
                 throw new Horde_Image_Exception($e);
@@ -184,7 +187,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
      *
      * @return mixed  The raw image data as a string or stream resource.
      */
-    public function raw($convert = false, $options = array())
+    public function raw($convert = false, $options = [])
     {
         try {
             $this->_imagick->stripImage();
@@ -221,14 +224,14 @@ class Horde_Image_Imagick extends Horde_Image_Base
             try {
                 $size = $this->_imagick->getImageGeometry();
             } catch (ImagickException $e) {
-                return array('width' => 0, 'height' => 0);
+                return ['width' => 0, 'height' => 0];
             }
 
             $this->_height = $size['height'];
             $this->_width = $size['width'];
         }
 
-        return array('width' => $this->_width, 'height' => $this->_height);
+        return ['width' => $this->_width, 'height' => $this->_height];
     }
 
     /**
@@ -360,10 +363,14 @@ class Horde_Image_Imagick extends Horde_Image_Base
      * @param string $fontsize    Size of the font (small, medium, large, giant)
      */
     public function text(
-        $string, $x, $y, $font = '', $color = 'black', $direction = 0,
+        $string,
+        $x,
+        $y,
+        $font = '',
+        $color = 'black',
+        $direction = 0,
         $fontsize = 'small'
-    )
-    {
+    ) {
         $fontsize = Horde_Image::getFontSize($fontsize);
         try {
             $pixel = new ImagickPixel($color);
@@ -488,9 +495,14 @@ class Horde_Image_Imagick extends Horde_Image_Base
      * @param string  $fill    The color to fill the rounded rectangle with.
      */
     public function roundedRectangle(
-        $x, $y, $width, $height, $round, $color, $fill
-    )
-    {
+        $x,
+        $y,
+        $width,
+        $height,
+        $round,
+        $color,
+        $fill
+    ) {
         try {
             $draw = new ImagickDraw();
             $draw->setStrokeColor(new ImagickPixel($color));
@@ -552,15 +564,20 @@ class Horde_Image_Imagick extends Horde_Image_Base
      * @param integer $dash_space   The length of a space in the dashed line.
      */
     public function dashedLine(
-        $x0, $y0, $x1, $y1, $color = 'black', $width = 1, $dash_length = 2,
+        $x0,
+        $y0,
+        $x1,
+        $y1,
+        $color = 'black',
+        $width = 1,
+        $dash_length = 2,
         $dash_space = 2
-    )
-    {
+    ) {
         try {
             $draw = new ImagickDraw();
             $draw->setStrokeColor(new ImagickPixel($color));
             $draw->setStrokeWidth($width);
-            $draw->setStrokeDashArray(array($dash_length, $dash_space));
+            $draw->setStrokeDashArray([$dash_length, $dash_space]);
             $draw->line($x0, $y0, $x1, $y1);
         } catch (ImagickDrawException $e) {
             throw new Horde_Image_Exception($e);
@@ -617,9 +634,14 @@ class Horde_Image_Imagick extends Horde_Image_Base
      * @param string $fill    The fill color of the arc (defaults to none).
      */
     public function arc(
-        $x, $y, $r, $start, $end, $color = 'black', $fill = 'none'
-    )
-    {
+        $x,
+        $y,
+        $r,
+        $start,
+        $end,
+        $color = 'black',
+        $fill = 'none'
+    ) {
         $points = Horde_Image::arcPoints($r, $start, $end);
         $points['x1'] += $x;
         $points['x2'] += $x;
@@ -642,27 +664,27 @@ class Horde_Image_Imagick extends Horde_Image_Base
         // If filled, draw the outline.
         if (!empty($fill)) {
             $mid = round(($start + $end) / 2);
-            list($x1, $y1) = Horde_Image::circlePoint($start, $r * 2);
-            list($x2, $y2) = Horde_Image::circlePoint($mid, $r * 2);
-            list($x3, $y3) = Horde_Image::circlePoint($end, $r * 2);
+            [$x1, $y1] = Horde_Image::circlePoint($start, $r * 2);
+            [$x2, $y2] = Horde_Image::circlePoint($mid, $r * 2);
+            [$x3, $y3] = Horde_Image::circlePoint($end, $r * 2);
 
-            $verts = array(
-                array('x' => $x + round($x3), 'y' => $y + round($y3)),
-                array('x' => $x, 'y' => $y),
-                array('x' => $x + round($x1), 'y' => $y + round($y1))
-            );
+            $verts = [
+                ['x' => $x + round($x3), 'y' => $y + round($y3)],
+                ['x' => $x, 'y' => $y],
+                ['x' => $x + round($x1), 'y' => $y + round($y1)],
+            ];
 
             if ($mid > 90) {
-                $verts1 = array(
-                    array('x' => $x + round($x2), 'y' => $y + round($y2)),
-                    array('x' => $x, 'y' => $y),
-                    array('x' => $x + round($x1), 'y' => $y + round($y1))
-                );
-                $verts2 = array(
-                    array('x' => $x + round($x3), 'y' => $y + round($y3)),
-                    array('x' => $x, 'y' => $y),
-                    array('x' => $x + round($x2), 'y' => $y + round($y2))
-                );
+                $verts1 = [
+                    ['x' => $x + round($x2), 'y' => $y + round($y2)],
+                    ['x' => $x, 'y' => $y],
+                    ['x' => $x + round($x1), 'y' => $y + round($y1)],
+                ];
+                $verts2 = [
+                    ['x' => $x + round($x3), 'y' => $y + round($y3)],
+                    ['x' => $x, 'y' => $y],
+                    ['x' => $x + round($x2), 'y' => $y + round($y2)],
+                ];
 
                 $this->polygon($verts1, $fill, $fill);
                 $this->polygon($verts2, $fill, $fill);
@@ -693,8 +715,8 @@ class Horde_Image_Imagick extends Horde_Image_Base
     public function __get($property)
     {
         switch ($property) {
-        case 'imagick':
-            return $this->_imagick;
+            case 'imagick':
+                return $this->_imagick;
         }
     }
 
@@ -749,7 +771,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
     public function current()
     {
         $this->_logDebug('Horde_Image_Imagick#current');
-        $params = array('data' => $this->raw(false, array('stream' => true)));
+        $params = ['data' => $this->raw(false, ['stream' => true])];
         $image = new Horde_Image_Imagick($params, $this->_context);
         return $image;
     }
@@ -877,4 +899,4 @@ class Horde_Image_Imagick extends Horde_Image_Base
             : $imagick->clone();
     }
 
- }
+}

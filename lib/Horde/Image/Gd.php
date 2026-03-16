@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -33,14 +34,14 @@ class Horde_Image_Gd extends Horde_Image_Base
      *
      * @var int[]
      */
-    protected $_colors = array();
+    protected $_colors = [];
 
     /**
      * Capabilites of this driver.
      *
      * @var string[]
      */
-    protected $_capabilities = array(
+    protected $_capabilities = [
         'canvas',
         'circle',
         'crop',
@@ -58,7 +59,7 @@ class Horde_Image_Gd extends Horde_Image_Base
         'sepia',
         'text',
         'yellowize',
-    );
+    ];
 
     /**
      * GD image resource for the current image data.
@@ -72,7 +73,7 @@ class Horde_Image_Gd extends Horde_Image_Base
      *
      * @see Horde_Image_Base::_construct
      */
-    public function __construct($params, $context = array())
+    public function __construct($params, $context = [])
     {
         parent::__construct($params, $context);
         if (!empty($params['filename'])) {
@@ -83,11 +84,11 @@ class Horde_Image_Gd extends Horde_Image_Base
             $this->_im = $this->create($this->_width, $this->_height);
             $this->call(
                 'imageFill',
-                array(
+                [
                     $this->_im,
                     0, 0,
-                    $this->_allocateColor($this->_background)
-                )
+                    $this->_allocateColor($this->_background),
+                ]
             );
         }
     }
@@ -97,8 +98,8 @@ class Horde_Image_Gd extends Horde_Image_Base
     public function __get($property)
     {
         switch ($property) {
-        case '_im':
-             return $this->_im;
+            case '_im':
+                return $this->_im;
         }
     }
 
@@ -108,7 +109,7 @@ class Horde_Image_Gd extends Horde_Image_Base
     public function display()
     {
         $this->headers();
-        $this->call('image' . $this->_type, array($this->_im));
+        $this->call('image' . $this->_type, [$this->_im]);
     }
 
     /**
@@ -121,7 +122,7 @@ class Horde_Image_Gd extends Horde_Image_Base
      *
      * @return string  The raw image data.
      */
-    public function raw($convert = false, $options = array())
+    public function raw($convert = false, $options = [])
     {
         if (!is_resource($this->_im)) {
             return '';
@@ -147,7 +148,7 @@ class Horde_Image_Gd extends Horde_Image_Base
     {
         parent::reset();
         if (is_resource($this->_im)) {
-            $this->call('imageDestroy', array($this->_im));
+            $this->call('imageDestroy', [$this->_im]);
         }
     }
 
@@ -159,16 +160,16 @@ class Horde_Image_Gd extends Horde_Image_Base
      */
     public function getDimensions()
     {
-        if (is_resource($this->_im) &&
-            $this->_width == 0 &&
-            $this->_height == 0) {
-            $this->_width = $this->call('imageSX', array($this->_im));
-            $this->_height = $this->call('imageSY', array($this->_im));
+        if (is_resource($this->_im)
+            && $this->_width == 0
+            && $this->_height == 0) {
+            $this->_width = $this->call('imageSX', [$this->_im]);
+            $this->_height = $this->call('imageSY', [$this->_im]);
         }
-        return array(
+        return [
             'width' => $this->_width,
-            'height' => $this->_height
-        );
+            'height' => $this->_height,
+        ];
     }
 
     /**
@@ -187,13 +188,13 @@ class Horde_Image_Gd extends Horde_Image_Base
             if ($name == 'none') {
                 $this->_colors[$name] = $this->call(
                     'imageColorAllocateAlpha',
-                    array($this->_im, 0, 0, 0, 127)
+                    [$this->_im, 0, 0, 0, 127]
                 );
             } else {
-                list($r, $g, $b) = Horde_Image::getRGB($name);
+                [$r, $g, $b] = Horde_Image::getRGB($name);
                 $this->_colors[$name] = $this->call(
                     'imageColorAllocateAlpha',
-                    array($this->_im, $r, $g, $b, $alpha)
+                    [$this->_im, $r, $g, $b, $alpha]
                 );
             }
         }
@@ -211,21 +212,21 @@ class Horde_Image_Gd extends Horde_Image_Base
     private function _getFont($font)
     {
         switch ($font) {
-        case 'tiny':
-            return 1;
+            case 'tiny':
+                return 1;
 
-        case 'medium':
-            return 3;
+            case 'medium':
+                return 3;
 
-        case 'large':
-            return 4;
+            case 'large':
+                return 4;
 
-        case 'giant':
-            return 5;
+            case 'giant':
+                return 5;
 
-        case 'small':
-        default:
-            return 2;
+            case 'small':
+            default:
+                return 2;
         }
     }
 
@@ -236,7 +237,7 @@ class Horde_Image_Gd extends Horde_Image_Base
      */
     public function loadString($image_data)
     {
-        $this->_im = $this->call('imageCreateFromString', array($image_data));
+        $this->_im = $this->call('imageCreateFromString', [$image_data]);
     }
 
     /**
@@ -247,43 +248,43 @@ class Horde_Image_Gd extends Horde_Image_Base
      */
     public function loadFile($filename)
     {
-        $info = $this->call('getimagesize', array($filename));
+        $info = $this->call('getimagesize', [$filename]);
         if (is_array($info)) {
             switch ($info[2]) {
-            case IMAGETYPE_GIF:
-                if (function_exists('imagecreatefromgif')) {
+                case IMAGETYPE_GIF:
+                    if (function_exists('imagecreatefromgif')) {
+                        $this->_im = $this->call(
+                            'imagecreatefromgif',
+                            [$filename]
+                        );
+                    }
+                    break;
+                case IMAGETYPE_JPEG:
                     $this->_im = $this->call(
-                        'imagecreatefromgif',
-                        array($filename)
+                        'imagecreatefromjpeg',
+                        [$filename]
                     );
-                }
-                break;
-            case IMAGETYPE_JPEG:
-                $this->_im = $this->call(
-                    'imagecreatefromjpeg',
-                    array($filename)
-                );
-                break;
-            case IMAGETYPE_PNG:
-                $this->_im = $this->call(
-                    'imagecreatefrompng',
-                    array($filename)
-                );
-                break;
-            case IMAGETYPE_WBMP:
-                if (function_exists('imagecreatefromgwbmp')) {
+                    break;
+                case IMAGETYPE_PNG:
                     $this->_im = $this->call(
-                        'imagecreatefromgwbmp',
-                        array($filename)
+                        'imagecreatefrompng',
+                        [$filename]
                     );
-                }
-                break;
-            case IMAGETYPE_XBM:
-                $this->_im = $this->call(
-                    'imagecreatefromxbm',
-                    array($filename)
-                );
-                break;
+                    break;
+                case IMAGETYPE_WBMP:
+                    if (function_exists('imagecreatefromgwbmp')) {
+                        $this->_im = $this->call(
+                            'imagecreatefromgwbmp',
+                            [$filename]
+                        );
+                    }
+                    break;
+                case IMAGETYPE_XBM:
+                    $this->_im = $this->call(
+                        'imagecreatefromxbm',
+                        [$filename]
+                    );
+                    break;
             }
         }
 
@@ -294,7 +295,7 @@ class Horde_Image_Gd extends Horde_Image_Base
         parent::loadFile($filename);
         $this->_im = $this->call(
             'imageCreateFromString',
-            array($this->_data->__toString())
+            [$this->_data->__toString()]
         );
     }
 
@@ -315,14 +316,14 @@ class Horde_Image_Gd extends Horde_Image_Base
         }
 
         if ($ratio) {
-            if ($width / $height > $this->call('imageSX', array($this->_im)) / $this->call('imageSY', array($this->_im))) {
+            if ($width / $height > $this->call('imageSX', [$this->_im]) / $this->call('imageSY', [$this->_im])) {
                 $width = $height
-                    * $this->call('imageSX', array($this->_im))
-                    / $this->call('imageSY', array($this->_im));
+                    * $this->call('imageSX', [$this->_im])
+                    / $this->call('imageSY', [$this->_im]);
             } else {
                 $height = $width
-                    * $this->call('imageSY', array($this->_im))
-                    / $this->call('imageSX', array($this->_im));
+                    * $this->call('imageSY', [$this->_im])
+                    / $this->call('imageSX', [$this->_im]);
             }
         }
 
@@ -336,24 +337,24 @@ class Horde_Image_Gd extends Horde_Image_Base
         try {
             $this->call(
                 'imageCopyResampled',
-                array(
+                [
                     $this->_im, $im,
                     0, 0, 0, 0,
                     $width, $height,
-                    $this->call('imageSX', array($im)),
-                    $this->call('imageSY', array($im))
-                )
+                    $this->call('imageSX', [$im]),
+                    $this->call('imageSY', [$im]),
+                ]
             );
         } catch (Horde_Image_Exception $e) {
             $this->call(
                 'imageCopyResized',
-                array(
+                [
                     $this->_im, $im,
                     0, 0, 0, 0,
                     $width, $height,
-                    $this->call('imageSX', array($im)),
-                    $this->call('imageSY', array($im))
-                )
+                    $this->call('imageSX', [$im]),
+                    $this->call('imageSY', [$im]),
+                ]
             );
         }
     }
@@ -374,7 +375,7 @@ class Horde_Image_Gd extends Horde_Image_Base
         $this->_height = 0;
         $this->call(
             'imageCopy',
-            array($this->_im, $im, 0, 0, $x1, $y1, $x2 - $x1, $y2 - $y1)
+            [$this->_im, $im, 0, 0, $x1, $y1, $x2 - $x1, $y2 - $y1]
         );
     }
 
@@ -393,39 +394,39 @@ class Horde_Image_Gd extends Horde_Image_Base
         $this->_height = 0;
 
         switch ($angle) {
-        case '90':
-            $x = $this->call('imageSX', array($this->_im));
-            $y = $this->call('imageSY', array($this->_im));
-            $xymax = max($x, $y);
+            case '90':
+                $x = $this->call('imageSX', [$this->_im]);
+                $y = $this->call('imageSY', [$this->_im]);
+                $xymax = max($x, $y);
 
-            $im = $this->create($xymax, $xymax);
-            $im = $this->call('imageRotate', array($im, 270, $background));
-            $this->_im = $im;
-            $im = $this->create($y, $x);
-            if ($x < $y) {
-                $this->call(
-                    'imageCopy',
-                    array($im, $this->_im, 0, 0, 0, 0, $xymax, $xymax)
-                );
-            } elseif ($x > $y) {
-                $this->call(
-                    'imageCopy',
-                    array(
-                        $im, $this->_im,
-                        0, 0, $xymax - $y, $xymax - $x,
-                        $xymax, $xymax
-                    )
-                );
-            }
-            $this->_im = $im;
-            break;
+                $im = $this->create($xymax, $xymax);
+                $im = $this->call('imageRotate', [$im, 270, $background]);
+                $this->_im = $im;
+                $im = $this->create($y, $x);
+                if ($x < $y) {
+                    $this->call(
+                        'imageCopy',
+                        [$im, $this->_im, 0, 0, 0, 0, $xymax, $xymax]
+                    );
+                } elseif ($x > $y) {
+                    $this->call(
+                        'imageCopy',
+                        [
+                            $im, $this->_im,
+                            0, 0, $xymax - $y, $xymax - $x,
+                            $xymax, $xymax,
+                        ]
+                    );
+                }
+                $this->_im = $im;
+                break;
 
-        default:
-            $this->_im = $this->call(
-                'imageRotate',
-                array($this->_im, 360 - $angle, $background)
-            );
-            break;
+            default:
+                $this->_im = $this->call(
+                    'imageRotate',
+                    [$this->_im, 360 - $angle, $background]
+                );
+                break;
         }
     }
 
@@ -434,14 +435,14 @@ class Horde_Image_Gd extends Horde_Image_Base
      */
     public function flip()
     {
-        $x = $this->call('imageSX', array($this->_im));
-        $y = $this->call('imageSY', array($this->_im));
+        $x = $this->call('imageSX', [$this->_im]);
+        $y = $this->call('imageSY', [$this->_im]);
 
         $im = $this->create($x, $y);
         for ($curY = 0; $curY < $y; $curY++) {
             $this->call(
                 'imageCopy',
-                array($im, $this->_im, 0, $y - ($curY + 1), 0, $curY, $x, 1)
+                [$im, $this->_im, 0, $y - ($curY + 1), 0, $curY, $x, 1]
             );
         }
 
@@ -453,14 +454,14 @@ class Horde_Image_Gd extends Horde_Image_Base
      */
     public function mirror()
     {
-        $x = $this->call('imageSX', array($this->_im));
-        $y = $this->call('imageSY', array($this->_im));
+        $x = $this->call('imageSX', [$this->_im]);
+        $y = $this->call('imageSY', [$this->_im]);
 
         $im = $this->create($x, $y);
         for ($curX = 0; $curX < $x; $curX++) {
             $this->call(
                 'imageCopy',
-                array($im, $this->_im, $x - ($curX + 1), 0, $curX, 0, 1, $y)
+                [$im, $this->_im, $x - ($curX + 1), 0, $curX, 0, 1, $y]
             );
         }
 
@@ -476,16 +477,17 @@ class Horde_Image_Gd extends Horde_Image_Base
         $rateG = .587;
         $rateB = .114;
         $whiteness = 3;
-        if ($this->call('imageIsTrueColor', array($this->_im)) === true) {
-            $this->call('imageTrueColorToPalette', array($this->_im, true, 256));
+        if ($this->call('imageIsTrueColor', [$this->_im]) === true) {
+            $this->call('imageTrueColorToPalette', [$this->_im, true, 256]);
         }
-        $colors = min(256, $this->call('imageColorsTotal', array($this->_im)));
+        $colors = min(256, $this->call('imageColorsTotal', [$this->_im]));
         for ($x = 0; $x < $colors; $x++) {
-            $src = $this->call('imageColorsForIndex', array($this->_im, $x));
+            $src = $this->call('imageColorsForIndex', [$this->_im, $x]);
             $new = min(
                 255,
-                abs($src['red'] * $rateR + $src['green'] * $rateG + $src['blue'] * $rateB) + $whiteness);
-            $this->call('imageColorSet', array($this->_im, $x, $new, $new, $new));
+                abs($src['red'] * $rateR + $src['green'] * $rateG + $src['blue'] * $rateB) + $whiteness
+            );
+            $this->call('imageColorSet', [$this->_im, $x, $new, $new, $new]);
         }
     }
 
@@ -504,13 +506,13 @@ class Horde_Image_Gd extends Horde_Image_Base
         $rateB = .114;
         $whiteness = 3;
 
-        if ($this->call('imageIsTrueColor', array($this->_im)) === true) {
-            $this->call('imageTrueColorToPalette', array($this->_im, true, 256));
+        if ($this->call('imageIsTrueColor', [$this->_im]) === true) {
+            $this->call('imageTrueColorToPalette', [$this->_im, true, 256]);
         }
 
-        $colors = max(256, $this->call('imageColorsTotal', array($this->_im)));
+        $colors = max(256, $this->call('imageColorsTotal', [$this->_im]));
         for ($x = 0; $x < $colors; $x++) {
-            $src = $this->call('imageColorsForIndex', array($this->_im, $x));
+            $src = $this->call('imageColorsForIndex', [$this->_im, $x]);
             $new = min(
                 255,
                 abs($src['red'] * $rateR + $src['green'] * $rateG + $src['blue'] * $rateB) + $whiteness
@@ -518,7 +520,7 @@ class Horde_Image_Gd extends Horde_Image_Base
             $r = min(255, $new + $tintR);
             $g = min(255, $new + $tintG);
             $b = min(255, $new + $tintB);
-            $this->call('imageColorSet', array($this->_im, $x, $r, $g, $b));
+            $this->call('imageColorSet', [$this->_im, $x, $r, $g, $b]);
         }
     }
 
@@ -535,17 +537,17 @@ class Horde_Image_Gd extends Horde_Image_Base
      */
     public function yellowize($intensityY = 50, $intensityB = 3)
     {
-        if ($this->call('imageIsTrueColor', array($this->_im)) === true) {
-            $this->call('imageTrueColorToPalette', array($this->_im, true, 256));
+        if ($this->call('imageIsTrueColor', [$this->_im]) === true) {
+            $this->call('imageTrueColorToPalette', [$this->_im, true, 256]);
         }
 
-        $colors = max(256, $this->call('imageColorsTotal', array($this->_im)));
+        $colors = max(256, $this->call('imageColorsTotal', [$this->_im]));
         for ($x = 0; $x < $colors; $x++) {
-            $src = $this->call('imageColorsForIndex', array($this->_im, $x));
+            $src = $this->call('imageColorsForIndex', [$this->_im, $x]);
             $r = min($src['red'] + $intensityY, 255);
             $g = min($src['green'] + $intensityY, 255);
             $b = max(($r + $g) / max($intensityB, 2), 0);
-            $this->call('imageColorSet', array($this->_im, $x, $r, $g, $b));
+            $this->call('imageColorSet', [$this->_im, $x, $r, $g, $b]);
         }
     }
 
@@ -566,28 +568,32 @@ class Horde_Image_Gd extends Horde_Image_Base
      * @param string $fontsize    Size of the font (small, medium, large, giant)
      */
     public function text(
-        $string, $x, $y, $font = '', $color = 'black', $direction = 0,
+        $string,
+        $x,
+        $y,
+        $font = '',
+        $color = 'black',
+        $direction = 0,
         $fontsize = 'small'
-    )
-    {
+    ) {
         $c = $this->_allocateColor($color);
         $f = $this->_getFont($fontsize);
         switch ($direction) {
-        case -90:
-        case 270:
-            $this->call(
-                'imageStringUp',
-                array($this->_im, $f, $x, $y, $string, $c)
-            );
-            break;
+            case -90:
+            case 270:
+                $this->call(
+                    'imageStringUp',
+                    [$this->_im, $f, $x, $y, $string, $c]
+                );
+                break;
 
-        case 0:
-        default:
-            $this->call(
-                'imageString',
-                array($this->_im, $f, $x, $y, $string, $c)
-            );
-            break;
+            case 0:
+            default:
+                $this->call(
+                    'imageString',
+                    [$this->_im, $f, $x, $y, $string, $c]
+                );
+                break;
         }
     }
 
@@ -606,23 +612,23 @@ class Horde_Image_Gd extends Horde_Image_Base
         if (is_null($fill)) {
             $result = $this->call(
                 'imageEllipse',
-                array($this->_im, $x, $y, $r * 2, $r * 2, $c)
+                [$this->_im, $x, $y, $r * 2, $r * 2, $c]
             );
         } else {
             if ($fill !== $color) {
                 $fillColor = $this->_allocateColor($fill);
                 $this->call(
                     'imageFilledEllipse',
-                    array($this->_im, $x, $y, $r * 2, $r * 2, $fillColor)
+                    [$this->_im, $x, $y, $r * 2, $r * 2, $fillColor]
                 );
                 $this->call(
                     'imageEllipse',
-                    array($this->_im, $x, $y, $r * 2, $r * 2, $c)
+                    [$this->_im, $x, $y, $r * 2, $r * 2, $c]
                 );
             } else {
                 $this->call(
                     'imageFilledEllipse',
-                    array($this->_im, $x, $y, $r * 2, $r * 2, $c)
+                    [$this->_im, $x, $y, $r * 2, $r * 2, $c]
                 );
             }
         }
@@ -638,7 +644,7 @@ class Horde_Image_Gd extends Horde_Image_Base
      */
     public function polygon($verts, $color, $fill = 'none')
     {
-        $vertices = array();
+        $vertices = [];
         foreach ($verts as $vert) {
             $vertices[] = $vert['x'];
             $vertices[] = $vert['y'];
@@ -648,7 +654,7 @@ class Horde_Image_Gd extends Horde_Image_Base
             $f = $this->_allocateColor($fill);
             $this->call(
                 'imageFilledPolygon',
-                array($this->_im, $vertices, count($verts), $f)
+                [$this->_im, $vertices, count($verts), $f]
             );
         }
 
@@ -656,7 +662,7 @@ class Horde_Image_Gd extends Horde_Image_Base
             $c = $this->_allocateColor($color);
             $this->call(
                 'imagePolygon',
-                array($this->_im, $vertices, count($verts), $c)
+                [$this->_im, $vertices, count($verts), $c]
             );
         }
     }
@@ -672,14 +678,18 @@ class Horde_Image_Gd extends Horde_Image_Base
      * @param string $fill     The color to fill the rectangle.
      */
     public function rectangle(
-        $x, $y, $width, $height, $color = 'black', $fill = 'none'
-    )
-    {
+        $x,
+        $y,
+        $width,
+        $height,
+        $color = 'black',
+        $fill = 'none'
+    ) {
         if ($fill != 'none') {
             $f = $this->_allocateColor($fill);
             $this->call(
                 'imageFilledRectangle',
-                array($this->_im, $x, $y, $x + $width, $y + $height, $f)
+                [$this->_im, $x, $y, $x + $width, $y + $height, $f]
             );
         }
 
@@ -687,7 +697,7 @@ class Horde_Image_Gd extends Horde_Image_Base
             $c = $this->_allocateColor($color);
             $this->call(
                 'imageRectangle',
-                array($this->_im, $x, $y, $x + $width, $y + $height, $c)
+                [$this->_im, $x, $y, $x + $width, $y + $height, $c]
             );
         }
     }
@@ -704,9 +714,14 @@ class Horde_Image_Gd extends Horde_Image_Base
      * @param string  $fill    The color to fill the rounded rectangle with.
      */
     public function roundedRectangle(
-        $x, $y, $width, $height, $round, $color = 'black', $fill = 'none'
-    )
-    {
+        $x,
+        $y,
+        $width,
+        $height,
+        $round,
+        $color = 'black',
+        $fill = 'none'
+    ) {
         if ($round <= 0) {
             // Optimize out any calls with no corner rounding.
             $this->rectangle($x, $y, $width, $height, $color, $fill);
@@ -745,48 +760,48 @@ class Horde_Image_Gd extends Horde_Image_Base
         // Draw the corners - upper left, upper right, lower right, lower left.
         $this->call(
             'imageArc',
-            array($this->_im, $xul, $yul, $r, $r, 180, 270, $c)
+            [$this->_im, $xul, $yul, $r, $r, 180, 270, $c]
         );
         $this->call(
             'imageArc',
-            array($this->_im, $xur, $yur, $r, $r, 270, 360, $c)
+            [$this->_im, $xur, $yur, $r, $r, 270, 360, $c]
         );
         $this->call(
             'imageArc',
-            array($this->_im, $xlr, $ylr, $r, $r, 0, 90, $c)
+            [$this->_im, $xlr, $ylr, $r, $r, 0, 90, $c]
         );
         $this->call(
             'imageArc',
-            array($this->_im, $xll, $yll, $r, $r, 90, 180, $c)
+            [$this->_im, $xll, $yll, $r, $r, 90, 180, $c]
         );
 
         // Draw the connecting sides - top, right, bottom, left.
         $this->call(
             'imageLine',
-            array($this->_im, $xul, $y, $xur, $y, $c)
+            [$this->_im, $xul, $y, $xur, $y, $c]
         );
         $this->call(
             'imageLine',
-            array($this->_im, $x + $width, $yur, $x + $width, $ylr, $c)
+            [$this->_im, $x + $width, $yur, $x + $width, $ylr, $c]
         );
         $this->call(
             'imageLine',
-            array($this->_im, $xlr, $y + $height, $xll, $y + $height, $c)
+            [$this->_im, $xlr, $y + $height, $xll, $y + $height, $c]
         );
         $this->call(
             'imageLine',
-            array($this->_im, $x, $yll, $x, $yul, $c)
+            [$this->_im, $x, $yll, $x, $yul, $c]
         );
 
         if ($fill != 'none') {
             $f = $this->_allocateColor($fill);
             $this->call(
                 'imageFillToBorder',
-                array(
+                [
                     $this->_im,
                     $x + ($width / 2), $y + ($height / 2),
-                    $c, $f
-                )
+                    $c, $f,
+                ]
             );
         }
     }
@@ -807,14 +822,14 @@ class Horde_Image_Gd extends Horde_Image_Base
 
         // Don't need to do anything special for single-width lines.
         if ($width == 1) {
-            $this->call('imageLine', array($this->_im, $x1, $y1, $x2, $y2, $c));
+            $this->call('imageLine', [$this->_im, $x1, $y1, $x2, $y2, $c]);
         } elseif ($x1 == $x2) {
             // For vertical lines, we can just draw a vertical rectangle.
             $left = $x1 - floor(($width - 1) / 2);
             $right = $x1 + floor($width / 2);
             $this->call(
                 'imageFilledRectangle',
-                array($this->_im, $left, $y1, $right, $y2, $c)
+                [$this->_im, $left, $y1, $right, $y2, $c]
             );
         } elseif ($y1 == $y2) {
             // For horizontal lines, we can just draw a horizontal filled
@@ -823,7 +838,7 @@ class Horde_Image_Gd extends Horde_Image_Base
             $bottom = $y1 + floor(($width - 1) / 2);
             $this->call(
                 'imageFilledRectangle',
-                array($this->_im, $x1, $top, $x2, $bottom, $c)
+                [$this->_im, $x1, $top, $x2, $bottom, $c]
             );
         } else {
             // Angled lines.
@@ -834,15 +849,15 @@ class Horde_Image_Gd extends Horde_Image_Base
             $dx = (sin($a) * $width / 2);
             $dy = (cos($a) * $width / 2);
 
-            $verts = array(
+            $verts = [
                 $x2 + $dx, $y2 + $dy,
                 $x2 - $dx, $y2 - $dy,
                 $x1 - $dx, $y1 - $dy,
-                $x1 + $dx, $y1 + $dy
-            );
+                $x1 + $dx, $y1 + $dy,
+            ];
             $this->call(
                 'imageFilledPolygon',
-                array($this->_im, $verts, count($verts) / 2, $c)
+                [$this->_im, $verts, count($verts) / 2, $c]
             );
         }
     }
@@ -860,15 +875,20 @@ class Horde_Image_Gd extends Horde_Image_Base
      * @param integer $dash_space   The length of a space in the dashed line.
      */
     public function dashedLine(
-        $x0, $y0, $x1, $y1, $color = 'black', $width = 1, $dash_length = 2,
+        $x0,
+        $y0,
+        $x1,
+        $y1,
+        $color = 'black',
+        $width = 1,
+        $dash_length = 2,
         $dash_space = 2
-    )
-    {
+    ) {
         $c = $this->_allocateColor($color);
         $w = $this->_allocateColor('white');
 
         // Set up the style array according to the $dash_* parameters.
-        $style = array();
+        $style = [];
         for ($i = 0; $i < $dash_length; $i++) {
             $style[] = $c;
         }
@@ -876,11 +896,11 @@ class Horde_Image_Gd extends Horde_Image_Base
             $style[] = $w;
         }
 
-        $this->call('imageSetStyle', array($this->_im, $style));
-        $this->call('imageSetThickness', array($this->_im, $width));
+        $this->call('imageSetStyle', [$this->_im, $style]);
+        $this->call('imageSetThickness', [$this->_im, $width]);
         $this->call(
             'imageLine',
-            array($this->_im, $x0, $y0, $x1, $y1, IMG_COLOR_STYLED)
+            [$this->_im, $x0, $y0, $x1, $y1, IMG_COLOR_STYLED]
         );
     }
 
@@ -899,9 +919,12 @@ class Horde_Image_Gd extends Horde_Image_Base
         foreach ($verts as $vert) {
             if (!$first) {
                 $this->line(
-                    $lastX, $lastY,
-                    $vert['x'], $vert['y'],
-                    $color, $width
+                    $lastX,
+                    $lastY,
+                    $vert['x'],
+                    $vert['y'],
+                    $color,
+                    $width
                 );
             } else {
                 $first = false;
@@ -923,45 +946,50 @@ class Horde_Image_Gd extends Horde_Image_Base
      * @param string  $fill   The fill color of the arc (defaults to none).
      */
     public function arc(
-        $x, $y, $r, $start, $end, $color = 'black', $fill = null
-    )
-    {
+        $x,
+        $y,
+        $r,
+        $start,
+        $end,
+        $color = 'black',
+        $fill = null
+    ) {
         $c = $this->_allocateColor($color);
         if (is_null($fill)) {
             $this->call(
                 'imageArc',
-                array($this->_im, $x, $y, $r * 2, $r * 2, $start, $end, $c)
+                [$this->_im, $x, $y, $r * 2, $r * 2, $start, $end, $c]
             );
         } else {
             if ($fill !== $color) {
                 $f = $this->_allocateColor($fill);
                 $this->call(
                     'imageFilledArc',
-                    array(
+                    [
                         $this->_im,
                         $x, $y, $r * 2, $r * 2,
                         $start, $end,
-                        $f, IMG_ARC_PIE
-                    )
+                        $f, IMG_ARC_PIE,
+                    ]
                 );
                 $this->call(
                     'imageFilledArc',
-                    array(
+                    [
                         $this->_im,
                         $x, $y, $r * 2, $r * 2,
                         $start, $end,
-                        $c, IMG_ARC_EDGED | IMG_ARC_NOFILL
-                    )
+                        $c, IMG_ARC_EDGED | IMG_ARC_NOFILL,
+                    ]
                 );
             } else {
                 $this->call(
                     'imageFilledArc',
-                    array(
+                    [
                         $this->_im,
                         $x, $y, $r * 2, $r * 2,
                         $start, $end,
-                        $c, IMG_ARC_PIE
-                    )
+                        $c, IMG_ARC_PIE,
+                    ]
                 );
             }
         }
@@ -980,14 +1008,14 @@ class Horde_Image_Gd extends Horde_Image_Base
      */
     public function create($width, $height)
     {
-        $result = $this->call('imageCreateTrueColor', array($width, $height));
+        $result = $this->call('imageCreateTrueColor', [$width, $height]);
         if (!is_resource($result)) {
             throw new Horde_Image_Exception('Could not create image.');
         }
-        $this->call('imagesavealpha', array($result, true));
-        $this->call('imagealphablending', array($result, false));
+        $this->call('imagesavealpha', [$result, true]);
+        $this->call('imagealphablending', [$result, false]);
         if (function_exists('imageantialias')) {
-            $this->call('imageantialias', array($result, true));
+            $this->call('imageantialias', [$result, true]);
         }
 
         return $result;
@@ -1024,56 +1052,56 @@ class Horde_Image_Gd extends Horde_Image_Base
      */
     public function applyMask($mask)
     {
-        $imgX = round($this->call('imageSX', array($this->_im)));
-        $imgY = round($this->call('imageSY', array($this->_im)));
+        $imgX = round($this->call('imageSX', [$this->_im]));
+        $imgY = round($this->call('imageSY', [$this->_im]));
         $mask_resized = $this->create($imgX, $imgY);
         $this->call(
             'imageCopyResampled',
-            array(
+            [
                 $mask_resized, $mask,
                 0, 0, 0, 0,
                 $imgX, $imgY,
-                $this->call('imageSX', array($mask)),
-                $this->call('imageSY', array($mask))
-            )
+                $this->call('imageSX', [$mask]),
+                $this->call('imageSY', [$mask]),
+            ]
         );
 
         $mask_blendtemp = $this->create($imgX, $imgY);
-        $mbtX = $this->call('imageSX', array($mask_blendtemp));
-        $mbtY = $this->call('imageSY', array($mask_blendtemp));
+        $mbtX = $this->call('imageSX', [$mask_blendtemp]);
+        $mbtY = $this->call('imageSY', [$mask_blendtemp]);
 
         $color_background = $this->call(
             'imageColorAllocate',
-            array($mask_blendtemp, 0, 0, 0)
+            [$mask_blendtemp, 0, 0, 0]
         );
 
         $this->call(
             'imageFilledRectangle',
-            array($mask_blendtemp, 0, 0, $mbtX, $mbtY, $color_background)
+            [$mask_blendtemp, 0, 0, $mbtX, $mbtY, $color_background]
         );
 
-        $this->call('imageAlphaBlending', array($mask_blendtemp, false));
-        $this->call('imageSaveAlpha', array($mask_blendtemp, true));
+        $this->call('imageAlphaBlending', [$mask_blendtemp, false]);
+        $this->call('imageSaveAlpha', [$mask_blendtemp, true]);
 
         for ($x = 0; $x < $imgX; $x++) {
             for ($y = 0; $y < $imgY; $y++) {
                 $realPixel = $this->call(
                     'imageColorsForIndex',
-                    array(
+                    [
                         $this->_im,
-                        $this->call('imageColorAt', array($this->_im, $x, $y))
-                    )
+                        $this->call('imageColorAt', [$this->_im, $x, $y]),
+                    ]
                 );
                 $maskPixel = Horde_Image::grayscalePixel(
                     $this->call(
                         'imageColorsForIndex',
-                        array(
+                        [
                             $mask_resized,
                             $this->call(
                                 'imageColorAt',
-                                array($mask_resized, $x, $y)
-                            )
-                        )
+                                [$mask_resized, $x, $y]
+                            ),
+                        ]
                     )
                 );
                 $maskAlpha = 127
@@ -1081,29 +1109,29 @@ class Horde_Image_Gd extends Horde_Image_Base
                     * (1 - ($realPixel['alpha'] / 127));
                 $newcolor = $this->call(
                     'imageColorAllocateAlpha',
-                    array(
+                    [
                         $mask_blendtemp,
                         $realPixel['red'],
                         $realPixel['green'],
                         $realPixel['blue'],
-                        intval($maskAlpha)
-                    )
+                        intval($maskAlpha),
+                    ]
                 );
                 $this->call(
                     'imageSetPixel',
-                    array($mask_blendtemp, $x, $y, $newcolor)
+                    [$mask_blendtemp, $x, $y, $newcolor]
                 );
             }
         }
-        $this->call('imageAlphaBlending', array($this->_im, false));
-        $this->call('imageSaveAlpha', array($this->_im, true));
+        $this->call('imageAlphaBlending', [$this->_im, false]);
+        $this->call('imageSaveAlpha', [$this->_im, true]);
         $this->call(
             'imageCopy',
-            array($this->_im, $mask_blendtemp, 0, 0, 0, 0, $mbtX, $mbtY)
+            [$this->_im, $mask_blendtemp, 0, 0, 0, 0, $mbtX, $mbtY]
         );
 
-        $this->call('imageDestroy', array($mask_blendtemp));
-        $this->call('imageDestroy', array($mask_resized));
+        $this->call('imageDestroy', [$mask_blendtemp]);
+        $this->call('imageDestroy', [$mask_resized]);
     }
 
 }

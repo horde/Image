@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -31,7 +32,7 @@ class Horde_Image_Effect_Im_CenterCrop extends Horde_Image_Effect
      *
      * @var array
      */
-    protected $_params = array();
+    protected $_params = [];
 
     /**
      * Applies the effect.
@@ -44,12 +45,18 @@ class Horde_Image_Effect_Im_CenterCrop extends Horde_Image_Effect
             $initialCrop = $this->_params->width * 2;
             $command = sprintf(
                 '-resize x%d -resize \'%dx<\' -resize 50% -gravity center -crop %dx%d+0+0 +repage',
-                $initialCrop, $initialCrop, $this->_params->width, $this->params->height
+                $initialCrop,
+                $initialCrop,
+                $this->_params->width,
+                $this->params->height
             );
         } else {
             $command = sprintf(
                 '-thumbnail %dx%d\^ -gravity center -extent %dx%d',
-                $this->_params->width, $this->_params->height, $this->_params->width, $this->_params->height
+                $this->_params->width,
+                $this->_params->height,
+                $this->_params->width,
+                $this->_params->height
             );
         }
         $this->_image->addPostSrcOperation($command);

@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2007-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -28,12 +29,12 @@ class Horde_Image_Effect_Im_RoundCorners extends Horde_Image_Effect
      *
      * @var array
      */
-    protected $_params = array(
+    protected $_params = [
         'radius'      => 10,
         'background'  => 'none',
         'border'      => 0,
-        'bordercolor' => 'none'
-    );
+        'bordercolor' => 'none',
+    ];
 
     /**
      * Applies the effect.
@@ -44,7 +45,7 @@ class Horde_Image_Effect_Im_RoundCorners extends Horde_Image_Effect
         $dimensions = $this->_image->getDimensions();
         $height = $dimensions['height'];
         $width = $dimensions['width'];
-        $round = (integer)$this->_params['radius'];
+        $round = (int) $this->_params['radius'];
         $background = escapeshellarg($this->_params['background']);
         $this->_image->addOperation(
             "-size {$width}x{$height} xc:$background "

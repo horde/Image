@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is licensed under the GPL as stated in Jake Olefsky's original
  * code. Jake has given Horde permission to incorporate Exifer into our
@@ -17,8 +18,8 @@
  * The original Exifer library has been heavily modified and refactored. All
  * modifications are
  *
- * Copyright 2003 Jake Olefsky
- * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2026 Jake Olefsky
+ * Copyright 2009-2026 Horde LLC (http://www.horde.org/)
  *
  * @author   Jake Olefsky <jake@olefsky.com>
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
@@ -48,14 +49,21 @@ class Horde_Image_Exif_Parser_Sanyo extends Horde_Image_Exif_Parser_Base
      */
     protected function _lookupTag($tag)
     {
-        switch($tag) {
-        case '0200': $tag = 'SpecialMode'; break;
-        case '0201': $tag = 'Quality'; break;
-        case '0202': $tag = 'Macro'; break;
-        case '0203': $tag = 'Unknown'; break;
-        case '0204': $tag = 'DigiZoom'; break;
-        case '0f00': $tag = 'DataDump'; break;
-        default:     $tag = 'unknown:' . $tag; break;
+        switch ($tag) {
+            case '0200': $tag = 'SpecialMode';
+                break;
+            case '0201': $tag = 'Quality';
+                break;
+            case '0202': $tag = 'Macro';
+                break;
+            case '0203': $tag = 'Unknown';
+                break;
+            case '0204': $tag = 'DigiZoom';
+                break;
+            case '0f00': $tag = 'DataDump';
+                break;
+            default:     $tag = 'unknown:' . $tag;
+                break;
         }
 
         return $tag;
@@ -72,60 +80,60 @@ class Horde_Image_Exif_Parser_Sanyo extends Horde_Image_Exif_Parser_Base
     protected function _formatData($type, $tag, $intel, $data)
     {
         switch ($type) {
-        case 'ASCII':
-        case 'UNDEFINED':
-            break;
-
-        case 'URATIONAL':
-        case 'SRATIONAL':
-            $data = bin2hex($data);
-            if ($intel) {
-                $data = Horde_Image_Exif::intel2Moto($data);
-            }
-            $top = hexdec(substr($data, 8, 8));
-            $bottom = hexdec(substr($data, 0, 8));
-            if ($bottom) {
-                $data = $top / $bottom;
-            } elseif (!$top) {
-                $data = 0;
-            } else {
-                $data = $top . '/' . $bottom;
-            }
-            break;
-
-        case 'USHORT':
-        case 'SSHORT':
-        case 'ULONG':
-        case 'SLONG':
-        case 'FLOAT':
-        case 'DOUBLE':
-            $data = bin2hex($data);
-            if ($intel) {
-                $data = Horde_Image_Exif::intel2Moto($data);
-            }
-            $data = hexdec($data);
-
-            switch ($tag) {
-            case '0200':
-                //SpecialMode
-                $data = $data == 0 ? Horde_Image_Translation::t("Normal") : Horde_Image_Translation::t("Unknown") . ': ' . $data;
+            case 'ASCII':
+            case 'UNDEFINED':
                 break;
-            case '0201':
-                //Quality
-                $data = $data == 2 ? Horde_Image_Translation::t("High") : Horde_Image_Translation::t("Unknown") . ': ' . $data;
-                break;
-            case '0202':
-                //Macro
-                $data = $data == 0 ? Horde_Image_Translation::t("Normal") : Horde_Image_Translation::t("Unknown") . ': ' . $data;
-                break;
-            }
-            break;
 
-        default:
-            $data = bin2hex($data);
-            if ($intel) {
-                $data = Horde_Image_Exif::intel2Moto($data);
-            }
+            case 'URATIONAL':
+            case 'SRATIONAL':
+                $data = bin2hex($data);
+                if ($intel) {
+                    $data = Horde_Image_Exif::intel2Moto($data);
+                }
+                $top = hexdec(substr($data, 8, 8));
+                $bottom = hexdec(substr($data, 0, 8));
+                if ($bottom) {
+                    $data = $top / $bottom;
+                } elseif (!$top) {
+                    $data = 0;
+                } else {
+                    $data = $top . '/' . $bottom;
+                }
+                break;
+
+            case 'USHORT':
+            case 'SSHORT':
+            case 'ULONG':
+            case 'SLONG':
+            case 'FLOAT':
+            case 'DOUBLE':
+                $data = bin2hex($data);
+                if ($intel) {
+                    $data = Horde_Image_Exif::intel2Moto($data);
+                }
+                $data = hexdec($data);
+
+                switch ($tag) {
+                    case '0200':
+                        //SpecialMode
+                        $data = $data == 0 ? Horde_Image_Translation::t("Normal") : Horde_Image_Translation::t("Unknown") . ': ' . $data;
+                        break;
+                    case '0201':
+                        //Quality
+                        $data = $data == 2 ? Horde_Image_Translation::t("High") : Horde_Image_Translation::t("Unknown") . ': ' . $data;
+                        break;
+                    case '0202':
+                        //Macro
+                        $data = $data == 0 ? Horde_Image_Translation::t("Normal") : Horde_Image_Translation::t("Unknown") . ': ' . $data;
+                        break;
+                }
+                break;
+
+            default:
+                $data = bin2hex($data);
+                if ($intel) {
+                    $data = Horde_Image_Exif::intel2Moto($data);
+                }
         }
 
         return $data;
@@ -141,7 +149,7 @@ class Horde_Image_Exif_Parser_Sanyo extends Horde_Image_Exif_Parser_Base
      */
     public function parse($block, &$result, $seek, $globalOffset)
     {
-        $intel = $result['Endien']=='Intel';
+        $intel = $result['Endien'] == 'Intel';
         $model = $result['IFD0']['Model'];
         //current place
         $place = 8;
@@ -171,7 +179,7 @@ class Horde_Image_Exif_Parser_Sanyo extends Horde_Image_Exif_Parser_Base
             if ($intel) {
                 $type = Horde_Image_Exif::intel2Moto($type);
             }
-            list($type, $size) = $this->_lookupType($type);
+            [$type, $size] = $this->_lookupType($type);
 
             //4 byte count of number of data units
             $count = bin2hex(substr($block, $place, 4));

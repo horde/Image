@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2007-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -28,12 +29,12 @@ class Horde_Image_Effect_Imagick_RoundCorners extends Horde_Image_Effect
      *
      * @var array
      */
-    protected $_params = array(
+    protected $_params = [
         'radius'      => 10,
         'background'  => 'none',
         'border'      => 0,
-        'bordercolor' => 'none'
-    );
+        'bordercolor' => 'none',
+    ];
 
     public function apply()
     {
@@ -46,8 +47,8 @@ class Horde_Image_Effect_Imagick_RoundCorners extends Horde_Image_Effect
             $this->_image->imagick->roundCorners($round, $round);
 
             // Using a border?
-            if ($this->_params['bordercolor'] != 'none' &&
-                $this->_params['border'] > 0) {
+            if ($this->_params['bordercolor'] != 'none'
+                && $this->_params['border'] > 0) {
                 $size = $this->_image->getDimensions();
 
                 $new = new Imagick();
@@ -86,7 +87,8 @@ class Horde_Image_Effect_Imagick_RoundCorners extends Horde_Image_Effect
                 $new->compositeImage(
                     $this->_image->imagick,
                     Imagick::COMPOSITE_OVER,
-                    0, 0
+                    0,
+                    0
                 );
                 $this->_image->imagick->clear();
                 $this->_image->imagick->addImage($new);

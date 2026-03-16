@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -32,7 +33,7 @@ class Horde_Image_Effect
      *
      * @var array
      */
-    protected $_params = array();
+    protected $_params = [];
 
     /**
      * The bound Horde_Image object
@@ -52,7 +53,7 @@ class Horde_Image_Effect
      * @param array $params  Any parameters for the effect. Parameters are
      *                       documented in each subclass.
      */
-    public function __construct($params = array())
+    public function __construct($params = [])
     {
         $this->_logger = new Horde_Support_Stub();
         foreach ($params as $key => $val) {
@@ -92,14 +93,14 @@ class Horde_Image_Effect
     public static function factory($type, $driver, $params)
     {
         if (is_array($type)) {
-            list($app, $type) = $type;
+            [$app, $type] = $type;
         }
 
         // First check for a driver specific effect, if we can't find one,
         // assume there is a vanilla effect object around.
         $class = 'Horde_Image_Effect_' . $driver . '_' . $type;
         $vclass = 'Horde_Image_Effect_' . $type;
-        
+
         if (class_exists($class)) {
             $effect = new $class($params);
         } elseif (class_exists($vclass)) {

@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2007-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -33,12 +34,12 @@ class Horde_Image_Effect_Im_TextWatermark extends Horde_Image_Effect
      *
      * @var array
      */
-    protected $_params = array(
+    protected $_params = [
         'halign'   => 'right',
         'valign'   => 'bottom',
         'font'     => 'courier',
-        'fontsize' => 'small'
-    );
+        'fontsize' => 'small',
+    ];
 
     /**
      * Applies the effect.
@@ -47,29 +48,29 @@ class Horde_Image_Effect_Im_TextWatermark extends Horde_Image_Effect
     {
         /* Determine placement on image */
         switch ($this->_params['valign']) {
-        case 'bottom':
-            $v = 'south';
-            break;
-        case 'center':
-            $v = 'center';
-            break;
-        default:
-            $v = 'north';
+            case 'bottom':
+                $v = 'south';
+                break;
+            case 'center':
+                $v = 'center';
+                break;
+            default:
+                $v = 'north';
         }
 
         switch ($this->_params['halign']) {
-        case 'right':
-            $h = 'east';
-            break;
-        case 'center':
-            $h = 'center';
-            break;
-        default:
-            $h = 'west';
+            case 'right':
+                $h = 'east';
+                break;
+            case 'center':
+                $h = 'center';
+                break;
+            default:
+                $h = 'west';
 
         }
-        if (($v == 'center' && $h != 'center') ||
-            ($v == 'center' && $h == 'center')) {
+        if (($v == 'center' && $h != 'center')
+            || ($v == 'center' && $h == 'center')) {
             $gravity = $h;
         } elseif ($h == 'center' && $v != 'center') {
             $gravity = $v;

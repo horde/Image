@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -28,7 +29,7 @@ class Horde_Image_Swf extends Horde_Image_Base
      *
      * @var string[]
      */
-    protected $_capabilities = array(
+    protected $_capabilities = [
         'canvas',
         'circle',
         'dashedLine',
@@ -38,7 +39,7 @@ class Horde_Image_Swf extends Horde_Image_Base
         'rectangle',
         'roundedRectangle',
         'text',
-    );
+    ];
 
     /**
      * SWF root movie.
@@ -52,7 +53,7 @@ class Horde_Image_Swf extends Horde_Image_Base
      *
      * @see Horde_Image_Base::_construct
      */
-    public function __construct($params, $context = array())
+    public function __construct($params, $context = [])
     {
         parent::__construct($params, $context);
 
@@ -107,8 +108,8 @@ class Horde_Image_Swf extends Horde_Image_Base
      */
     public function allocateColor($name)
     {
-        list($r, $g, $b) = Horde_Image::getRGB($name);
-        return array('red' => $r, 'green' => $g, 'blue' => $b, 'alpha' => 255);
+        [$r, $g, $b] = Horde_Image::getRGB($name);
+        return ['red' => $r, 'green' => $g, 'blue' => $b, 'alpha' => 255];
     }
 
     /**
@@ -121,14 +122,14 @@ class Horde_Image_Swf extends Horde_Image_Base
     public function getFont($font)
     {
         switch ($font) {
-        case 'sans-serif':
-            return '_sans';
-        case 'serif':
-            return '_serif';
-        case 'monospace':
-            return '_typewriter';
-        default:
-            return $font;
+            case 'sans-serif':
+                return '_sans';
+            case 'serif':
+                return '_serif';
+            case 'monospace':
+                return '_typewriter';
+            default:
+                return $font;
         }
     }
 
@@ -149,14 +150,21 @@ class Horde_Image_Swf extends Horde_Image_Base
      * @param string $fontsize    Size of the font (small, medium, large, giant)
      */
     public function text(
-        $string, $x, $y, $font = 'monospace', $color = 'black', $direction = 0
-    )
-    {
+        $string,
+        $x,
+        $y,
+        $font = 'monospace',
+        $color = 'black',
+        $direction = 0
+    ) {
         $color = $this->allocateColor($color);
 
         $text = new SWFTextField(SWFTEXTFIELD_NOEDIT);
         $text->setColor(
-            $color['red'], $color['green'], $color['blue'], $color['alpha']
+            $color['red'],
+            $color['green'],
+            $color['blue'],
+            $color['alpha']
         );
         $text->setFont(new SWFBrowserFont($this->getFont($font)));
         $text->addString($string);
@@ -180,7 +188,11 @@ class Horde_Image_Swf extends Horde_Image_Base
         $s = new SWFShape();
         $color = $this->allocateColor($color);
         $s->setLine(
-            1, $color['red'], $color['green'], $color['blue'], $color['alpha']
+            1,
+            $color['red'],
+            $color['green'],
+            $color['blue'],
+            $color['alpha']
         );
 
         if ($fill != 'none') {
@@ -229,7 +241,11 @@ class Horde_Image_Swf extends Horde_Image_Base
 
         $shape = new SWFShape();
         $shape->setLine(
-            1, $color['red'], $color['green'], $color['blue'], $color['alpha']
+            1,
+            $color['red'],
+            $color['green'],
+            $color['blue'],
+            $color['alpha']
         );
 
         if ($fill != 'none') {
@@ -270,10 +286,10 @@ class Horde_Image_Swf extends Horde_Image_Base
      */
     public function rectangle($x, $y, $width, $height, $color, $fill = 'none')
     {
-        $verts[0] = array('x' => $x, 'y' => $y);
-        $verts[1] = array('x' => $x + $width, 'y' => $y);
-        $verts[2] = array('x' => $x + $width, 'y' => $y + $height);
-        $verts[3] = array('x' => $x, 'y' => $y + $height);
+        $verts[0] = ['x' => $x, 'y' => $y];
+        $verts[1] = ['x' => $x + $width, 'y' => $y];
+        $verts[2] = ['x' => $x + $width, 'y' => $y + $height];
+        $verts[3] = ['x' => $x, 'y' => $y + $height];
 
         $this->polygon($verts, $color, $fill);
     }
@@ -290,9 +306,14 @@ class Horde_Image_Swf extends Horde_Image_Base
      * @param string $fill     The color to fill the rectangle.
      */
     public function roundedRectangle(
-        $x, $y, $width, $height, $round, $color = 'black', $fill = 'none'
-    )
-    {
+        $x,
+        $y,
+        $width,
+        $height,
+        $round,
+        $color = 'black',
+        $fill = 'none'
+    ) {
         if ($round <= 0) {
             // Optimize out any calls with no corner rounding.
             return $this->rectangle($x, $y, $width, $height, $color, $fill);
@@ -301,7 +322,11 @@ class Horde_Image_Swf extends Horde_Image_Base
         $s = new SWFShape();
         $color = $this->allocateColor($color);
         $s->setLine(
-            1, $color['red'], $color['green'], $color['blue'], $color['alpha']
+            1,
+            $color['red'],
+            $color['green'],
+            $color['blue'],
+            $color['alpha']
         );
 
         if ($fill != 'none') {
@@ -407,10 +432,15 @@ class Horde_Image_Swf extends Horde_Image_Base
      * @param integer $dash_space   The length of a space in the dashed line.
      */
     public function dashedLine(
-        $x0, $y0, $x1, $y1, $color = 'black', $width = 1, $dash_length = 2,
+        $x0,
+        $y0,
+        $x1,
+        $y1,
+        $color = 'black',
+        $width = 1,
+        $dash_length = 2,
         $dash_space = 2
-    )
-    {
+    ) {
         // Get the length of the line in pixels.
         $line_length = max(
             ceil(sqrt(pow(($x1 - $x0), 2) + pow(($y1 - $y0), 2))),
@@ -480,13 +510,22 @@ class Horde_Image_Swf extends Horde_Image_Base
      * @param string $fill    The fill color of the arc.
      */
     public function arc(
-        $x, $y, $r, $start, $end, $color = 'black', $fill = 'none'
-    )
-    {
+        $x,
+        $y,
+        $r,
+        $start,
+        $end,
+        $color = 'black',
+        $fill = 'none'
+    ) {
         $s = new SWFShape();
         $color = $this->allocateColor($color);
         $s->setLine(
-            1, $color['red'], $color['green'], $color['blue'], $color['alpha']
+            1,
+            $color['red'],
+            $color['green'],
+            $color['blue'],
+            $color['alpha']
         );
 
         if ($fill != 'none') {
@@ -522,10 +561,14 @@ class Horde_Image_Swf extends Horde_Image_Base
      * @param string $fill2    The name of the end color for the gradient.
      */
     public function gradientRectangle(
-        $x, $y, $width, $height, $color = 'black',
-        $fill1 = 'black', $fill2 = 'white'
-    )
-    {
+        $x,
+        $y,
+        $width,
+        $height,
+        $color = 'black',
+        $fill1 = 'black',
+        $fill2 = 'white'
+    ) {
         $s = new SWFShape();
 
         if ($color != 'none') {
@@ -562,10 +605,10 @@ class Horde_Image_Swf extends Horde_Image_Base
         $f->moveTo($x, $y);
         $s->setRightFill($f);
 
-        $verts[0] = array('x' => $x, 'y' => $y);
-        $verts[1] = array('x' => $x + $width, 'y' => $y);
-        $verts[2] = array('x' => $x + $width, 'y' => $y + $height);
-        $verts[3] = array('x' => $x, 'y' => $y + $height);
+        $verts[0] = ['x' => $x, 'y' => $y];
+        $verts[1] = ['x' => $x + $width, 'y' => $y];
+        $verts[2] = ['x' => $x + $width, 'y' => $y + $height];
+        $verts[3] = ['x' => $x, 'y' => $y + $height];
 
         $first_done = false;
         foreach ($verts as $vert) {

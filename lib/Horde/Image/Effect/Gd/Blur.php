@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2017-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -35,9 +36,9 @@ class Horde_Image_Effect_Gd_Blur extends Horde_Image_Effect
      *
      * @var array
      */
-    protected $_params = array(
+    protected $_params = [
         'factor' => 3,
-    );
+    ];
 
     /**
      * Applies the effect.
@@ -68,9 +69,16 @@ class Horde_Image_Effect_Gd_Blur extends Horde_Image_Effect
             // Resize previous image to next size.
             $nextImage = imagecreatetruecolor($nextWidth, $nextHeight);
             imagecopyresized(
-                $nextImage, $prevImage,
-                0, 0, 0, 0,
-                $nextWidth, $nextHeight, $prevWidth, $prevHeight
+                $nextImage,
+                $prevImage,
+                0,
+                0,
+                0,
+                0,
+                $nextWidth,
+                $nextHeight,
+                $prevWidth,
+                $prevHeight
             );
 
             // Apply blur filter.
@@ -84,9 +92,16 @@ class Horde_Image_Effect_Gd_Blur extends Horde_Image_Effect
 
         // Scale back to original size and blur one more time
         imagecopyresized(
-            $img, $nextImage,
-            0, 0, 0, 0,
-            $originalWidth, $originalHeight, $nextWidth, $nextHeight
+            $img,
+            $nextImage,
+            0,
+            0,
+            0,
+            0,
+            $originalWidth,
+            $originalHeight,
+            $nextWidth,
+            $nextHeight
         );
         imagefilter($img, IMG_FILTER_GAUSSIAN_BLUR);
 

@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -30,11 +31,11 @@ class Horde_Image_Effect_Border extends Horde_Image_Effect
      *
      * @var array
      */
-    protected $_params = array(
+    protected $_params = [
         'bordercolor' => 'black',
         'borderwidth' => 1,
-        'preserve' => true
-    );
+        'preserve' => true,
+    ];
 
     /**
      * Draws the border.

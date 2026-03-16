@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is licensed under the GPL as stated in Jake Olefsky's original
  * code. Jake has given Horde permission to incorporate Exifer into our
@@ -17,8 +18,8 @@
  * The original Exifer library has been heavily modified and refactored. All
  * modifications are
  *
- * Copyright 2003 Jake Olefsky
- * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2026 Jake Olefsky
+ * Copyright 2009-2026 Horde LLC (http://www.horde.org/)
  *
  * @author   Jake Olefsky <jake@olefsky.com>
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
@@ -49,67 +50,67 @@ class Horde_Image_Exif_Parser_Gps extends Horde_Image_Exif_Parser_Base
      */
     protected function _lookupTag($tag)
     {
-        switch($tag) {
-        case '0000': return 'Version';
-        //north or south
-        case '0001': return 'LatitudeRef';
-        //dd mm.mm or dd mm ss
-        case '0002': return 'Latitude';
-        //east or west
-        case '0003': return 'LongitudeRef';
-        //dd mm.mm or dd mm ss
-        case '0004': return 'Longitude';
-        //sea level or below sea level
-        case '0005': return 'AltitudeRef';
-        //positive rational number
-        case '0006': return 'Altitude';
-        //three positive rational numbers
-        case '0007': return 'Time';
-        //text string up to 999 bytes long
-        case '0008': return 'Satellite';
-			//in progress or interop
-        case '0009': return 'ReceiveStatus';
-		//2D or 3D
-        case '000a': return 'MeasurementMode';
-        //positive rational number
-        case '000b': return 'MeasurementPrecision';
-        //KPH, MPH, knots
-        case '000c': return 'SpeedUnit';
-			//positive rational number
-        case '000d': return 'ReceiverSpeed';
-        //true or magnetic north
-        case '000e': return 'MovementDirectionRef';
-        //positive rational number
-        case '000f': return 'MovementDirection';
-        //true or magnetic north
-        case '0010': return 'ImageDirectionRef';
-			//positive rational number
-        case '0011': return 'ImageDirection';
-        //text string up to 999 bytes long
-        case '0012': return 'GeodeticSurveyData';
-		//north or south
-        case '0013': return 'DestLatitudeRef';
-        //three positive rational numbers
-        case '0014': return 'DestinationLatitude';
-		//east or west
-        case '0015': return 'DestLongitudeRef';
-        //three positive rational numbers
-        case '0016': return 'DestinationLongitude';
-			//true or magnetic north
-        case '0017': return 'DestBearingRef';
-        //positive rational number
-        case '0018': return 'DestinationBearing';
-		//km, miles, knots
-        case '0019': return 'DestDistanceRef';
-        //positive rational number
-        case '001a': return 'DestinationDistance';
-        case '001b': return 'ProcessingMethod';
-        case '001c': return 'AreaInformation';
-        //text string 10 bytes long
-        case '001d': return 'Datestamp';
-        //integer in range 0-65535
-        case '001e': return 'DifferentialCorrection';
-        default: return 'unknown: ' . $tag;
+        switch ($tag) {
+            case '0000': return 'Version';
+                //north or south
+            case '0001': return 'LatitudeRef';
+                //dd mm.mm or dd mm ss
+            case '0002': return 'Latitude';
+                //east or west
+            case '0003': return 'LongitudeRef';
+                //dd mm.mm or dd mm ss
+            case '0004': return 'Longitude';
+                //sea level or below sea level
+            case '0005': return 'AltitudeRef';
+                //positive rational number
+            case '0006': return 'Altitude';
+                //three positive rational numbers
+            case '0007': return 'Time';
+                //text string up to 999 bytes long
+            case '0008': return 'Satellite';
+                //in progress or interop
+            case '0009': return 'ReceiveStatus';
+                //2D or 3D
+            case '000a': return 'MeasurementMode';
+                //positive rational number
+            case '000b': return 'MeasurementPrecision';
+                //KPH, MPH, knots
+            case '000c': return 'SpeedUnit';
+                //positive rational number
+            case '000d': return 'ReceiverSpeed';
+                //true or magnetic north
+            case '000e': return 'MovementDirectionRef';
+                //positive rational number
+            case '000f': return 'MovementDirection';
+                //true or magnetic north
+            case '0010': return 'ImageDirectionRef';
+                //positive rational number
+            case '0011': return 'ImageDirection';
+                //text string up to 999 bytes long
+            case '0012': return 'GeodeticSurveyData';
+                //north or south
+            case '0013': return 'DestLatitudeRef';
+                //three positive rational numbers
+            case '0014': return 'DestinationLatitude';
+                //east or west
+            case '0015': return 'DestLongitudeRef';
+                //three positive rational numbers
+            case '0016': return 'DestinationLongitude';
+                //true or magnetic north
+            case '0017': return 'DestBearingRef';
+                //positive rational number
+            case '0018': return 'DestinationBearing';
+                //km, miles, knots
+            case '0019': return 'DestDistanceRef';
+                //positive rational number
+            case '001a': return 'DestinationDistance';
+            case '001b': return 'ProcessingMethod';
+            case '001c': return 'AreaInformation';
+                //text string 10 bytes long
+            case '001d': return 'Datestamp';
+                //integer in range 0-65535
+            case '001e': return 'DifferentialCorrection';
+            default: return 'unknown: ' . $tag;
         }
     }
 
@@ -149,122 +150,122 @@ class Horde_Image_Exif_Parser_Gps extends Horde_Image_Exif_Parser_Base
     protected function _formatData($type, $tag, $intel, $data)
     {
         switch ($type) {
-        case 'ASCII':
-            // Latitude Reference, Longitude Reference
-            if ($tag == '0001' || $tag == '0003') {
-                $data = ($data[1] == $data[2] && $data[1] == $data[3]) ? $data[0] : $data;
-            }
-            break;
-
-        case 'URATIONAL':
-        case 'SRATIONAL':
-            $data = bin2hex($data);
-            if ($intel == 1) {
-                $data = Horde_Image_Exif::intel2Moto($data);
-            }
-            if ($intel == 1) {
-                //intel stores them bottom-top
-                $top = hexdec(substr($data, 8, 8));
-            } else {
-                //motorola stores them top-bottom
-                $top = hexdec(substr($data, 0, 8));
-            }
-
-            if ($intel == 1) {
-                $bottom = hexdec(substr($data, 0, 8));
-            } else {
-                $bottom = hexdec(substr($data, 8, 8));
-            }
-
-            if ($type == 'SRATIONAL' && $top > 2147483647) {
-                // make the number signed instead of unsigned
-                $top = $top - 4294967296;
-            }
-
-            switch ($tag) {
-            case '0002':
-            case '0004':
-                //Latitude, Longitude
-                if ($intel == 1) {
-                    $seconds = $this->_rational(substr($data, 0, 16), $intel);
-                    $hour = $this->_rational(substr($data, 32, 16), $intel);
-                } else {
-                    $hour = $this->_rational(substr($data, 0, 16), $intel);
-                    $seconds = $this->_rational(substr($data, 32, 16), $intel);
+            case 'ASCII':
+                // Latitude Reference, Longitude Reference
+                if ($tag == '0001' || $tag == '0003') {
+                    $data = ($data[1] == $data[2] && $data[1] == $data[3]) ? $data[0] : $data;
                 }
-                $minutes = $this->_rational(substr($data, 16, 16), $intel);
-                $data = array($hour, $minutes, $seconds);
                 break;
 
-            case '0007':
-                //Time
-                $seconds = $this->_rational(substr($data, 0, 16), $intel);
-                $minutes = $this->_rational(substr($data, 16, 16), $intel);
-                $hour = $this->_rational(substr($data, 32, 16), $intel);
-                $data = $hour . ':' . $minutes . ':' . $seconds;
+            case 'URATIONAL':
+            case 'SRATIONAL':
+                $data = bin2hex($data);
+                if ($intel == 1) {
+                    $data = Horde_Image_Exif::intel2Moto($data);
+                }
+                if ($intel == 1) {
+                    //intel stores them bottom-top
+                    $top = hexdec(substr($data, 8, 8));
+                } else {
+                    //motorola stores them top-bottom
+                    $top = hexdec(substr($data, 0, 8));
+                }
+
+                if ($intel == 1) {
+                    $bottom = hexdec(substr($data, 0, 8));
+                } else {
+                    $bottom = hexdec(substr($data, 8, 8));
+                }
+
+                if ($type == 'SRATIONAL' && $top > 2147483647) {
+                    // make the number signed instead of unsigned
+                    $top = $top - 4294967296;
+                }
+
+                switch ($tag) {
+                    case '0002':
+                    case '0004':
+                        //Latitude, Longitude
+                        if ($intel == 1) {
+                            $seconds = $this->_rational(substr($data, 0, 16), $intel);
+                            $hour = $this->_rational(substr($data, 32, 16), $intel);
+                        } else {
+                            $hour = $this->_rational(substr($data, 0, 16), $intel);
+                            $seconds = $this->_rational(substr($data, 32, 16), $intel);
+                        }
+                        $minutes = $this->_rational(substr($data, 16, 16), $intel);
+                        $data = [$hour, $minutes, $seconds];
+                        break;
+
+                    case '0007':
+                        //Time
+                        $seconds = $this->_rational(substr($data, 0, 16), $intel);
+                        $minutes = $this->_rational(substr($data, 16, 16), $intel);
+                        $hour = $this->_rational(substr($data, 32, 16), $intel);
+                        $data = $hour . ':' . $minutes . ':' . $seconds;
+                        break;
+
+                    default:
+                        if ($bottom != 0) {
+                            $data = $top / $bottom;
+                        } elseif ($top == 0) {
+                            $data = 0;
+                        } else {
+                            $data = $top . '/' . $bottom;
+                        }
+                        if ($tag == '0006') {
+                            $data .= 'm';
+                        }
+                        break;
+                }
+                break;
+
+            case 'USHORT':
+            case 'SSHORT':
+            case 'ULONG':
+            case 'SLONG':
+            case 'FLOAT':
+            case 'DOUBLE':
+                $data = bin2hex($data);
+                if ($intel == 1) {
+                    $data = Horde_Image_Exif::intel2Moto($data);
+                }
+                $data = hexdec($data);
+                break;
+
+            case 'UNDEFINED':
+                break;
+
+            case 'UBYTE':
+                $data = bin2hex($data);
+                if ($intel == 1) {
+                    $num = Horde_Image_Exif::intel2Moto($data);
+                }
+                switch ($tag) {
+                    case '0000':
+                        // VersionID
+                        $data = hexdec(substr($data, 0, 2))
+                            . '.' . hexdec(substr($data, 2, 2))
+                            . '.' . hexdec(substr($data, 4, 2))
+                            . '.' . hexdec(substr($data, 6, 2));
+                        break;
+                    case '0005':
+                        // Altitude Reference
+                        if ($data == '00000000') {
+                            $data = 'Above Sea Level';
+                        } elseif ($data == '01000000') {
+                            $data = 'Below Sea Level';
+                        }
+                        break;
+                }
                 break;
 
             default:
-                if ($bottom != 0) {
-                    $data = $top / $bottom;
-                } elseif ($top == 0) {
-                    $data = 0;
-                } else {
-                    $data = $top . '/' . $bottom;
-                }
-                if ($tag == '0006') {
-                    $data .= 'm';
+                $data = bin2hex($data);
+                if ($intel == 1) {
+                    $data = Horde_Image_Exif::intel2Moto($data);
                 }
                 break;
-            }
-            break;
-
-        case 'USHORT':
-        case 'SSHORT':
-        case 'ULONG':
-        case 'SLONG':
-        case 'FLOAT':
-        case 'DOUBLE':
-            $data = bin2hex($data);
-            if ($intel == 1) {
-                $data = Horde_Image_Exif::intel2Moto($data);
-            }
-            $data = hexdec($data);
-            break;
-
-        case 'UNDEFINED':
-            break;
-
-        case 'UBYTE':
-            $data = bin2hex($data);
-            if ($intel == 1) {
-                $num = Horde_Image_Exif::intel2Moto($data);
-            }
-            switch ($tag) {
-            case '0000':
-                // VersionID
-                $data = hexdec(substr($data, 0, 2))
-                    . '.' . hexdec(substr($data, 2, 2))
-                    . '.' . hexdec(substr($data, 4, 2))
-                    . '.'. hexdec(substr($data, 6, 2));
-                break;
-            case '0005':
-                // Altitude Reference
-                if ($data == '00000000') {
-                    $data = 'Above Sea Level';
-                } elseif ($data == '01000000') {
-                    $data = 'Below Sea Level';
-                }
-                break;
-            }
-            break;
-
-        default:
-            $data = bin2hex($data);
-            if ($intel == 1) {
-                $data = Horde_Image_Exif::intel2Moto($data);
-            }
-            break;
         }
 
         return $data;
@@ -316,12 +317,12 @@ class Horde_Image_Exif_Parser_Gps extends Horde_Image_Exif_Parser_Base
             if ($intel == 1) {
                 $type = Horde_Image_Exif::intel2Moto($type);
             }
-            list($type, $size) = $this->_lookupType($type);
+            [$type, $size] = $this->_lookupType($type);
 
             //4 byte number of elements
             $count = bin2hex(substr($block, $place, 4));
             $place += 4;
-            if ($intel==1) {
+            if ($intel == 1) {
                 $count = Horde_Image_Exif::intel2Moto($count);
             }
             $bytesofdata = $size * hexdec($count);

@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -30,7 +31,7 @@ class Horde_Image_Png extends Horde_Image_Base
      *
      * @var array
      */
-    protected $_img = array();
+    protected $_img = [];
 
     /**
      * Color depth (only 8 and 16 implemented).
@@ -70,14 +71,18 @@ class Horde_Image_Png extends Horde_Image_Base
     /**
      * PNG image constructor.
      */
-    public function __construct($params, $context = array())
+    public function __construct($params, $context = [])
     {
         parent::__construct($params, $context);
 
         if (!empty($params['width'])) {
             $this->rectangle(
-                0, 0, $params['width'], $params['height'],
-                $this->_background, $this->_background
+                0,
+                0,
+                $params['width'],
+                $params['height'],
+                $this->_background,
+                $this->_background
             );
         }
     }
@@ -118,7 +123,7 @@ class Horde_Image_Png extends Horde_Image_Base
     public function reset()
     {
         parent::reset();
-        $this->_img = array();
+        $this->_img = [];
     }
 
     /**
@@ -132,12 +137,16 @@ class Horde_Image_Png extends Horde_Image_Base
      * @param string $fill     The color to fill the rectangle.
      */
     public function rectangle(
-        $x, $y, $width, $height, $color = 'black', $fill = 'none'
-    )
-    {
-        list($r, $g, $b) = Horde_Image::getRGB($color);
+        $x,
+        $y,
+        $width,
+        $height,
+        $color = 'black',
+        $fill = 'none'
+    ) {
+        [$r, $g, $b] = Horde_Image::getRGB($color);
         if ($fill != 'none') {
-            list($fR, $fG, $fB) = Horde_Image::getRGB($fill);
+            [$fR, $fG, $fB] = Horde_Image::getRGB($fill);
         }
 
         $x2 = $x + $width;
@@ -147,9 +156,9 @@ class Horde_Image_Png extends Horde_Image_Base
             for ($w = $x; $w <= $x2; $w++) {
                 // See if we're on an edge.
                 if ($w == $x || $h == $y || $w == $x2 || $h == $y2) {
-                    $this->_img[$h][$w] = array('r' => $r, 'g' => $g, 'b' => $b);
+                    $this->_img[$h][$w] = ['r' => $r, 'g' => $g, 'b' => $b];
                 } elseif ($fill != 'none') {
-                    $this->_img[$h][$w] = array('r' => $fR, 'g' => $fG, 'b' => $fB);
+                    $this->_img[$h][$w] = ['r' => $fR, 'g' => $fG, 'b' => $fB];
                 }
             }
         }
@@ -211,7 +220,7 @@ class Horde_Image_Png extends Horde_Image_Base
         $prevscanline = null;
         $filter = 0;
         for ($i = 0; $i < $this->_height; $i++) {
-            $scanline = array();
+            $scanline = [];
             $data .= chr($filter);
             for ($j = 0; $j < $this->_width; $j++) {
                 if ($this->_colorDepth == 8) {

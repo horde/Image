@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2015-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2015-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -25,7 +26,7 @@ class Horde_Image_Null extends Horde_Image_Base
 {
     /**
      */
-    public function __construct($params, $context = array())
+    public function __construct($params, $context = [])
     {
         parent::__construct($params, $context);
         if (!empty($params['filename'])) {
@@ -33,7 +34,7 @@ class Horde_Image_Null extends Horde_Image_Base
         } elseif (!empty($params['data'])) {
             $this->loadString($params['data']);
         } else {
-           $this->_data = new Horde_Stream_Temp();
+            $this->_data = new Horde_Stream_Temp();
         }
     }
 }

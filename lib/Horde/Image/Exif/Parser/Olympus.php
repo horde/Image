@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is licensed under the GPL as stated in Jake Olefsky's original
  * code. Jake has given Horde permission to incorporate Exifer into our
@@ -17,8 +18,8 @@
  * The original Exifer library has been heavily modified and refactored. All
  * modifications are
  *
- * Copyright 2003 Jake Olefsky
- * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2026 Jake Olefsky
+ * Copyright 2009-2026 Horde LLC (http://www.horde.org/)
  *
  * @author   Jake Olefsky <jake@olefsky.com>
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
@@ -48,19 +49,31 @@ class Horde_Image_Exif_Parser_Olympus extends Horde_Image_Exif_Parser_Base
      */
     protected function _lookupTag($tag)
     {
-        switch($tag) {
-        case '0200': $tag = 'SpecialMode'; break;
-        case '0201': $tag = 'JpegQual'; break;
-        case '0202': $tag = 'Macro'; break;
-        case '0203': $tag = 'Unknown1'; break;
-        case '0204': $tag = 'DigiZoom'; break;
-        case '0205': $tag = 'Unknown2'; break;
-        case '0206': $tag = 'Unknown3'; break;
-        case '0207': $tag = 'SoftwareRelease'; break;
-        case '0208': $tag = 'PictInfo'; break;
-        case '0209': $tag = 'CameraID'; break;
-        case '0f00': $tag = 'DataDump'; break;
-        default:     $tag = 'unknown: ' . $tag; break;
+        switch ($tag) {
+            case '0200': $tag = 'SpecialMode';
+                break;
+            case '0201': $tag = 'JpegQual';
+                break;
+            case '0202': $tag = 'Macro';
+                break;
+            case '0203': $tag = 'Unknown1';
+                break;
+            case '0204': $tag = 'DigiZoom';
+                break;
+            case '0205': $tag = 'Unknown2';
+                break;
+            case '0206': $tag = 'Unknown3';
+                break;
+            case '0207': $tag = 'SoftwareRelease';
+                break;
+            case '0208': $tag = 'PictInfo';
+                break;
+            case '0209': $tag = 'CameraID';
+                break;
+            case '0f00': $tag = 'DataDump';
+                break;
+            default:     $tag = 'unknown: ' . $tag;
+                break;
         }
 
         return $tag;
@@ -77,77 +90,84 @@ class Horde_Image_Exif_Parser_Olympus extends Horde_Image_Exif_Parser_Base
     protected function _formatData($type, $tag, $intel, $data)
     {
         switch ($type) {
-        case 'ASCII':
-        case 'UNDEFINED':
-            break;
-
-        case 'URATIONAL':
-        case 'SRATIONAL':
-            $data = bin2hex($data);
-            if ($intel) {
-                $data = Horde_Image_Exif::intel2Moto($data);
-            }
-            $top = hexdec(substr($data, 8, 8));
-            $bottom = hexdec(substr($data, 0, 8));
-            if ($bottom) {
-                $data = $top / $bottom;
-            } elseif (!$top) {
-                $data = 0;
-            } else {
-                $data = $top . '/' . $bottom;
-            }
-
-            switch ($tag) {
-            case '0204':
-                //DigitalZoom
-                $data .= 'x';
+            case 'ASCII':
+            case 'UNDEFINED':
                 break;
-            case '0205':
-                //Unknown2
-                $data = $top . '/' . $bottom;
-                break;
-            }
-            break;
 
-        case 'USHORT':
-        case 'SSHORT':
-        case 'ULONG':
-        case 'SLONG':
-        case 'FLOAT':
-        case 'DOUBLE':
-            $data = bin2hex($data);
-            if ($intel) {
-                $data = Horde_Image_Exif::intel2Moto($data);
-            }
-            $data = hexdec($data);
+            case 'URATIONAL':
+            case 'SRATIONAL':
+                $data = bin2hex($data);
+                if ($intel) {
+                    $data = Horde_Image_Exif::intel2Moto($data);
+                }
+                $top = hexdec(substr($data, 8, 8));
+                $bottom = hexdec(substr($data, 0, 8));
+                if ($bottom) {
+                    $data = $top / $bottom;
+                } elseif (!$top) {
+                    $data = 0;
+                } else {
+                    $data = $top . '/' . $bottom;
+                }
 
-            switch ($tag) {
-            case '0201':
-                //JPEGQuality
-                switch ($data) {
-                case 1:  $data = 'SQ'; break;
-                case 2:  $data = 'HQ'; break;
-                case 3:  $data = 'SHQ'; break;
-                default: $data = Horde_Image_Translation::t("Unknown") . ': ' . $data; break;
+                switch ($tag) {
+                    case '0204':
+                        //DigitalZoom
+                        $data .= 'x';
+                        break;
+                    case '0205':
+                        //Unknown2
+                        $data = $top . '/' . $bottom;
+                        break;
                 }
                 break;
-            case '0202':
-                //Macro
-                switch ($data) {
-                case 0:  $data = 'Normal'; break;
-                case 1:  $data = 'Macro'; break;
-                default: $data = Horde_Image_Translation::t("Unknown") . ': ' . $data; break;
+
+            case 'USHORT':
+            case 'SSHORT':
+            case 'ULONG':
+            case 'SLONG':
+            case 'FLOAT':
+            case 'DOUBLE':
+                $data = bin2hex($data);
+                if ($intel) {
+                    $data = Horde_Image_Exif::intel2Moto($data);
+                }
+                $data = hexdec($data);
+
+                switch ($tag) {
+                    case '0201':
+                        //JPEGQuality
+                        switch ($data) {
+                            case 1:  $data = 'SQ';
+                                break;
+                            case 2:  $data = 'HQ';
+                                break;
+                            case 3:  $data = 'SHQ';
+                                break;
+                            default: $data = Horde_Image_Translation::t("Unknown") . ': ' . $data;
+                                break;
+                        }
+                        break;
+                    case '0202':
+                        //Macro
+                        switch ($data) {
+                            case 0:  $data = 'Normal';
+                                break;
+                            case 1:  $data = 'Macro';
+                                break;
+                            default: $data = Horde_Image_Translation::t("Unknown") . ': ' . $data;
+                                break;
+                        }
+                        break;
                 }
                 break;
-            }
-            break;
 
-        default:
-            $data = bin2hex($data);
-            if ($intel) {
-                $data = Horde_Image_Exif::intel2Moto($data);
-            }
-            break;
+            default:
+                $data = bin2hex($data);
+                if ($intel) {
+                    $data = Horde_Image_Exif::intel2Moto($data);
+                }
+                break;
         }
 
         return $data;
@@ -163,7 +183,7 @@ class Horde_Image_Exif_Parser_Olympus extends Horde_Image_Exif_Parser_Base
      */
     public function parse($block, &$result, $seek, $globalOffset)
     {
-        $intel = $result['Endien']=='Intel';
+        $intel = $result['Endien'] == 'Intel';
         $model = $result['IFD0']['Model'];
 
         // New header for new DSLRs - Check for it because the number of bytes
@@ -172,8 +192,8 @@ class Horde_Image_Exif_Parser_Olympus extends Horde_Image_Exif_Parser_Base
         $new = false;
         if (substr($block, 0, 8) == "OLYMPUS\x00") {
             $new = true;
-        } elseif (substr($block, 0, 7) == "OLYMP\x00\x01" ||
-                  substr($block, 0, 7) == "OLYMP\x00\x02") {
+        } elseif (substr($block, 0, 7) == "OLYMP\x00\x01"
+                  || substr($block, 0, 7) == "OLYMP\x00\x02") {
             $new = false;
         } else {
             // Header does not match known Olympus headers.
@@ -213,7 +233,7 @@ class Horde_Image_Exif_Parser_Olympus extends Horde_Image_Exif_Parser_Base
             if ($intel) {
                 $type = Horde_Image_Exif::intel2Moto($type);
             }
-            list($type, $size) = $this->_lookupType($type);
+            [$type, $size] = $this->_lookupType($type);
 
             //4 byte count of number of data units
             $count = bin2hex(substr($block, $place, 4));

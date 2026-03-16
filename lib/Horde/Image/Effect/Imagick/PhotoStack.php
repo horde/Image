@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2007-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -48,7 +49,7 @@ class Horde_Image_Effect_Imagick_PhotoStack extends Horde_Image_Effect
      *
      * @var array
      */
-    protected $_params = array(
+    protected $_params = [
         'type'           => 'plain',
         'resize_height'  => '150',
         'padding'        => 0,
@@ -56,8 +57,8 @@ class Horde_Image_Effect_Imagick_PhotoStack extends Horde_Image_Effect
         'bordercolor'    => '#333',
         'borderwidth'    => 1,
         'borderrounding' => 10,
-        'offset'         => 5
-    );
+        'offset'         => 5,
+    ];
 
     /**
      * Applies the effect.
@@ -69,118 +70,124 @@ class Horde_Image_Effect_Imagick_PhotoStack extends Horde_Image_Effect
         if ($cnt <= 0) {
             throw new Horde_Image_Exception('No Images provided.');
         }
-        if (!method_exists($this->_image->imagick, 'polaroidImage') ||
-            !method_exists($this->_image->imagick, 'trimImage')) {
+        if (!method_exists($this->_image->imagick, 'polaroidImage')
+            || !method_exists($this->_image->imagick, 'trimImage')) {
             throw new Horde_Image_Exception('Your version of Imagick is not compiled against a recent enough ImageMagick library to use the PhotoStack effect.');
         }
 
-        $imgs = array();
+        $imgs = [];
         $length = 0;
 
         try {
             switch ($this->_params['type']) {
-            case 'plain':
-            case 'rounded':
-                $haveBottom = false;
-                // First, we need to resize the top image to get the dimensions
-                // for the rest of the stack.
-                $topimg = new Imagick();
-                $topimg->clear();
-                $topimg->readImageBlob(
-                    $this->_params['images'][$cnt - 1]->raw()
-                );
-                $topimg->thumbnailImage(
-                    $this->_params['resize_height'],
-                    $this->_params['resize_height'],
-                    true);
-                if ($this->_params['type'] == 'rounded') {
-                    $topimg = $this->_roundBorder($topimg);
-                }
-
-                $size = $topimg->getImageGeometry();
-                foreach ($this->_params['images'] as $image) {
-                    $imgk= new Imagick();
-                    $imgk->clear();
-                    $imgk->readImageBlob($image->raw());
-                    // Either resize the thumbnail to match the top image or we
-                    // *are* the top image already.
-                    if ($i++ <= $cnt) {
-                        $imgk->thumbnailImage(
-                            $size['width'], $size['height'], false
-                        );
-                    } else {
-                        $imgk->destroy();
-                        $imgk = $this->_image->cloneImagickObject($topimg);
-                    }
-                    if ($this->_params['type'] == 'rounded') {
-                        $imgk = $this->_roundBorder($imgk);
-                    } else {
-                        $imgk->borderImage(
-                            $this->_params['bordercolor'],
-                            $this->_params['borderwidth'],
-                            $this->_params['borderwidth']
-                        );
-                    }
-                    // Only shadow the bottom image for 'plain' stacks
-                    if (!$haveBottom) {
-                        $shad = $this->_image->cloneImagickObject($imgk);
-                        $shad->setImageBackgroundColor(
-                            new ImagickPixel('black')
-                        );
-                        $shad->shadowImage(80, 4, 0, 0);
-                        $shad->compositeImage(
-                            $imgk, Imagick::COMPOSITE_OVER, 0, 0
-                        );
-                        $imgk->clear();
-                        $imgk->addImage($shad);
-                        $shad->destroy();
-                        $haveBottom = true;
-                    }
-                    // Get the geometry of the image and remember the largest.
-                    $geo = $imgk->getImageGeometry();
-                    $length = max(
-                        $length,
-                        sqrt(pow($geo['height'], 2) + pow($geo['width'], 2))
+                case 'plain':
+                case 'rounded':
+                    $haveBottom = false;
+                    // First, we need to resize the top image to get the dimensions
+                    // for the rest of the stack.
+                    $topimg = new Imagick();
+                    $topimg->clear();
+                    $topimg->readImageBlob(
+                        $this->_params['images'][$cnt - 1]->raw()
                     );
-
-                    $imgs[] = $imgk;
-                }
-                break;
-
-            case 'polaroid':
-                foreach ($this->_params['images'] as $image) {
-                    // @TODO: instead of doing $image->raw(), we might be able
-                    //        to clone the imagick object if we can do it
-                    //        cleanly might be faster, less memory intensive?
-                    $imgk = new Imagick();
-                    $imgk->clear();
-                    $imgk->readImageBlob($image->raw());
-                    $imgk->thumbnailImage(
+                    $topimg->thumbnailImage(
                         $this->_params['resize_height'],
                         $this->_params['resize_height'],
                         true
                     );
-                    $imgk->setImageBackgroundColor('black');
-                    if ($i++ == $cnt) {
-                        $angle = 0;
-                    } else {
-                        $angle = mt_rand(1, 45);
-                        if (mt_rand(1, 2) % 2 === 0) {
-                            $angle = $angle * -1;
-                        }
+                    if ($this->_params['type'] == 'rounded') {
+                        $topimg = $this->_roundBorder($topimg);
                     }
-                    $result = $imgk->polaroidImage(new ImagickDraw(), $angle);
 
-                    // Get the geometry of the image and remember the largest.
-                    $geo = $imgk->getImageGeometry();
-                    $length = max(
-                        $length,
-                        sqrt(pow($geo['height'], 2) + pow($geo['width'], 2))
-                    );
+                    $size = $topimg->getImageGeometry();
+                    foreach ($this->_params['images'] as $image) {
+                        $imgk = new Imagick();
+                        $imgk->clear();
+                        $imgk->readImageBlob($image->raw());
+                        // Either resize the thumbnail to match the top image or we
+                        // *are* the top image already.
+                        if ($i++ <= $cnt) {
+                            $imgk->thumbnailImage(
+                                $size['width'],
+                                $size['height'],
+                                false
+                            );
+                        } else {
+                            $imgk->destroy();
+                            $imgk = $this->_image->cloneImagickObject($topimg);
+                        }
+                        if ($this->_params['type'] == 'rounded') {
+                            $imgk = $this->_roundBorder($imgk);
+                        } else {
+                            $imgk->borderImage(
+                                $this->_params['bordercolor'],
+                                $this->_params['borderwidth'],
+                                $this->_params['borderwidth']
+                            );
+                        }
+                        // Only shadow the bottom image for 'plain' stacks
+                        if (!$haveBottom) {
+                            $shad = $this->_image->cloneImagickObject($imgk);
+                            $shad->setImageBackgroundColor(
+                                new ImagickPixel('black')
+                            );
+                            $shad->shadowImage(80, 4, 0, 0);
+                            $shad->compositeImage(
+                                $imgk,
+                                Imagick::COMPOSITE_OVER,
+                                0,
+                                0
+                            );
+                            $imgk->clear();
+                            $imgk->addImage($shad);
+                            $shad->destroy();
+                            $haveBottom = true;
+                        }
+                        // Get the geometry of the image and remember the largest.
+                        $geo = $imgk->getImageGeometry();
+                        $length = max(
+                            $length,
+                            sqrt(pow($geo['height'], 2) + pow($geo['width'], 2))
+                        );
 
-                    $imgs[] = $imgk;
-                }
-                break;
+                        $imgs[] = $imgk;
+                    }
+                    break;
+
+                case 'polaroid':
+                    foreach ($this->_params['images'] as $image) {
+                        // @TODO: instead of doing $image->raw(), we might be able
+                        //        to clone the imagick object if we can do it
+                        //        cleanly might be faster, less memory intensive?
+                        $imgk = new Imagick();
+                        $imgk->clear();
+                        $imgk->readImageBlob($image->raw());
+                        $imgk->thumbnailImage(
+                            $this->_params['resize_height'],
+                            $this->_params['resize_height'],
+                            true
+                        );
+                        $imgk->setImageBackgroundColor('black');
+                        if ($i++ == $cnt) {
+                            $angle = 0;
+                        } else {
+                            $angle = mt_rand(1, 45);
+                            if (mt_rand(1, 2) % 2 === 0) {
+                                $angle = $angle * -1;
+                            }
+                        }
+                        $result = $imgk->polaroidImage(new ImagickDraw(), $angle);
+
+                        // Get the geometry of the image and remember the largest.
+                        $geo = $imgk->getImageGeometry();
+                        $length = max(
+                            $length,
+                            sqrt(pow($geo['height'], 2) + pow($geo['width'], 2))
+                        );
+
+                        $imgs[] = $imgk;
+                    }
+                    break;
             }
 
             // Make sure the background canvas is large enough to hold it all.
@@ -195,13 +202,16 @@ class Horde_Image_Effect_Imagick_PhotoStack extends Horde_Image_Effect
                 if ($this->_params['type'] == 'polaroid') {
                     $xo = mt_rand(1, $this->_params['resize_height'] / 2);
                     $yo = mt_rand(1, $this->_params['resize_height'] / 2);
-                } elseif ($this->_params['type'] == 'plain' ||
-                          $this->_params['type'] == 'rounded') {
+                } elseif ($this->_params['type'] == 'plain'
+                          || $this->_params['type'] == 'rounded') {
                     $xo -= $this->_params['offset'];
                     $yo -= $this->_params['offset'];
                 }
                 $this->_image->imagick->compositeImage(
-                    $image, Imagick::COMPOSITE_OVER, $xo, $yo
+                    $image,
+                    Imagick::COMPOSITE_OVER,
+                    $xo,
+                    $yo
                 );
                 $image->removeImage();
                 $image->destroy();
@@ -210,12 +220,13 @@ class Horde_Image_Effect_Imagick_PhotoStack extends Horde_Image_Effect
             // Trim the canvas before resizing to keep the thumbnails as large
             // as possible.
             $this->_image->imagick->trimImage(0);
-            if ($this->_params['padding'] ||
-                $this->_params['background'] != 'none') {
+            if ($this->_params['padding']
+                || $this->_params['background'] != 'none') {
                 $this->_image->imagick->borderImage(
                     new ImagickPixel($this->_params['background']),
                     $this->_params['padding'],
-                    $this->_params['padding']);
+                    $this->_params['padding']
+                );
             }
         } catch (ImagickPixelException $e) {
             throw new Horde_Image_Exception($e);
@@ -226,14 +237,14 @@ class Horde_Image_Effect_Imagick_PhotoStack extends Horde_Image_Effect
 
     private function _roundBorder($image)
     {
-        $context = array('tmpdir' => $this->_image->getTmpDir());
+        $context = ['tmpdir' => $this->_image->getTmpDir()];
         $size = $image->getImageGeometry();
-        $new = new Horde_Image_Imagick(array(), $context);
+        $new = new Horde_Image_Imagick([], $context);
         $new->loadString($image->getImageBlob());
         $image->destroy();
         $new->addEffect(
             'RoundCorners',
-            array('border' => 2, 'bordercolor' => '#111')
+            ['border' => 2, 'bordercolor' => '#111']
         );
         $new->applyEffects();
         $return = new Imagick();

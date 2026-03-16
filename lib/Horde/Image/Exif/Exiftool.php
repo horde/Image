@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -50,7 +51,7 @@ class Horde_Image_Exif_Exiftool extends Horde_Image_Exif_Base
         // screen formatting.
         $categories = Horde_Image_Exif::getCategories();
         $tags = '';
-        foreach (array('EXIF', 'IPTC', 'XMP') as $category) {
+        foreach (['EXIF', 'IPTC', 'XMP'] as $category) {
             foreach ($categories[$category] as $field => $value) {
                 $tags .= ' -' . $field . '#';
             }
@@ -63,7 +64,7 @@ class Horde_Image_Exif_Exiftool extends Horde_Image_Exif_Base
         $results = json_decode($this->_execute($command));
         $this->_logDebug('Results of Exiftool command: ' . print_r($results, true));
         if (is_array($results)) {
-            return $this->_processData((array)array_pop($results));
+            return $this->_processData((array) array_pop($results));
         }
 
         throw new Horde_Image_Exception('Unknown error running exiftool command');
@@ -71,7 +72,7 @@ class Horde_Image_Exif_Exiftool extends Horde_Image_Exif_Base
 
     public function supportedCategories()
     {
-        return array('EXIF', 'IPTC', 'XMP', 'COMPOSITE');
+        return ['EXIF', 'IPTC', 'XMP', 'COMPOSITE'];
     }
 
     /**
@@ -83,7 +84,7 @@ class Horde_Image_Exif_Exiftool extends Horde_Image_Exif_Base
      */
     protected function _execute($command)
     {
-        $output = array();
+        $output = [];
         $retval = null;
         exec($this->_exiftool . ' ' . escapeshellcmd($command), $output, $retval);
         if ($retval) {

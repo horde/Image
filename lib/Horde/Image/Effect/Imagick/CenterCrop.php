@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -29,7 +30,7 @@ class Horde_Image_Effect_Imagick_CenterCrop extends Horde_Image_Effect
      *
      * @var array
      */
-    protected $_params = array();
+    protected $_params = [];
 
     /**
      * Applies the effect.
@@ -39,7 +40,8 @@ class Horde_Image_Effect_Imagick_CenterCrop extends Horde_Image_Effect
         $this->_params = new Horde_Support_Array($this->_params);
         try {
             $this->_image->imagick->cropThumbnailImage(
-                $this->_params->width, $this->_params->height
+                $this->_params->width,
+                $this->_params->height
             );
             $this->_image->clearGeometry();
         } catch (ImagickException $e) {

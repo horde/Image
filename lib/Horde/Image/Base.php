@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -39,7 +40,7 @@ abstract class Horde_Image_Base extends EmptyIterator
      *
      * @var array
      */
-    protected $_capabilities = array();
+    protected $_capabilities = [];
 
     /**
      * The current image data.
@@ -79,7 +80,7 @@ abstract class Horde_Image_Base extends EmptyIterator
      *
      * @var array
      */
-    protected $_loadedEffects = array();
+    protected $_loadedEffects = [];
 
     /**
      * What kind of images should ImageMagick generate? Defaults to 'png'.
@@ -113,7 +114,7 @@ abstract class Horde_Image_Base extends EmptyIterator
      *
      * @throws InvalidArgumentException
      */
-    protected function __construct($params, $context = array())
+    protected function __construct($params, $context = [])
     {
         $this->_params = $params;
         $this->_context = $context;
@@ -130,10 +131,10 @@ abstract class Horde_Image_Base extends EmptyIterator
             : new Horde_Support_Stub();
 
         if (isset($params['width'])) {
-            $this->_width = (integer)$params['width'];
+            $this->_width = (int) $params['width'];
         }
         if (isset($params['height'])) {
-            $this->_height = (integer)$params['height'];
+            $this->_height = (int) $params['height'];
         }
         if (!empty($params['type'])) {
             // We only want the extension, not the full mimetype.
@@ -151,9 +152,7 @@ abstract class Horde_Image_Base extends EmptyIterator
      * Catch-all method so that we don't error out when calling an unsupported
      * manipulation method.
      */
-    public function __call($method, $args)
-    {
-    }
+    public function __call($method, $args) {}
 
     /**
      * Returns the capabilities.
@@ -238,29 +237,29 @@ abstract class Horde_Image_Base extends EmptyIterator
     public function brush($x, $y, $color = 'black', $shape = 'square')
     {
         switch ($shape) {
-        case 'triangle':
-            $verts[0] = array('x' => $x + 3, 'y' => $y + 3);
-            $verts[1] = array('x' => $x, 'y' => $y - 3);
-            $verts[2] = array('x' => $x - 3, 'y' => $y + 3);
-            $this->polygon($verts, $color, $color);
-            break;
+            case 'triangle':
+                $verts[0] = ['x' => $x + 3, 'y' => $y + 3];
+                $verts[1] = ['x' => $x, 'y' => $y - 3];
+                $verts[2] = ['x' => $x - 3, 'y' => $y + 3];
+                $this->polygon($verts, $color, $color);
+                break;
 
-        case 'circle':
-            $this->circle($x, $y, 3, $color, $color);
-            break;
+            case 'circle':
+                $this->circle($x, $y, 3, $color, $color);
+                break;
 
-        case 'diamond':
-            $verts[0] = array('x' => $x - 3, 'y' => $y);
-            $verts[1] = array('x' => $x, 'y' => $y + 3);
-            $verts[2] = array('x' => $x + 3, 'y' => $y);
-            $verts[3] = array('x' => $x, 'y' => $y - 3);
-            $this->polygon($verts, $color, $color);
-            break;
+            case 'diamond':
+                $verts[0] = ['x' => $x - 3, 'y' => $y];
+                $verts[1] = ['x' => $x, 'y' => $y + 3];
+                $verts[2] = ['x' => $x + 3, 'y' => $y];
+                $verts[3] = ['x' => $x, 'y' => $y - 3];
+                $this->polygon($verts, $color, $color);
+                break;
 
-        case 'square':
-        default:
-            $this->rectangle($x - 2, $y - 2, 4, 4, $color, $color);
-            break;
+            case 'square':
+            default:
+                $this->rectangle($x - 2, $y - 2, 4, 4, $color, $color);
+                break;
         }
     }
 
@@ -290,11 +289,11 @@ abstract class Horde_Image_Base extends EmptyIterator
         if ($this->_width == 0 && $this->_height == 0) {
             $tmp = $this->toFile();
             $details = @getimagesize($tmp);
-            list($this->_width, $this->_height) = $details;
+            [$this->_width, $this->_height] = $details;
             unlink($tmp);
         }
 
-        return array('width' => $this->_width, 'height' => $this->_height);
+        return ['width' => $this->_width, 'height' => $this->_height];
     }
 
     /**
@@ -352,7 +351,7 @@ abstract class Horde_Image_Base extends EmptyIterator
     public function toFile($data = null)
     {
         if (empty($data)) {
-            if ($data = $this->raw(false, array('stream' => true))) {
+            if ($data = $this->raw(false, ['stream' => true])) {
                 return $this->toFile($data);
             }
             throw new Horde_Image_Exception('Unable to copy to file.');
@@ -380,7 +379,7 @@ abstract class Horde_Image_Base extends EmptyIterator
     public function display()
     {
         $this->headers();
-        $data = $this->raw(true, array('stream' => true));
+        $data = $this->raw(true, ['stream' => true]);
         $output = fopen('php://output', 'w');
         while (!feof($data)) {
             fwrite($output, fread($data, 8192));
@@ -399,7 +398,7 @@ abstract class Horde_Image_Base extends EmptyIterator
      *
      * @return string  The raw image data.
      */
-    public function raw($convert = false, $options = array())
+    public function raw($convert = false, $options = [])
     {
         if (empty($options['stream'])) {
             return $this->_data->__toString();
@@ -430,7 +429,7 @@ abstract class Horde_Image_Base extends EmptyIterator
     {
         if (!count($this->_loadedEffects)) {
             $class = str_replace('Horde_Image_', '', get_class($this));
-            $this->_loadedEffects = array();
+            $this->_loadedEffects = [];
             // First, load the driver-agnostic Effects.
             $path = __DIR__ . '/Effect/';
             if (is_dir($path)) {
@@ -438,7 +437,9 @@ abstract class Horde_Image_Base extends EmptyIterator
                     while (($file = readdir($handle)) !== false) {
                         if (substr($file, -4, 4) == '.php') {
                             $this->_loadedEffects[] = substr(
-                                $file, 0, strlen($file) - 4
+                                $file,
+                                0,
+                                strlen($file) - 4
                             );
                         }
                     }
@@ -452,7 +453,9 @@ abstract class Horde_Image_Base extends EmptyIterator
                     while (($file = readdir($handle)) !== false) {
                         if (substr($file, -4, 4) == '.php') {
                             $this->_loadedEffects[] = substr(
-                                $file, 0, strlen($file) - 4
+                                $file,
+                                0,
+                                strlen($file) - 4
                             );
                         }
                     }
@@ -526,7 +529,7 @@ abstract class Horde_Image_Base extends EmptyIterator
             throw new Horde_Image_Exception('Image index out of bounds.');
         }
         $class = get_class($this);
-        return new $class(array('data' => $this->raw()), $this->_context);
+        return new $class(['data' => $this->raw()], $this->_context);
     }
 
     /**

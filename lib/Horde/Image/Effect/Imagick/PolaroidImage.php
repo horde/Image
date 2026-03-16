@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2007-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -30,19 +31,19 @@ class Horde_Image_Effect_Imagick_PolaroidImage extends Horde_Image_Effect
      *
      * @var array
      */
-    protected $_params = array(
+    protected $_params = [
         'background'  => 'none',
         'angle'       => 0,
-        'shadowcolor' => 'black'
-    );
+        'shadowcolor' => 'black',
+    ];
 
     /**
      * Applies the effect.
      */
     public function apply()
     {
-        if (!method_exists($this->_image->imagick, 'polaroidImage') ||
-            !method_exists($this->_image->imagick, 'trimImage')) {
+        if (!method_exists($this->_image->imagick, 'polaroidImage')
+            || !method_exists($this->_image->imagick, 'trimImage')) {
             throw new Horde_Image_Exception('Your version of Imagick is not compiled against a recent enough ImageMagick library to use the PolaroidImage effect.');
         }
 
@@ -52,7 +53,8 @@ class Horde_Image_Effect_Imagick_PolaroidImage extends Horde_Image_Effect
                 new ImagickPixel($this->_params['shadowcolor'])
             );
             $this->_image->imagick->polaroidImage(
-                new ImagickDraw(), $this->_params['angle']
+                new ImagickDraw(),
+                $this->_params['angle']
             );
 
 
@@ -61,11 +63,16 @@ class Horde_Image_Effect_Imagick_PolaroidImage extends Horde_Image_Effect
             $size = $this->_image->getDimensions();
             $imk = new Imagick();
             $imk->newImage(
-                $size['width'], $size['height'], $this->_params['background']
+                $size['width'],
+                $size['height'],
+                $this->_params['background']
             );
             $imk->setImageFormat($this->_image->getType());
             $result = $imk->compositeImage(
-                $this->_image->imagick, Imagick::COMPOSITE_OVER, 0, 0
+                $this->_image->imagick,
+                Imagick::COMPOSITE_OVER,
+                0,
+                0
             );
             $this->_image->imagick->clear();
             $this->_image->imagick->addImage($imk);

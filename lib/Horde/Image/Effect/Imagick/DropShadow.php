@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2007-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -29,15 +30,15 @@ class Horde_Image_Effect_Imagick_DropShadow extends Horde_Image_Effect
      *
      * @var array
      */
-    protected $_params = array(
+    protected $_params = [
         'distance' => 5, // This is used as the x and y offset
         'width' => 2,    // ignored
         'hexcolor' => '000000', // ignored
         'angle' => 215,         // ignored
         'fade' => 3, // Sigma value
         'padding' => 0,
-        'background' => 'none'
-    );
+        'background' => 'none',
+    ];
 
     /**
      * Applies the effect.
@@ -74,7 +75,10 @@ class Horde_Image_Effect_Imagick_DropShadow extends Horde_Image_Effect
             }
 
             $shadow->compositeImage(
-                $this->_image->imagick, Imagick::COMPOSITE_OVER, 0, 0
+                $this->_image->imagick,
+                Imagick::COMPOSITE_OVER,
+                0,
+                0
             );
 
             if ($this->_params['padding']) {

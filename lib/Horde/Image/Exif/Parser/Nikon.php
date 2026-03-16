@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is licensed under the GPL as stated in Jake Olefsky's original
  * code. Jake has given Horde permission to incorporate Exifer into our
@@ -17,8 +18,8 @@
  * The original Exifer library has been heavily modified and refactored. All
  * modifications are
  *
- * Copyright 2003 Jake Olefsky
- * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2026 Jake Olefsky
+ * Copyright 2009-2026 Horde LLC (http://www.horde.org/)
  *
  * @author   Jake Olefsky <jake@olefsky.com>
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
@@ -50,51 +51,87 @@ class Horde_Image_Exif_Parser_Nikon extends Horde_Image_Exif_Parser_Base
     protected function _lookupTag($tag, $model)
     {
         switch ($model) {
-        case 0:
-            switch($tag) {
-            case '0003': $tag = 'Quality'; break;
-            case '0004': $tag = 'ColorMode'; break;
-            case '0005': $tag = 'ImageAdjustment'; break;
-            case '0006': $tag = 'CCDSensitivity'; break;
-            case '0007': $tag = 'WhiteBalance'; break;
-            case '0008': $tag = 'Focus'; break;
-            case '0009': $tag = 'Unknown2'; break;
-            case '000a': $tag = 'DigitalZoom'; break;
-            case '000b': $tag = 'Converter'; break;
-            default:     $tag = 'unknown: ' . $tag; break;
-            }
-            break;
+            case 0:
+                switch ($tag) {
+                    case '0003': $tag = 'Quality';
+                        break;
+                    case '0004': $tag = 'ColorMode';
+                        break;
+                    case '0005': $tag = 'ImageAdjustment';
+                        break;
+                    case '0006': $tag = 'CCDSensitivity';
+                        break;
+                    case '0007': $tag = 'WhiteBalance';
+                        break;
+                    case '0008': $tag = 'Focus';
+                        break;
+                    case '0009': $tag = 'Unknown2';
+                        break;
+                    case '000a': $tag = 'DigitalZoom';
+                        break;
+                    case '000b': $tag = 'Converter';
+                        break;
+                    default:     $tag = 'unknown: ' . $tag;
+                        break;
+                }
+                break;
 
-        case 1:
-            switch($tag) {
-            case '0002': $tag = 'ISOSetting'; break;
-            case '0003': $tag = 'ColorMode'; break;
-            case '0004': $tag = 'Quality'; break;
-            case '0005': $tag = 'Whitebalance'; break;
-            case '0006': $tag = 'ImageSharpening'; break;
-            case '0007': $tag = 'FocusMode'; break;
-            case '0008': $tag = 'FlashSetting'; break;
-            case '0009': $tag = 'FlashMode'; break;
-            case '000b': $tag = 'WhiteBalanceFine'; break;
-            case '000f': $tag = 'ISOSelection'; break;
-            case '0013': $tag = 'ISOSelection2'; break;
-            case '0080': $tag = 'ImageAdjustment'; break;
-            case '0081': $tag = 'ToneCompensation'; break;
-            case '0082': $tag = 'Adapter'; break;
-            case '0083': $tag = 'LensType'; break;
-            case '0084': $tag = 'LensInfo'; break;
-            case '0085': $tag = 'ManualFocusDistance'; break;
-            case '0086': $tag = 'DigitalZoom'; break;
-            case '0087': $tag = 'FlashUsed'; break;
-            case '0088': $tag = 'AFFocusPosition'; break;
-            case '008d': $tag = 'ColorMode'; break;
-            case '0090': $tag = 'LightType'; break;
-            case '0094': $tag = 'Saturation'; break;
-            case '0095': $tag = 'NoiseReduction'; break;
-            case '0010': $tag = 'DataDump'; break;
-            default:     $tag = 'unknown: ' . $tag; break;
-            }
-            break;
+            case 1:
+                switch ($tag) {
+                    case '0002': $tag = 'ISOSetting';
+                        break;
+                    case '0003': $tag = 'ColorMode';
+                        break;
+                    case '0004': $tag = 'Quality';
+                        break;
+                    case '0005': $tag = 'Whitebalance';
+                        break;
+                    case '0006': $tag = 'ImageSharpening';
+                        break;
+                    case '0007': $tag = 'FocusMode';
+                        break;
+                    case '0008': $tag = 'FlashSetting';
+                        break;
+                    case '0009': $tag = 'FlashMode';
+                        break;
+                    case '000b': $tag = 'WhiteBalanceFine';
+                        break;
+                    case '000f': $tag = 'ISOSelection';
+                        break;
+                    case '0013': $tag = 'ISOSelection2';
+                        break;
+                    case '0080': $tag = 'ImageAdjustment';
+                        break;
+                    case '0081': $tag = 'ToneCompensation';
+                        break;
+                    case '0082': $tag = 'Adapter';
+                        break;
+                    case '0083': $tag = 'LensType';
+                        break;
+                    case '0084': $tag = 'LensInfo';
+                        break;
+                    case '0085': $tag = 'ManualFocusDistance';
+                        break;
+                    case '0086': $tag = 'DigitalZoom';
+                        break;
+                    case '0087': $tag = 'FlashUsed';
+                        break;
+                    case '0088': $tag = 'AFFocusPosition';
+                        break;
+                    case '008d': $tag = 'ColorMode';
+                        break;
+                    case '0090': $tag = 'LightType';
+                        break;
+                    case '0094': $tag = 'Saturation';
+                        break;
+                    case '0095': $tag = 'NoiseReduction';
+                        break;
+                    case '0010': $tag = 'DataDump';
+                        break;
+                    default:     $tag = 'unknown: ' . $tag;
+                        break;
+                }
+                break;
         }
 
         return $tag;
@@ -112,183 +149,227 @@ class Horde_Image_Exif_Parser_Nikon extends Horde_Image_Exif_Parser_Base
     protected function _formatData($type, $tag, $intel, $model, $data)
     {
         switch ($type) {
-        case 'URATIONAL':
-        case 'SRATIONAL':
-            $data = bin2hex($data);
-            if ($intel) {
-                $data = Horde_Image_Exif::intel2Moto($data);
-            }
-            $top = hexdec(substr($data, 8, 8));
-            $bottom = hexdec(substr($data, 0, 8));
-            if ($bottom != 0) {
-                $data = $top / $bottom;
-            } elseif ($top == 0) {
-                $data = 0;
-            } else {
-                $data = $top . '/' . $bottom;
-            }
-
-            if ($tag == '0085' && $model == 1) {
-                //ManualFocusDistance
-                $data = $data . ' m';
-            }
-            if ($tag == '0086' && $model == 1) {
-                //DigitalZoom
-                $data = $data . 'x';
-            }
-            if ($tag == '000a' && $model == 0) {
-                //DigitalZoom
-                $data = $data . 'x';
-            }
-            break;
-
-        case 'USHORT':
-        case 'SSHORT':
-        case 'ULONG':
-        case 'SLONG':
-        case 'FLOAT':
-        case 'DOUBLE':
-            $data = bin2hex($data);
-            if ($intel) {
-                $data = Horde_Image_Exif::intel2Moto($data);
-            }
-            $data = hexdec($data);
-            if ($model != 0) {
-                break;
-            }
-
-            switch ($tag) {
-            case '0003':
-                //Quality
-                switch ($data) {
-                case 1:  $data = Horde_Image_Translation::t("VGA Basic"); break;
-                case 2:  $data = Horde_Image_Translation::t("VGA Normal"); break;
-                case 3:  $data = Horde_Image_Translation::t("VGA Fine"); break;
-                case 4:  $data = Horde_Image_Translation::t("SXGA Basic"); break;
-                case 5:  $data = Horde_Image_Translation::t("SXGA Normal"); break;
-                case 6:  $data = Horde_Image_Translation::t("SXGA Fine"); break;
-                default: $data = Horde_Image_Translation::t("Unknown") . ': ' . $data; break;
-                }
-                break;
-
-            case '0004':
-                //Color
-                switch ($data) {
-                case 1:  $data = Horde_Image_Translation::t("Color"); break;
-                case 2:  $data = Horde_Image_Translation::t("Monochrome"); break;
-                default: $data = Horde_Image_Translation::t("Unknown") . ': ' . $data; break;
-                }
-                break;
-
-            case '0005':
-                //Image Adjustment
-                switch ($data) {
-                case 0:  $data = Horde_Image_Translation::t("Normal"); break;
-                case 1:  $data = Horde_Image_Translation::t("Bright+"); break;
-                case 2:  $data = Horde_Image_Translation::t("Bright-"); break;
-                case 3:  $data = Horde_Image_Translation::t("Contrast+"); break;
-                case 4:  $data = Horde_Image_Translation::t("Contrast-"); break;
-                default: $data = Horde_Image_Translation::t("Unknown") . ': ' . $data; break;
-                }
-                break;
-
-            case '0006':
-                //CCD Sensitivity
-                switch ($data) {
-                case 0:  $data = 'ISO-80'; break;
-                case 2:  $data = 'ISO-160'; break;
-                case 4:  $data = 'ISO-320'; break;
-                case 5:  $data = 'ISO-100'; break;
-                default: $data = Horde_Image_Translation::t("Unknown") . ': ' . $data; break;
-                }
-                break;
-
-            case '0007':
-                //White Balance
-                switch ($data) {
-                case 0:  $data = Horde_Image_Translation::t("Auto"); break;
-                case 1:  $data = Horde_Image_Translation::t("Preset"); break;
-                case 2:  $data = Horde_Image_Translation::t("Daylight"); break;
-                case 3:  $data = Horde_Image_Translation::t("Incandescense"); break;
-                case 4:  $data = Horde_Image_Translation::t("Flourescence"); break;
-                case 5:  $data = Horde_Image_Translation::t("Cloudy"); break;
-                case 6:  $data = Horde_Image_Translation::t("SpeedLight"); break;
-                default: $data = Horde_Image_Translation::t("Unknown") . ': ' . $data; break;
-                }
-                break;
-
-            case '000b':
-                //Converter
-                switch ($data) {
-                case 0:  $data = Horde_Image_Translation::t("None"); break;
-                case 1:  $data = Horde_Image_Translation::t("Fisheye"); break;
-                default: $data = Horde_Image_Translation::t("Unknown") . ': ' . $data; break;
-                }
-                break;
-            }
-
-        case 'UNDEFINED':
-            if ($model != 1) {
-                break;
-            }
-
-            switch ($tag) {
-            case '0001':
-                $data = $data/100;
-                break;
-            case '0088':
-                //AF Focus Position
-                $temp = Horde_Image_Translation::t("Center");
+            case 'URATIONAL':
+            case 'SRATIONAL':
                 $data = bin2hex($data);
-                $data = str_replace('01', 'Top', $data);
-                $data = str_replace('02', 'Bottom', $data);
-                $data = str_replace('03', 'Left', $data);
-                $data = str_replace('04', 'Right', $data);
-                $data = str_replace('00', '', $data);
-                if (!strlen($data)) {
-                    $data = $temp;
+                if ($intel) {
+                    $data = Horde_Image_Exif::intel2Moto($data);
                 }
-                break;
-            }
-            break;
+                $top = hexdec(substr($data, 8, 8));
+                $bottom = hexdec(substr($data, 0, 8));
+                if ($bottom != 0) {
+                    $data = $top / $bottom;
+                } elseif ($top == 0) {
+                    $data = 0;
+                } else {
+                    $data = $top . '/' . $bottom;
+                }
 
-        default:
-            $data = bin2hex($data);
-            if ($intel) {
-                $data = Horde_Image_Exif::intel2Moto($data);
-            }
-            if ($model != 1) {
-                break;
-            }
-
-            switch ($tag) {
-            case '0083':
-                //Lens Type
-                $data = hexdec(substr($data, 0, 2));
-                switch ($data) {
-                case 0:  $data = Horde_Image_Translation::t("AF non D"); break;
-                case 1:  $data = Horde_Image_Translation::t("Manual"); break;
-                case 2:  $data = 'AF-D or AF-S'; break;
-                case 6:  $data = 'AF-D G'; break;
-                case 10:  $data = 'AF-D VR'; break;
-                default: $data = Horde_Image_Translation::t("Unknown") . ': ' . $data; break;
+                if ($tag == '0085' && $model == 1) {
+                    //ManualFocusDistance
+                    $data = $data . ' m';
+                }
+                if ($tag == '0086' && $model == 1) {
+                    //DigitalZoom
+                    $data = $data . 'x';
+                }
+                if ($tag == '000a' && $model == 0) {
+                    //DigitalZoom
+                    $data = $data . 'x';
                 }
                 break;
 
-            case '0087':
-                //Flash type
-                $data = hexdec(substr($data,0,2));
-                switch ($data) {
-                case 0:  $data = Horde_Image_Translation::t("Did Not Fire"); break;
-                case 4:  $data = Horde_Image_Translation::t("Unknown"); break;
-                case 7:  $data = Horde_Image_Translation::t("External"); break;
-                case 9:  $data = Horde_Image_Translation::t("On Camera"); break;
-                default: $data = Horde_Image_Translation::t("Unknown") . ': ' . $data; break;
+            case 'USHORT':
+            case 'SSHORT':
+            case 'ULONG':
+            case 'SLONG':
+            case 'FLOAT':
+            case 'DOUBLE':
+                $data = bin2hex($data);
+                if ($intel) {
+                    $data = Horde_Image_Exif::intel2Moto($data);
+                }
+                $data = hexdec($data);
+                if ($model != 0) {
+                    break;
+                }
+
+                switch ($tag) {
+                    case '0003':
+                        //Quality
+                        switch ($data) {
+                            case 1:  $data = Horde_Image_Translation::t("VGA Basic");
+                                break;
+                            case 2:  $data = Horde_Image_Translation::t("VGA Normal");
+                                break;
+                            case 3:  $data = Horde_Image_Translation::t("VGA Fine");
+                                break;
+                            case 4:  $data = Horde_Image_Translation::t("SXGA Basic");
+                                break;
+                            case 5:  $data = Horde_Image_Translation::t("SXGA Normal");
+                                break;
+                            case 6:  $data = Horde_Image_Translation::t("SXGA Fine");
+                                break;
+                            default: $data = Horde_Image_Translation::t("Unknown") . ': ' . $data;
+                                break;
+                        }
+                        break;
+
+                    case '0004':
+                        //Color
+                        switch ($data) {
+                            case 1:  $data = Horde_Image_Translation::t("Color");
+                                break;
+                            case 2:  $data = Horde_Image_Translation::t("Monochrome");
+                                break;
+                            default: $data = Horde_Image_Translation::t("Unknown") . ': ' . $data;
+                                break;
+                        }
+                        break;
+
+                    case '0005':
+                        //Image Adjustment
+                        switch ($data) {
+                            case 0:  $data = Horde_Image_Translation::t("Normal");
+                                break;
+                            case 1:  $data = Horde_Image_Translation::t("Bright+");
+                                break;
+                            case 2:  $data = Horde_Image_Translation::t("Bright-");
+                                break;
+                            case 3:  $data = Horde_Image_Translation::t("Contrast+");
+                                break;
+                            case 4:  $data = Horde_Image_Translation::t("Contrast-");
+                                break;
+                            default: $data = Horde_Image_Translation::t("Unknown") . ': ' . $data;
+                                break;
+                        }
+                        break;
+
+                    case '0006':
+                        //CCD Sensitivity
+                        switch ($data) {
+                            case 0:  $data = 'ISO-80';
+                                break;
+                            case 2:  $data = 'ISO-160';
+                                break;
+                            case 4:  $data = 'ISO-320';
+                                break;
+                            case 5:  $data = 'ISO-100';
+                                break;
+                            default: $data = Horde_Image_Translation::t("Unknown") . ': ' . $data;
+                                break;
+                        }
+                        break;
+
+                    case '0007':
+                        //White Balance
+                        switch ($data) {
+                            case 0:  $data = Horde_Image_Translation::t("Auto");
+                                break;
+                            case 1:  $data = Horde_Image_Translation::t("Preset");
+                                break;
+                            case 2:  $data = Horde_Image_Translation::t("Daylight");
+                                break;
+                            case 3:  $data = Horde_Image_Translation::t("Incandescense");
+                                break;
+                            case 4:  $data = Horde_Image_Translation::t("Flourescence");
+                                break;
+                            case 5:  $data = Horde_Image_Translation::t("Cloudy");
+                                break;
+                            case 6:  $data = Horde_Image_Translation::t("SpeedLight");
+                                break;
+                            default: $data = Horde_Image_Translation::t("Unknown") . ': ' . $data;
+                                break;
+                        }
+                        break;
+
+                    case '000b':
+                        //Converter
+                        switch ($data) {
+                            case 0:  $data = Horde_Image_Translation::t("None");
+                                break;
+                            case 1:  $data = Horde_Image_Translation::t("Fisheye");
+                                break;
+                            default: $data = Horde_Image_Translation::t("Unknown") . ': ' . $data;
+                                break;
+                        }
+                        break;
+                }
+
+                // no break
+            case 'UNDEFINED':
+                if ($model != 1) {
+                    break;
+                }
+
+                switch ($tag) {
+                    case '0001':
+                        $data = $data / 100;
+                        break;
+                    case '0088':
+                        //AF Focus Position
+                        $temp = Horde_Image_Translation::t("Center");
+                        $data = bin2hex($data);
+                        $data = str_replace('01', 'Top', $data);
+                        $data = str_replace('02', 'Bottom', $data);
+                        $data = str_replace('03', 'Left', $data);
+                        $data = str_replace('04', 'Right', $data);
+                        $data = str_replace('00', '', $data);
+                        if (!strlen($data)) {
+                            $data = $temp;
+                        }
+                        break;
                 }
                 break;
-            }
 
-            break;
+            default:
+                $data = bin2hex($data);
+                if ($intel) {
+                    $data = Horde_Image_Exif::intel2Moto($data);
+                }
+                if ($model != 1) {
+                    break;
+                }
+
+                switch ($tag) {
+                    case '0083':
+                        //Lens Type
+                        $data = hexdec(substr($data, 0, 2));
+                        switch ($data) {
+                            case 0:  $data = Horde_Image_Translation::t("AF non D");
+                                break;
+                            case 1:  $data = Horde_Image_Translation::t("Manual");
+                                break;
+                            case 2:  $data = 'AF-D or AF-S';
+                                break;
+                            case 6:  $data = 'AF-D G';
+                                break;
+                            case 10:  $data = 'AF-D VR';
+                                break;
+                            default: $data = Horde_Image_Translation::t("Unknown") . ': ' . $data;
+                                break;
+                        }
+                        break;
+
+                    case '0087':
+                        //Flash type
+                        $data = hexdec(substr($data, 0, 2));
+                        switch ($data) {
+                            case 0:  $data = Horde_Image_Translation::t("Did Not Fire");
+                                break;
+                            case 4:  $data = Horde_Image_Translation::t("Unknown");
+                                break;
+                            case 7:  $data = Horde_Image_Translation::t("External");
+                                break;
+                            case 9:  $data = Horde_Image_Translation::t("On Camera");
+                                break;
+                            default: $data = Horde_Image_Translation::t("Unknown") . ': ' . $data;
+                                break;
+                        }
+                        break;
+                }
+
+                break;
         }
 
         return $data;
@@ -306,12 +387,12 @@ class Horde_Image_Exif_Parser_Nikon extends Horde_Image_Exif_Parser_Base
         $model = $result['IFD0']['Model'];
 
         //these 6 models start with "Nikon".  Other models dont.
-        if ($model == "E700\0" ||
-            $model == "E800\0" ||
-            $model == "E900\0" ||
-            $model == "E900S\0" ||
-            $model == "E910\0" ||
-            $model == "E950\0") {
+        if ($model == "E700\0"
+            || $model == "E800\0"
+            || $model == "E900\0"
+            || $model == "E900S\0"
+            || $model == "E910\0"
+            || $model == "E950\0") {
             //current place
             $place = 8;
             $model = 0;
@@ -340,7 +421,7 @@ class Horde_Image_Exif_Parser_Nikon extends Horde_Image_Exif_Parser_Base
                 if ($intel) {
                     $type = Horde_Image_Exif::intel2Moto($type);
                 }
-                list($type, $size) = $this->_lookupType($type);
+                [$type, $size] = $this->_lookupType($type);
 
                 //4 byte count of number of data units
                 $count = bin2hex(substr($block, $place, 4));
@@ -419,7 +500,7 @@ class Horde_Image_Exif_Parser_Nikon extends Horde_Image_Exif_Parser_Base
                 if ($intel) {
                     $type = Horde_Image_Exif::intel2Moto($type);
                 }
-                list($type, $size) = $this->_lookupType($type);
+                [$type, $size] = $this->_lookupType($type);
 
                 //4 byte count of number of data units
                 $count = bin2hex(substr($block, $place, 4));

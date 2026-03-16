@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -30,7 +31,7 @@ class Horde_Image_Effect_Im_LiquidResize extends Horde_Image_Effect
      *
      * @var array
      */
-    protected $_params = array();
+    protected $_params = [];
 
     /**
      * Applies the effect.
@@ -46,12 +47,14 @@ class Horde_Image_Effect_Im_LiquidResize extends Horde_Image_Effect
         if ($this->_params->get('ratio', true)) {
             $this->_image->addPostSrcOperation(sprintf(
                 '-liquid-rescale %dx%d',
-                $this->_params->width, $this->_params->height
+                $this->_params->width,
+                $this->_params->height
             ));
         } else {
             $this->_image->addPostSrcOperation(sprintf(
                 '-liquid-rescale %dx%d!',
-                $this->_params->width, $this->_params->height
+                $this->_params->width,
+                $this->_params->height
             ));
         }
         $this->_image->clearGeometry();

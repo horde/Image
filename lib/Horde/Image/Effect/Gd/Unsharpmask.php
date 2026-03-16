@@ -1,7 +1,8 @@
 <?php
+
 /**
- * Copyright 2003 Torstein Hønsi <thoensi@netcom.no>
- * Copyright 2007-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2026 Torstein Hønsi <thoensi@netcom.no>
+ * Copyright 2007-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -47,11 +48,11 @@ class Horde_Image_Effect_Gd_Unsharpmask extends Horde_Image_Effect
      *
      * @var array
      */
-    protected $_params = array(
+    protected $_params = [
         'amount' => 0,
         'radius' => 0,
-        'threshold' => 0
-    );
+        'threshold' => 0,
+    ];
 
     /**
      * Applies the effect.
@@ -86,7 +87,7 @@ class Horde_Image_Effect_Gd_Unsharpmask extends Horde_Image_Effect
         $imgCanvas2 = ImageCreateTrueColor($w, $h);
         $imgBlur    = ImageCreateTrueColor($w, $h);
         $imgBlur2   = ImageCreateTrueColor($w, $h);
-        ImageCopy($imgCanvas,  $img, 0, 0, 0, 0, $w, $h);
+        ImageCopy($imgCanvas, $img, 0, 0, 0, 0, $w, $h);
         ImageCopy($imgCanvas2, $img, 0, 0, 0, 0, $w, $h);
 
         // Gaussian blur matrix:
@@ -100,41 +101,41 @@ class Horde_Image_Effect_Gd_Unsharpmask extends Horde_Image_Effect
         // Move copies of the image around one pixel at the time and merge them
         // with weight according to the matrix. The same matrix is simply
         // repeated for higher radii.
-        for ($i = 0; $i < $radius; $i++)    {
+        for ($i = 0; $i < $radius; $i++) {
             // up left
-            ImageCopy     ($imgBlur, $imgCanvas, 0, 0, 1, 1, $w - 1, $h - 1);
+            ImageCopy($imgBlur, $imgCanvas, 0, 0, 1, 1, $w - 1, $h - 1);
             // down right
-            ImageCopyMerge($imgBlur, $imgCanvas, 1, 1, 0, 0, $w,     $h,     50);
+            ImageCopyMerge($imgBlur, $imgCanvas, 1, 1, 0, 0, $w, $h, 50);
             // down left
-            ImageCopyMerge($imgBlur, $imgCanvas, 0, 1, 1, 0, $w - 1, $h,     33.33333);
+            ImageCopyMerge($imgBlur, $imgCanvas, 0, 1, 1, 0, $w - 1, $h, 33.33333);
             // up right
-            ImageCopyMerge($imgBlur, $imgCanvas, 1, 0, 0, 1, $w,     $h - 1, 25);
+            ImageCopyMerge($imgBlur, $imgCanvas, 1, 0, 0, 1, $w, $h - 1, 25);
             // left
-            ImageCopyMerge($imgBlur, $imgCanvas, 0, 0, 1, 0, $w - 1, $h,     33.33333);
+            ImageCopyMerge($imgBlur, $imgCanvas, 0, 0, 1, 0, $w - 1, $h, 33.33333);
             // right
-            ImageCopyMerge($imgBlur, $imgCanvas, 1, 0, 0, 0, $w,     $h,     25);
+            ImageCopyMerge($imgBlur, $imgCanvas, 1, 0, 0, 0, $w, $h, 25);
             // up
-            ImageCopyMerge($imgBlur, $imgCanvas, 0, 0, 0, 1, $w,     $h - 1, 20 );
+            ImageCopyMerge($imgBlur, $imgCanvas, 0, 0, 0, 1, $w, $h - 1, 20);
             // down
-            ImageCopyMerge($imgBlur, $imgCanvas, 0, 1, 0, 0, $w,     $h,     16.666667);
+            ImageCopyMerge($imgBlur, $imgCanvas, 0, 1, 0, 0, $w, $h, 16.666667);
             // center
-            ImageCopyMerge($imgBlur, $imgCanvas, 0, 0, 0, 0, $w,     $h,     50);
-            ImageCopy     ($imgCanvas, $imgBlur, 0, 0, 0, 0, $w,     $h);
+            ImageCopyMerge($imgBlur, $imgCanvas, 0, 0, 0, 0, $w, $h, 50);
+            ImageCopy($imgCanvas, $imgBlur, 0, 0, 0, 0, $w, $h);
 
             // During the loop above the blurred copy darkens, possibly due to
             // a roundoff error. Therefore the sharp picture has to go through
             // the same loop to produce a similar image for comparison. This is
             // not a good thing, as processing time increases heavily.
-            ImageCopy     ($imgBlur2, $imgCanvas2, 0, 0, 0, 0, $w, $h);
+            ImageCopy($imgBlur2, $imgCanvas2, 0, 0, 0, 0, $w, $h);
             ImageCopyMerge($imgBlur2, $imgCanvas2, 0, 0, 0, 0, $w, $h, 50);
             ImageCopyMerge($imgBlur2, $imgCanvas2, 0, 0, 0, 0, $w, $h, 33.33333);
             ImageCopyMerge($imgBlur2, $imgCanvas2, 0, 0, 0, 0, $w, $h, 25);
             ImageCopyMerge($imgBlur2, $imgCanvas2, 0, 0, 0, 0, $w, $h, 33.33333);
             ImageCopyMerge($imgBlur2, $imgCanvas2, 0, 0, 0, 0, $w, $h, 25);
-            ImageCopyMerge($imgBlur2, $imgCanvas2, 0, 0, 0, 0, $w, $h, 20 );
+            ImageCopyMerge($imgBlur2, $imgCanvas2, 0, 0, 0, 0, $w, $h, 20);
             ImageCopyMerge($imgBlur2, $imgCanvas2, 0, 0, 0, 0, $w, $h, 16.666667);
             ImageCopyMerge($imgBlur2, $imgCanvas2, 0, 0, 0, 0, $w, $h, 50);
-            ImageCopy     ($imgCanvas2, $imgBlur2, 0, 0, 0, 0, $w, $h);
+            ImageCopy($imgCanvas2, $imgBlur2, 0, 0, 0, 0, $w, $h);
         }
 
         // Calculate the difference between the blurred pixels and the original

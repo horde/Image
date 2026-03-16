@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2007-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -48,7 +49,7 @@ class Horde_Image_Effect_Im_PhotoStack extends Horde_Image_Effect
      *
      * @var array
      */
-    protected $_params = array(
+    protected $_params = [
         'type'           => 'plain',
         'resize_height'  => '150',
         'padding'        => 0,
@@ -56,8 +57,8 @@ class Horde_Image_Effect_Im_PhotoStack extends Horde_Image_Effect
         'bordercolor'    => '#333',
         'borderwidth'    => 1,
         'borderrounding' => 10,
-        'offset'         => 5
-    );
+        'offset'         => 5,
+    ];
 
     /**
      * Applies the effect.
@@ -74,130 +75,133 @@ class Horde_Image_Effect_Im_PhotoStack extends Horde_Image_Effect
         $this->_image->raw();
 
         switch ($this->_params['type']) {
-        case 'plain':
-        case 'rounded':
-            // Get top image dimensions, then force each bottom image to the
-            // same dimensions.
-            $this->_params['images'][$cnt - 1]->resize(
-                $this->_params['resize_height'],
-                $this->_params['resize_height'],
-                true
-            );
-            $size = $this->_params['images'][$cnt - 1]->getDimensions();
-            $xo = $yo = count($this->_params['images'])
-                * $this->_params['offset'];
-            $ops = '';
-            $haveBottom = false;
+            case 'plain':
+            case 'rounded':
+                // Get top image dimensions, then force each bottom image to the
+                // same dimensions.
+                $this->_params['images'][$cnt - 1]->resize(
+                    $this->_params['resize_height'],
+                    $this->_params['resize_height'],
+                    true
+                );
+                $size = $this->_params['images'][$cnt - 1]->getDimensions();
+                $xo = $yo = count($this->_params['images'])
+                    * $this->_params['offset'];
+                $ops = '';
+                $haveBottom = false;
 
-            foreach ($this->_params['images'] as $image) {
-                $image->resize($size['height'], $size['width'], false);
-                $xo -= $this->_params['offset'];
-                $yo -= $this->_params['offset'];
+                foreach ($this->_params['images'] as $image) {
+                    $image->resize($size['height'], $size['width'], false);
+                    $xo -= $this->_params['offset'];
+                    $yo -= $this->_params['offset'];
 
-                if ($this->_params['type'] == 'rounded') {
-                    $temp = $this->_roundBorder($image);
+                    if ($this->_params['type'] == 'rounded') {
+                        $temp = $this->_roundBorder($image);
+                    } else {
+                        $temp = $image->toFile();
+                    }
+                    $this->_image->addFileToClean($temp);
+                    $ops .= ' \( ' . $temp . ' -background none -thumbnail '
+                        . $size['width'] . 'x' . $size['height']
+                        . '! -repage +' . $xo . '+' . $yo
+                        . ($this->_params['type'] == 'plain' ? ' -bordercolor "#333" -border 1 ' : ' ')
+                        . ((!$haveBottom) ? '\( +clone -shadow 80x3+4+4 \) +swap -mosaic' : '')
+                        . ' \) ';
+                    $haveBottom = true;
+                }
+
+                // The first -background none option below is only honored in
+                // convert versions before 6.4 it seems. Without it specified as
+                // none here, all stacks come out with a white background.
+                $this->_image->addPostSrcOperation(
+                    $ops . ' -background ' . escapeshellarg($this->_params['background'])
+                    . ' -mosaic -bordercolor ' . escapeshellarg($this->_params['background'])
+                    . ' -border ' . (int) $this->_params['padding']
+                );
+                break;
+
+            case 'polaroid':
+                // Check for im version > 6.3.2
+                $ver = $this->_image->getIMVersion();
+                if (is_array($ver) && version_compare($ver[0], '6.3.2') >= 0) {
+                    $ops = '';
+                    foreach ($this->_params['images'] as $image) {
+                        $temp = $image->toFile();
+                        // Remember the temp files so we can nuke them later.
+                        $this->_image->addFileToClean($temp);
+
+                        // Don't rotate the top image.
+                        if ($i++ == $cnt) {
+                            $angle = 0;
+                        } else {
+                            $angle = mt_rand(1, 45);
+                            if (mt_rand(1, 2) % 2 === 0) {
+                                $angle = $angle * -1;
+                            }
+                        }
+                        $ops .= ' \( ' . $temp
+                            . ' -geometry +'
+                            . mt_rand(1, $this->_params['resize_height'])
+                            . '+' . mt_rand(1, $this->_params['resize_height'])
+                            . ' -thumbnail \'' . (int) $this->_params['resize_height']
+                            . 'x' . (int) $this->_params['resize_height']
+                            . '>\' -bordercolor Snow -border 1  -polaroid '
+                            . $angle . ' \) ';
+                    }
+                    $this->_image->addPostSrcOperation(
+                        '-background ' . escapeshellarg($this->_params['background']) . ' ' . $ops
+                        . '-mosaic -bordercolor ' . escapeshellarg($this->_params['background'])
+                        . ' -border ' . (int) $this->_params['padding']
+                    );
                 } else {
-                    $temp = $image->toFile();
-                }
-                $this->_image->addFileToClean($temp);
-                $ops .= ' \( ' . $temp . ' -background none -thumbnail '
-                    . $size['width'] . 'x' . $size['height']
-                    . '! -repage +' . $xo . '+' . $yo
-                    . ($this->_params['type'] == 'plain' ? ' -bordercolor "#333" -border 1 ' : ' ' )
-                    . ((!$haveBottom) ? '\( +clone -shadow 80x3+4+4 \) +swap -mosaic' : '')
-                    . ' \) ';
-                $haveBottom = true;
-            }
-
-            // The first -background none option below is only honored in
-            // convert versions before 6.4 it seems. Without it specified as
-            // none here, all stacks come out with a white background.
-            $this->_image->addPostSrcOperation(
-                $ops . ' -background ' . escapeshellarg($this->_params['background'])
-                . ' -mosaic -bordercolor ' . escapeshellarg($this->_params['background'])
-                . ' -border ' . (integer)$this->_params['padding']);
-            break;
-
-        case 'polaroid':
-            // Check for im version > 6.3.2
-            $ver = $this->_image->getIMVersion();
-            if (is_array($ver) && version_compare($ver[0], '6.3.2') >= 0) {
-                $ops = '';
-                foreach ($this->_params['images'] as $image) {
-                    $temp = $image->toFile();
-                    // Remember the temp files so we can nuke them later.
-                    $this->_image->addFileToClean($temp);
-
-                    // Don't rotate the top image.
-                    if ($i++ == $cnt) {
-                        $angle = 0;
-                    } else {
-                        $angle = mt_rand(1, 45);
-                        if (mt_rand(1, 2) % 2 === 0) {
-                            $angle = $angle * -1;
+                    // An attempt at a -polaroid command free version of this
+                    // effect based on various examples and ideas at
+                    // http://imagemagick.org
+                    $ops = '';
+                    foreach ($this->_params['images'] as $image) {
+                        $temp = $image->toFile();
+                        $this->_image->addFileToClean($temp);
+                        if ($i++ == $cnt) {
+                            $angle = 0;
+                        } else {
+                            $angle = mt_rand(1, 45);
+                            if (mt_rand(1, 2) % 2 === 0) {
+                                $angle = $angle * -1;
+                            }
                         }
+                        $ops .= '\( ' . $temp . ' -thumbnail \''
+                            . (int) $this->_params['resize_height']
+                            . 'x' . (int) $this->_params['resize_height']
+                            . '>\' -bordercolor "#eee" -border 4 -bordercolor grey90 -border 1 -bordercolor none -background none -rotate '
+                            . $angle . ' -background none \( +clone -shadow 60x4+4+4 \) +swap -background none -flatten \) ';
                     }
-                    $ops .= ' \( ' . $temp
-                        . ' -geometry +'
-                        . mt_rand(1, $this->_params['resize_height'])
-                        . '+' . mt_rand(1, $this->_params['resize_height'])
-                        . ' -thumbnail \'' . (integer)$this->_params['resize_height']
-                        . 'x' . (integer)$this->_params['resize_height']
-                        . '>\' -bordercolor Snow -border 1  -polaroid '
-                        . $angle . ' \) ';
+                    $this->_image->addPostSrcOperation(
+                        '-background none ' . $ops
+                        . '-mosaic -trim +repage -bordercolor '
+                        . escapeshellarg($this->_params['background'])
+                        . ' -border ' . (int) $this->_params['padding']
+                    );
                 }
-                $this->_image->addPostSrcOperation(
-                    '-background ' . escapeshellarg($this->_params['background']) . ' ' . $ops
-                    . '-mosaic -bordercolor ' . escapeshellarg($this->_params['background'])
-                    . ' -border ' . (integer)$this->_params['padding']);
-           } else {
-                // An attempt at a -polaroid command free version of this
-                // effect based on various examples and ideas at
-                // http://imagemagick.org
-                $ops = '';
-                foreach ($this->_params['images'] as $image) {
-                    $temp = $image->toFile();
-                    $this->_image->addFileToClean($temp);
-                    if ($i++ == $cnt) {
-                        $angle = 0;
-                    } else {
-                        $angle = mt_rand(1, 45);
-                        if (mt_rand(1, 2) % 2 === 0) {
-                            $angle = $angle * -1;
-                        }
-                    }
-                    $ops .= '\( ' . $temp . ' -thumbnail \''
-                        . (integer)$this->_params['resize_height']
-                        . 'x' . (integer)$this->_params['resize_height']
-                        . '>\' -bordercolor "#eee" -border 4 -bordercolor grey90 -border 1 -bordercolor none -background none -rotate '
-                        . $angle . ' -background none \( +clone -shadow 60x4+4+4 \) +swap -background none -flatten \) ';
-                }
-                $this->_image->addPostSrcOperation(
-                    '-background none ' . $ops
-                    . '-mosaic -trim +repage -bordercolor '
-                    . escapeshellarg($this->_params['background'])
-                    . ' -border ' . (integer)$this->_params['padding']);
-            }
-            break;
+                break;
         }
     }
 
     private function _roundBorder($image)
     {
-        $context = array(
+        $context = [
             'tmpdir' => $this->_image->getTmpDir(),
-            'convert' => $this->_image->getConvertPath()
-        );
+            'convert' => $this->_image->getConvertPath(),
+        ];
 
         $size = $image->getDimensions();
-        $new = new Horde_Image_Im(array('data' => $image->raw()), $context);
+        $new = new Horde_Image_Im(['data' => $image->raw()], $context);
         $new->addEffect(
             'RoundCorners',
-            array(
+            [
                 'border' => 2,
                 'bordercolor' => '#111',
-                'background' => 'none'
-            )
+                'background' => 'none',
+            ]
         );
         $new->applyEffects();
 

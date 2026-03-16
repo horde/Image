@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -39,7 +40,7 @@ class Horde_Image
      */
     public static function modifyColor($color, $factor = 0x11)
     {
-        list($r, $g, $b) = self::getColor($color);
+        [$r, $g, $b] = self::getColor($color);
 
         $r = min(max($r + $factor, 0), 255);
         $g = min(max($g + $factor, 0), 255);
@@ -62,7 +63,7 @@ class Horde_Image
      */
     public static function moreIntenseColor($color, $factor = 0x11)
     {
-        list($r, $g, $b) = self::getColor($color);
+        [$r, $g, $b] = self::getColor($color);
 
         if ($r >= $g && $r >= $b) {
             $g = $g / $r;
@@ -105,7 +106,7 @@ class Horde_Image
      */
     public static function brightness($color)
     {
-        list($r, $g, $b) = self::getColor($color);
+        [$r, $g, $b] = self::getColor($color);
         return round((($r * 299) + ($g * 587) + ($b * 114)) / 1000);
     }
 
@@ -139,7 +140,7 @@ class Horde_Image
             $originalPixel['green'],
             $originalPixel['blue']
         );
-        return array('red' => $gray, 'green' => $gray, 'blue' => $gray);
+        return ['red' => $gray, 'green' => $gray, 'blue' => $gray];
     }
 
     /**
@@ -156,16 +157,16 @@ class Horde_Image
         }
 
         if (strlen($color) == 3) {
-            $color = str_repeat($color[0], 2) .
-                str_repeat($color[1], 2) .
-                str_repeat($color[2], 2);
+            $color = str_repeat($color[0], 2)
+                . str_repeat($color[1], 2)
+                . str_repeat($color[2], 2);
         }
 
-        return array(
+        return [
             hexdec(substr($color, 0, 2)),
             hexdec(substr($color, 2, 2)),
-            hexdec(substr($color, 4, 2))
-        );
+            hexdec(substr($color, 4, 2)),
+        ];
     }
 
     /**
@@ -177,9 +178,8 @@ class Horde_Image
      */
     public static function getRGB($colorname)
     {
-        return isset(Horde_Image_Rgb::$colors[$colorname]) ?
-            Horde_Image_Rgb::$colors[$colorname] :
-            array(0, 0, 0);
+        return Horde_Image_Rgb::$colors[$colorname]
+            ?? [0, 0, 0];
     }
 
     /**
@@ -191,7 +191,7 @@ class Horde_Image
      */
     public static function getHexColor($colorname)
     {
-        list($r, $g, $b) = self::getRGB($colorname);
+        [$r, $g, $b] = self::getRGB($colorname);
         return '#' . str_pad(dechex(min($r, 255)), 2, '0', STR_PAD_LEFT)
             . str_pad(dechex(min($g, 255)), 2, '0', STR_PAD_LEFT)
             . str_pad(dechex(min($b, 255)), 2, '0', STR_PAD_LEFT);
@@ -210,8 +210,8 @@ class Horde_Image
         // Avoid problems with floats.
         $degrees += 0.0001;
 
-        return array(cos(deg2rad($degrees)) * ($diameter / 2),
-                     sin(deg2rad($degrees)) * ($diameter / 2));
+        return [cos(deg2rad($degrees)) * ($diameter / 2),
+            sin(deg2rad($degrees)) * ($diameter / 2)];
     }
 
     /**
@@ -278,14 +278,14 @@ class Horde_Image
     public static function getFontSize($fontsize)
     {
         switch ($fontsize) {
-        case 'medium':
-            return 18;
-        case 'large':
-            return 24;
-        case 'giant':
-            return 30;
-        default:
-            return 12;
+            case 'medium':
+                return 18;
+            case 'large':
+                return 24;
+            case 'giant':
+                return 30;
+            default:
+                return 12;
         }
     }
 

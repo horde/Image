@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2007-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -30,15 +31,15 @@ class Horde_Image_Effect_Im_DropShadow extends Horde_Image_Effect
      *
      * @var array
      */
-    protected $_params = array(
+    protected $_params = [
         'distance' => 5, // This is used as the x and y offset
         'width' => 2,
         'hexcolor' => '000000',
         'angle' => 215,
         'fade' => 3, // Sigma value
         'padding' => 0,
-        'background' => 'none'
-    );
+        'background' => 'none',
+    ];
 
     /**
      * Applies the effect.
@@ -47,12 +48,12 @@ class Horde_Image_Effect_Im_DropShadow extends Horde_Image_Effect
     {
         $size = $this->_image->getDimensions();
         $this->_image->addPostSrcOperation(
-            '\( +clone -background black -shadow 80x' . (integer)$this->_params['fade']
-            . '+' . (integer)$this->_params['distance']
-            . '+' . (integer)$this->_params['distance']
+            '\( +clone -background black -shadow 80x' . (int) $this->_params['fade']
+            . '+' . (int) $this->_params['distance']
+            . '+' . (int) $this->_params['distance']
             . ' \) +swap -background ' . escapeshellarg($this->_params['background']) . ' -flatten +repage -bordercolor '
             . escapeshellarg($this->_params['background'])
-            . ' -border ' . (integer)$this->_params['padding']
+            . ' -border ' . (int) $this->_params['padding']
         );
         $this->_image->clearGeometry();
     }

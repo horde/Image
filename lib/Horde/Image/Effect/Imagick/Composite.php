@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -30,7 +31,7 @@ class Horde_Image_Effect_Imagick_Composite extends Horde_Image_Effect
      *
      * @var array
      */
-    protected $_params = array();
+    protected $_params = [];
 
     /**
      * Applies the effect.
@@ -55,7 +56,8 @@ class Horde_Image_Effect_Imagick_Composite extends Horde_Image_Effect
                 $this->_image->_imagick->compositeImage(
                     $topimg,
                     Imagick::COMPOSITE_OVER,
-                    $x, $y
+                    $x,
+                    $y
                 );
             }
         } catch (ImagickException $e) {
