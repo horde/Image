@@ -73,7 +73,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
      */
     public function __construct($params, $context = [])
     {
-        if (!Horde_Util::loadExtension('imagick')) {
+        if (!extension_loaded('imagick')) {
             throw new Horde_Image_Exception(
                 'Required PECL Imagick extension not found.'
             );
