@@ -29,6 +29,13 @@
 abstract class Horde_Image_Base extends EmptyIterator
 {
     /**
+     * The image object parameters.
+     *
+     * @var array
+     */
+    protected $_params = [];
+
+    /**
      * Background color.
      *
      * @var string
@@ -268,12 +275,11 @@ abstract class Horde_Image_Base extends EmptyIterator
      */
     public function reset()
     {
-        if ($this->_data) {
+        if ($this->_data !== null) {
             $this->_data->close();
+            $this->_data = null;
         }
-        $this->_data = null;
-        $this->_width = null;
-        $this->_height = null;
+        $this->clearGeometry();
         $this->_background = 'white';
     }
 
@@ -350,11 +356,11 @@ abstract class Horde_Image_Base extends EmptyIterator
      */
     public function toFile($data = null)
     {
-        if (empty($data)) {
-            if ($data = $this->raw(false, ['stream' => true])) {
-                return $this->toFile($data);
+        if ($data === null) {
+            $data = $this->raw(false, ['stream' => true]);
+            if ($data === null) {
+                throw new Horde_Image_Exception('Unable to copy to file.');
             }
-            throw new Horde_Image_Exception('Unable to copy to file.');
         }
 
         $tmp = Horde_Util::getTempFile('img', false, $this->_tmpdir);
@@ -365,7 +371,7 @@ abstract class Horde_Image_Base extends EmptyIterator
             while (!feof($data)) {
                 fwrite($fp, fread($data, 8192));
             }
-        } elseif ($data) {
+        } else {
             fwrite($fp, $data);
         }
 
