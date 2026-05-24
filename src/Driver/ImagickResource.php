@@ -16,14 +16,18 @@ use Horde\Image\Filter\Filter;
 use Horde\Image\Filter\Gamma;
 use Horde\Image\Filter\Grayscale;
 use Horde\Image\Filter\Modulate;
+use Horde\Image\Filter\MorphologyClose;
 use Horde\Image\Filter\Negate;
 use Horde\Image\Filter\Pixelate;
 use Horde\Image\Filter\Sepia;
 use Horde\Image\Filter\Sharpen;
+use Horde\Image\Filter\Sobel;
+use Horde\Image\Filter\SobelDirection;
 use Horde\Image\Filter\Threshold;
 use Horde\Image\Geometry\Rectangle;
 use Horde\Image\Geometry\Size;
 use Imagick;
+use ImagickKernel;
 use ImagickPixel;
 
 final class ImagickResource implements ImageResource, PixelReader
@@ -124,6 +128,8 @@ final class ImagickResource implements ImageResource, PixelReader
                 $filter->saturation,
                 $filter->hue,
             ),
+            $filter instanceof Sobel => $clone->applySobel($filter->direction),
+            $filter instanceof MorphologyClose => $clone->applyMorphologyClose($filter->width, $filter->height),
             default => throw new DriverException('Unsupported filter: ' . $filter::class),
         };
 
@@ -201,5 +207,31 @@ final class ImagickResource implements ImageResource, PixelReader
             (int) ceil($height / $size),
         );
         $this->imagick->scaleImage($width, $height);
+    }
+
+    private function applySobel(SobelDirection $direction): void
+    {
+        if ($direction === SobelDirection::Horizontal) {
+            $matrix = [
+                [-1.0, 0.0, 1.0],
+                [-2.0, 0.0, 2.0],
+                [-1.0, 0.0, 1.0],
+            ];
+        } else {
+            $matrix = [
+                [-1.0, -2.0, -1.0],
+                [ 0.0,  0.0,  0.0],
+                [ 1.0,  2.0,  1.0],
+            ];
+        }
+
+        $kernel = ImagickKernel::fromMatrix($matrix);
+        $this->imagick->convolveImage($kernel);
+    }
+
+    private function applyMorphologyClose(int $width, int $height): void
+    {
+        $kernel = ImagickKernel::fromBuiltIn(Imagick::KERNEL_RECTANGLE, "{$width}x{$height}");
+        $this->imagick->morphology(Imagick::MORPHOLOGY_CLOSE, 1, $kernel);
     }
 }
