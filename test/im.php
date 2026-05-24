@@ -1,5 +1,7 @@
 <?php
 
+use Horde\Util\Util;
+
 /**
  * Tests for the Horde_Image package. Designed to return image data in response
  * to an <img> tag on another page. Set the test parameter to one of the
@@ -18,8 +20,8 @@ Horde_Registry::appInit(
 
 // Putting these here so they don't interfere with timing/memory data when
 // profiling.
-$driver = Horde_Util::getFormData('driver', 'Im');
-$test = Horde_Util::getFormData('test');
+$driver = Util::getFormData('driver', 'Im');
+$test = Util::getFormData('test');
 $handler = new Horde_Log_Handler_Stream(fopen('/tmp/imagetest.log', 'a+'));
 $logger = new Horde_Log_Logger($handler);
 
