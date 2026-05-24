@@ -1,5 +1,7 @@
 <?php
 
+use Horde\Util\Util;
+
 /**
  * Copyright 2002-2026 Horde LLC (http://www.horde.org/)
  *
@@ -197,7 +199,7 @@ class Horde_Image_Im extends Horde_Image_Base
         }
 
         $tmpin = $this->toFile($this->_data);
-        $tmpout = Horde_Util::getTempFile('img', false, $this->_tmpdir);
+        $tmpout = Util::getTempFile('img', false, $this->_tmpdir);
         $command = $this->_convert . ' ' . implode(' ', $this->_operations)
             . ' "' . $tmpin . '"\'[' . (int) $options['index'] . ']\' '
             . implode(' ', $this->_postSrcOperations)
@@ -704,7 +706,7 @@ class Horde_Image_Im extends Horde_Image_Base
         }
 
         // Now an output file
-        $tmpout = Horde_Util::getTempFile('img', false, $this->_tmpdir);
+        $tmpout = Util::getTempFile('img', false, $this->_tmpdir);
 
         // Substitue them in the cmd string
         $cmd = str_replace(
