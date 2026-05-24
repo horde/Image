@@ -93,6 +93,21 @@
     no errors, ci.yml added, bootstrap.php adapted
     no errors left
     Development mode for Image-3.0.0alpha6
+3.0.0-RC2:
+  api: 3.0.0-RC2
+  state:
+    release: RC
+    api: RC
+  date: 2026-05-24
+  license:
+    identifier: LGPL-2.1-only
+    uri: https://spdx.org/licenses/LGPL-2.1-only.html
+  notes: |-
+    chore: Update metadata
+    refactor: Upgrade dependency on Horde_Util to Horde\Util\Util
+    docs: USAGE, UPGRADING and README files
+    refactor: Modernize horde/Image to PER-1, PSR-4, typed interfaces and DI-friendly design
+    chore: Update workflow dependency
 3.0.0-RC1:
   api: 3.0.0-RC1
   state:
