@@ -1,5 +1,7 @@
 <?php
 
+use Horde\Util\Util;
+
 /**
  * Copyright 2002-2026 Horde LLC (http://www.horde.org/)
  *
@@ -363,7 +365,7 @@ abstract class Horde_Image_Base extends EmptyIterator
             }
         }
 
-        $tmp = Horde_Util::getTempFile('img', false, $this->_tmpdir);
+        $tmp = Util::getTempFile('img', false, $this->_tmpdir);
         $fp = fopen($tmp, 'wb');
 
         if (is_resource($data)) {
