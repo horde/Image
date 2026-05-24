@@ -31,7 +31,7 @@ license:
   uri: http://www.horde.org/licenses/lgpl21
 dependencies:
   required:
-    php: ^7.4 || ^8
+    php: ^8.2
     composer:
       horde/exception: ^3
       horde/stream: ^2
@@ -47,3 +47,11 @@ dependencies:
       zlib: '*'
       imagick: '*'
 vendor: horde
+autoload:
+  psr-0:
+    Horde_Image: lib/
+  psr-4:
+    Horde\Image\: src/
+autoload-dev:
+  psr-4:
+    Horde\Image\Test\: test/

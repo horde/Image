@@ -19,7 +19,7 @@
     "time": "2026-05-19",
     "repositories": [],
     "require": {
-        "php": "^7.4 || ^8",
+        "php": "^8.2",
         "horde/exception": "^3 || dev-FRAMEWORK_6_0",
         "horde/stream": "^2 || dev-FRAMEWORK_6_0",
         "horde/support": "^3 || dev-FRAMEWORK_6_0",
@@ -37,11 +37,15 @@
     "autoload": {
         "psr-0": {
             "Horde_Image": "lib/"
+        },
+        "psr-4": {
+            "Horde\\Image\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Horde\\Image\\Test\\": "test/"
+            "Horde\\Image\\Test\\": "test/",
+            "Horde\\Image\\Test\\Unit\\": "test/unit/"
         }
     },
     "config": {

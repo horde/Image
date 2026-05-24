@@ -84,7 +84,7 @@ class RgbTest extends TestCase
     {
         $standardColors = [
             'red', 'green', 'blue', 'yellow', 'cyan', 'magenta',
-            'white', 'black', 'gray', 'orange', 'purple', 'pink'
+            'white', 'black', 'gray', 'orange', 'purple', 'pink',
         ];
 
         foreach ($standardColors as $color) {
