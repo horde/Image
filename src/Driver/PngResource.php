@@ -12,7 +12,7 @@ use Horde\Image\Filter\Filter;
 use Horde\Image\Geometry\Rectangle;
 use Horde\Image\Geometry\Size;
 
-final class PngResource implements ImageResource
+final class PngResource implements ImageResource, PixelReader
 {
     /** @var array<int, array<int, array{int, int, int}>> row => col => [r, g, b] */
     private array $pixels;
@@ -72,6 +72,18 @@ final class PngResource implements ImageResource
             return $this->pixels[$y][$x];
         }
         return [0, 0, 0];
+    }
+
+    /** @return array{int, int, int} */
+    public function getPixelRgb(int $x, int $y): array
+    {
+        return $this->getPixel($x, $y);
+    }
+
+    public function getLuminance(int $x, int $y): int
+    {
+        [$r, $g, $b] = $this->getPixel($x, $y);
+        return (int) round(0.299 * $r + 0.587 * $g + 0.114 * $b);
     }
 
     public function resize(Size $size): static

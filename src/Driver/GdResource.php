@@ -15,11 +15,12 @@ use Horde\Image\Filter\Gamma;
 use Horde\Image\Filter\Grayscale;
 use Horde\Image\Filter\Negate;
 use Horde\Image\Filter\Sepia;
+use Horde\Image\Filter\Threshold;
 use Horde\Image\Geometry\Rectangle;
 use Horde\Image\Geometry\Size;
 use GdImage;
 
-final class GdResource implements ImageResource
+final class GdResource implements ImageResource, PixelReader
 {
     public function __construct(
         private GdImage $gd,
@@ -44,6 +45,22 @@ final class GdResource implements ImageResource
     public function gd(): GdImage
     {
         return $this->gd;
+    }
+
+    /** @return array{int, int, int} */
+    public function getPixelRgb(int $x, int $y): array
+    {
+        $rgb = imagecolorat($this->gd, $x, $y);
+        if ($rgb === false) {
+            return [0, 0, 0];
+        }
+        return [($rgb >> 16) & 0xFF, ($rgb >> 8) & 0xFF, $rgb & 0xFF];
+    }
+
+    public function getLuminance(int $x, int $y): int
+    {
+        [$r, $g, $b] = $this->getPixelRgb($x, $y);
+        return (int) round(0.299 * $r + 0.587 * $g + 0.114 * $b);
     }
 
     public function size(): Size
@@ -157,8 +174,28 @@ final class GdResource implements ImageResource
             ),
             $filter instanceof Gamma => imagegammacorrect($this->gd, 1.0, $filter->gamma),
             $filter instanceof Sepia => $this->applySepiaFilter($filter->threshold),
+            $filter instanceof Threshold => $this->applyThreshold($filter->level),
             default => throw new DriverException('Filter not supported by GdDriver: ' . $filter::class),
         };
+    }
+
+    private function applyThreshold(int $level): void
+    {
+        $w = imagesx($this->gd);
+        $h = imagesy($this->gd);
+        $black = imagecolorallocate($this->gd, 0, 0, 0);
+        $white = imagecolorallocate($this->gd, 255, 255, 255);
+
+        for ($y = 0; $y < $h; $y++) {
+            for ($x = 0; $x < $w; $x++) {
+                $rgb = imagecolorat($this->gd, $x, $y);
+                $r = ($rgb >> 16) & 0xFF;
+                $g = ($rgb >> 8) & 0xFF;
+                $b = $rgb & 0xFF;
+                $lum = (int) round(0.299 * $r + 0.587 * $g + 0.114 * $b);
+                imagesetpixel($this->gd, $x, $y, $lum < $level ? $black : $white);
+            }
+        }
     }
 
     private function applySepiaFilter(float $threshold): void
