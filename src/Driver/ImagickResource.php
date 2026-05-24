@@ -20,12 +20,13 @@ use Horde\Image\Filter\Negate;
 use Horde\Image\Filter\Pixelate;
 use Horde\Image\Filter\Sepia;
 use Horde\Image\Filter\Sharpen;
+use Horde\Image\Filter\Threshold;
 use Horde\Image\Geometry\Rectangle;
 use Horde\Image\Geometry\Size;
 use Imagick;
 use ImagickPixel;
 
-final class ImagickResource implements ImageResource
+final class ImagickResource implements ImageResource, PixelReader
 {
     public function __construct(
         private Imagick $imagick,
@@ -117,6 +118,7 @@ final class ImagickResource implements ImageResource
             ),
             $filter instanceof Negate => $clone->imagick->negateImage(false),
             $filter instanceof Pixelate => $clone->applyPixelate($filter->size),
+            $filter instanceof Threshold => $clone->imagick->thresholdImage($filter->level * 257),
             $filter instanceof Modulate => $clone->imagick->modulateImage(
                 $filter->brightness,
                 $filter->saturation,
@@ -145,6 +147,20 @@ final class ImagickResource implements ImageResource
     public function imagick(): Imagick
     {
         return $this->imagick;
+    }
+
+    /** @return array{int, int, int} */
+    public function getPixelRgb(int $x, int $y): array
+    {
+        $pixel = $this->imagick->getImagePixelColor($x, $y);
+        $color = $pixel->getColor();
+        return [(int) $color['r'], (int) $color['g'], (int) $color['b']];
+    }
+
+    public function getLuminance(int $x, int $y): int
+    {
+        [$r, $g, $b] = $this->getPixelRgb($x, $y);
+        return (int) round(0.299 * $r + 0.587 * $g + 0.114 * $b);
     }
 
     public function withImagick(Imagick $imagick): static
