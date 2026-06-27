@@ -22,7 +22,7 @@
         "exif",
         "metadata"
     ],
-    "time": "2026-05-25",
+    "time": "2026-06-27",
     "repositories": [],
     "require": {
         "php": "^8.1",

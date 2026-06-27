@@ -1,98 +1,14 @@
 ---
-3.0.0alpha6:
-  api: 3.0.0alpha1
-  state:
-    release: alpha
-    api: alpha
-  date: 2022-11-04
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |+
-3.0.0alpha5:
-  api: 3.0.0alpha1
-  state:
-    release: alpha
-    api: alpha
-  date: 2022-11-04
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [rla] Release for PHP 8.
-    |+
-3.0.0alpha4:
-  api: 3.0.0alpha1
-  state:
-    release: alpha
-    api: alpha
-  date: 2021-03-15
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |+
-3.0.0alpha3:
-  api: 3.0.0alpha1
-  state:
-    release: alpha
-    api: alpha
-  date: 2021-03-13
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |+
-3.0.0alpha2:
-  api: 3.0.0alpha1
-  state:
-    release: alpha
-    api: alpha
-  date: 2021-02-24
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |+
-3.0.0alpha1:
-  api: 3.0.0alpha1
+3.0.0:
+  api: 3.0.0
   state:
     release: stable
     api: stable
-  date: 2021-02-24
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |+
-3.0.0-beta2:
-  api: 3.0.0-beta2
-  state:
-    release: beta
-    api: beta
-  date: 2026-03-28
+  date: 2026-06-27
   license:
     identifier: LGPL-2.1-only
     uri: https://spdx.org/licenses/LGPL-2.1-only.html
-  notes: |-
-    fix: Use extension_loaded check as loadExtension is a removed PHP5 feature
-3.0.0-beta1:
-  api: 3.0.0-beta1
-  state:
-    release: beta
-    api: beta
-  date: 2026-03-16
-  license:
-    identifier: LGPL-2.1-only
-    uri: https://spdx.org/licenses/LGPL-2.1-only.html
-  notes: |-
-    chore: Update phpunit.xml.dist for PHPUnit 11+
-    test: Repair unit test setup
-    chore: Add missing entries to .gitignore
-    style: Apply php-cs-fixer
-    Development mode for Image-3.0.0alpha6
-    Released Image-3.0.0alpha5
-    Update metadata and workflows for PHP 8 support
-    Add CI job for satis repo update
-    no errors, ci.yml added, bootstrap.php adapted
-    no errors left
-    Development mode for Image-3.0.0alpha6
+  notes: 'chore: refresh qc fixes and platform deps'
 3.0.0-RC3:
   api: 3.0.0-RC3
   state:
@@ -102,8 +18,7 @@
   license:
     identifier: LGPL-2.1-only
     uri: https://spdx.org/licenses/LGPL-2.1-only.html
-  notes: |-
-    feat: Add PixelReader interface and Threshold filter
+  notes: 'feat: Add PixelReader interface and Threshold filter'
 3.0.0-RC2:
   api: 3.0.0-RC2
   state:
@@ -113,12 +28,7 @@
   license:
     identifier: LGPL-2.1-only
     uri: https://spdx.org/licenses/LGPL-2.1-only.html
-  notes: |-
-    chore: Update metadata
-    refactor: Upgrade dependency on Horde_Util to Horde\Util\Util
-    docs: USAGE, UPGRADING and README files
-    refactor: Modernize horde/Image to PER-1, PSR-4, typed interfaces and DI-friendly design
-    chore: Update workflow dependency
+  notes: "chore: Update metadata\nrefactor: Upgrade dependency on Horde_Util to Horde\\Util\\Util\ndocs: USAGE, UPGRADING and README files\nrefactor: Modernize horde/Image to PER-1, PSR-4, typed interfaces and DI-friendly design\nchore: Update workflow dependency"
 3.0.0-RC1:
   api: 3.0.0-RC1
   state:
@@ -128,9 +38,87 @@
   license:
     identifier: LGPL-2.1-only
     uri: https://spdx.org/licenses/LGPL-2.1-only.html
-  notes: |-
-    Merge pull request #5 from horde/fixes
-    fix: add missing property declaration, adjust geometry reset, improve toFile()
+  notes: "Merge pull request #5 from horde/fixes\nfix: add missing property declaration, adjust geometry reset, improve toFile()"
+3.0.0-beta2:
+  api: 3.0.0-beta2
+  state:
+    release: beta
+    api: beta
+  date: 2026-03-28
+  license:
+    identifier: LGPL-2.1-only
+    uri: https://spdx.org/licenses/LGPL-2.1-only.html
+  notes: 'fix: Use extension_loaded check as loadExtension is a removed PHP5 feature'
+3.0.0-beta1:
+  api: 3.0.0-beta1
+  state:
+    release: beta
+    api: beta
+  date: 2026-03-16
+  license:
+    identifier: LGPL-2.1-only
+    uri: https://spdx.org/licenses/LGPL-2.1-only.html
+  notes: "chore: Update phpunit.xml.dist for PHPUnit 11+\ntest: Repair unit test setup\nchore: Add missing entries to .gitignore\nstyle: Apply php-cs-fixer\nDevelopment mode for Image-3.0.0alpha6\nReleased Image-3.0.0alpha5\nUpdate metadata and workflows for PHP 8 support\nAdd CI job for satis repo update\nno errors, ci.yml added, bootstrap.php adapted\nno errors left\nDevelopment mode for Image-3.0.0alpha6"
+3.0.0alpha6:
+  api: 3.0.0alpha1
+  state:
+    release: alpha
+    api: alpha
+  date: 2022-11-04
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: ''
+3.0.0alpha5:
+  api: 3.0.0alpha1
+  state:
+    release: alpha
+    api: alpha
+  date: 2022-11-04
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "[rla] Release for PHP 8.\n|+\n"
+3.0.0alpha4:
+  api: 3.0.0alpha1
+  state:
+    release: alpha
+    api: alpha
+  date: 2021-03-15
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: ''
+3.0.0alpha3:
+  api: 3.0.0alpha1
+  state:
+    release: alpha
+    api: alpha
+  date: 2021-03-13
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: ''
+3.0.0alpha2:
+  api: 3.0.0alpha1
+  state:
+    release: alpha
+    api: alpha
+  date: 2021-02-24
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: ''
+3.0.0alpha1:
+  api: 3.0.0alpha1
+  state:
+    release: stable
+    api: stable
+  date: 2021-02-24
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: ''
 2.6.1:
   api: 2.6.0
   state:
@@ -140,8 +128,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Fix deprecation warnings with PHP 7.4 (Remi Collet <remi@remirepo.net>, GH PR #3).
+  notes: "[jan] Fix deprecation warnings with PHP 7.4 (Remi Collet <remi@remirepo.net>, GH PR #3).\n"
 2.6.0:
   api: 2.6.0
   state:
@@ -151,8 +138,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mjr] Release only to fix minor version number.
+  notes: "[mjr] Release only to fix minor version number.\n"
 2.5.5:
   api: 2.6.0
   state:
@@ -162,8 +148,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mjr] Improve support for multi-page image objects.
+  notes: "[mjr] Improve support for multi-page image objects.\n"
 2.5.4:
   api: 2.5.0
   state:
@@ -173,10 +158,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mjr] SECURITY: Fix potential RCE in the text method when using the Imagemagick backend.
-    [mjr] SECURITY: Sanitize image type parameter (PR: 2, Fariskhi Vidyan <farislab@gmail.com>).
-    [mjr] Fix issues with escaping single and double quote characters in the text method when using the Imagemagick backend.
+  notes: "[mjr] SECURITY: Fix potential RCE in the text method when using the Imagemagick backend.\n[mjr] SECURITY: Sanitize image type parameter (PR: 2, Fariskhi Vidyan <farislab@gmail.com>).\n[mjr] Fix issues with escaping single and double quote characters in the text method when using the Imagemagick backend.\n"
 2.5.3:
   api: 2.5.0
   state:
@@ -186,8 +168,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mjr] Fix regression in resizing images (PR: 1, chris@chris-lamb.co.uk).
+  notes: "[mjr] Fix regression in resizing images (PR: 1, chris@chris-lamb.co.uk).\n"
 2.5.2:
   api: 2.5.0
   state:
@@ -197,8 +178,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] SECURITY: Fix remote code execution vulnerability in Im driver (Thomas Jarosch <thomas.jarosch@intra2net.com>.
+  notes: "[jan] SECURITY: Fix remote code execution vulnerability in Im driver (Thomas Jarosch <thomas.jarosch@intra2net.com>.\n"
 2.5.1:
   api: 2.5.0
   state:
@@ -208,8 +188,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mjr] SECURITY: Fix more potential places for command injections.
+  notes: "[mjr] SECURITY: Fix more potential places for command injections.\n"
 2.5.0:
   api: 2.5.0
   state:
@@ -219,10 +198,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mjr] SECURITY: Prevent DOS attack by preventing an infinite loop in certain conditions (CVE-2017-9773, reported by Fariskhi Vidyan <farislab@gmail.com>).
-    [mjr] SECURITY: Prevent RCE attacks by properly sanitizing shell arguments (CVE-2017-9774, reported by Fariskhi Vidyan <farislab@gmail.com>).
-    [jan] Add blur effect.
+  notes: "[mjr] SECURITY: Prevent DOS attack by preventing an infinite loop in certain conditions (CVE-2017-9773, reported by Fariskhi Vidyan <farislab@gmail.com>).\n[mjr] SECURITY: Prevent RCE attacks by properly sanitizing shell arguments (CVE-2017-9774, reported by Fariskhi Vidyan <farislab@gmail.com>).\n[jan] Add blur effect.\n"
 2.4.1:
   api: 2.4.0
   state:
@@ -232,8 +208,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mjr] Fix returning stream data from NULL image driver (Bug #14608).
+  notes: "[mjr] Fix returning stream data from NULL image driver (Bug #14608).\n"
 2.4.0:
   api: 2.4.0
   state:
@@ -243,8 +218,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Add blur effect.
+  notes: "[jan] Add blur effect.\n"
 2.3.6:
   api: 2.3.0
   state:
@@ -254,8 +228,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Fix parsing GPS exif data of a certain format.
+  notes: "[jan] Fix parsing GPS exif data of a certain format.\n"
 2.3.5:
   api: 2.3.0
   state:
@@ -265,8 +238,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mjr] Fix for PHP 7.1.
+  notes: "[mjr] Fix for PHP 7.1.\n"
 2.3.4:
   api: 2.3.0
   state:
@@ -276,8 +248,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Mark PHP 7 as supported.
+  notes: "[jan] Mark PHP 7 as supported.\n"
 2.3.3:
   api: 2.3.0
   state:
@@ -287,8 +258,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [cjh] Fix EXIF data not being returned in Bundled driver.
+  notes: "[cjh] Fix EXIF data not being returned in Bundled driver.\n"
 2.3.2:
   api: 2.3.0
   state:
@@ -298,8 +268,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Updated UK translation.
+  notes: "[jan] Updated UK translation.\n"
 2.3.1:
   api: 2.3.0
   state:
@@ -309,8 +278,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Fix issues with certain locales like Turkish.
+  notes: "[jan] Fix issues with certain locales like Turkish.\n"
 2.3.0:
   api: 2.3.0
   state:
@@ -320,30 +288,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Fix transparent rectangles in SVG backend.
-    [jan] Fix setting background color in SVG backend.
-    [jan] Add 'ratio' parameter to Horde_Image_Effect_Imagick_LiquidResize.
-    [jan] Fix catching exceptions from imagick extension.
-    [jan] Complete the backends' capabilities properties.
-    [jan] Fix SVG and SWF backends.
-    [jan] Fix setting background color in Horde_Image_Swf constructor.
-    [jan] Send Content-Type header in Horde_Image_Svg#display().
-    [jan] Improve arc rendering with Im backend.
-    [jan] Enable antialiasing in GD backend if available.
-    [jan] Implement Horde_Image_Imagick::arc().
-    [jan] Fix rounded rectangle drawing with GD backend.
-    [jan] Fix transparency issues with GD backend.
-    [jan] Fix autoloading of effect classes.
-    [jan] Fix border effect with GD driver.
-    [jan] Don't error out in effects if a logger hasn't been set.
-    [jan] Make getImageAtIndex() always return an image.
-    [jan] Don't error our when calling unsupported manipulation methods.
-    [jan] Make Horde_Image::arcPoints() work with any angles.
-    [jan] Fix some HTML color name to RGB value mappings.
-    [jan] Add Horde_Image_Rgb class and remove $horde_image_rgb_colors global.
-    [jan] Add Null driver for basics like just displaying the image.
-    [mjr] Fix incorrect color renderings in certain situations.
+  notes: "[jan] Fix transparent rectangles in SVG backend.\n[jan] Fix setting background color in SVG backend.\n[jan] Add 'ratio' parameter to Horde_Image_Effect_Imagick_LiquidResize.\n[jan] Fix catching exceptions from imagick extension.\n[jan] Complete the backends' capabilities properties.\n[jan] Fix SVG and SWF backends.\n[jan] Fix setting background color in Horde_Image_Swf constructor.\n[jan] Send Content-Type header in Horde_Image_Svg#display().\n[jan] Improve arc rendering with Im backend.\n[jan] Enable antialiasing in GD backend if available.\n[jan] Implement Horde_Image_Imagick::arc().\n[jan] Fix rounded rectangle drawing with GD backend.\n[jan] Fix transparency issues with GD backend.\n[jan] Fix autoloading of effect classes.\n[jan] Fix border effect with GD driver.\n[jan] Don't error out in effects if a logger hasn't been set.\n[jan] Make getImageAtIndex() always return an image.\n[jan] Don't error our when calling unsupported manipulation methods.\n[jan] Make Horde_Image::arcPoints() work with any angles.\n[jan] Fix some HTML color name to RGB value mappings.\n[jan] Add Horde_Image_Rgb class and remove $horde_image_rgb_colors global.\n[jan] Add Null driver for basics like just displaying the image.\n[mjr] Fix incorrect color renderings in certain situations.\n"
 2.2.0:
   api: 2.2.0
   state:
@@ -353,9 +298,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mjr] Improve stream handling in bundled EXIF driver (Request #13788).
-    [mms] Horde_Image_Exif_Bundled now supports reading data from a PHP stream, rather than a file.
+  notes: "[mjr] Improve stream handling in bundled EXIF driver (Request #13788).\n[mms] Horde_Image_Exif_Bundled now supports reading data from a PHP stream, rather than a file.\n"
 2.1.0:
   api: 2.0.0
   state:
@@ -365,8 +308,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mjr] Add Horde_Image_Exif::getDescriptionFields() and Horde_Image_Exif::getTitleFields().
+  notes: "[mjr] Add Horde_Image_Exif::getDescriptionFields() and Horde_Image_Exif::getTitleFields().\n"
 2.0.9:
   api: 1.0.0
   state:
@@ -376,8 +318,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mjr] Add "Title" and "Description" XMP fields.
+  notes: "[mjr] Add \"Title\" and \"Description\" XMP fields.\n"
 2.0.8:
   api: 1.0.0
   state:
@@ -387,8 +328,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Update Hungarian translation (Andras Galos <galosa@netinform.hu>).
+  notes: "[jan] Update Hungarian translation (Andras Galos <galosa@netinform.hu>).\n"
 2.0.7:
   api: 1.0.0
   state:
@@ -398,8 +338,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mjr] Update maximum allowed version for the PECL Imagick extension.
+  notes: "[mjr] Update maximum allowed version for the PECL Imagick extension.\n"
 2.0.6:
   api: 1.0.0
   state:
@@ -409,9 +348,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Fix converting to grayscale with imagick driver.
-    [jan] Add optional dependency on imagick PECL extension.
+  notes: "[jan] Fix converting to grayscale with imagick driver.\n[jan] Add optional dependency on imagick PECL extension.\n"
 2.0.5:
   api: 1.0.0
   state:
@@ -421,8 +358,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mjr] Fix generating center image crops on Solaris systems that still use older Bourne shell.
+  notes: "[mjr] Fix generating center image crops on Solaris systems that still use older Bourne shell.\n"
 2.0.4:
   api: 1.0.0
   state:
@@ -432,8 +368,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Improve unit tests.
+  notes: "[jan] Improve unit tests.\n"
 2.0.3:
   api: 1.0.0
   state:
@@ -443,8 +378,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mjr] Fix image watermarking for Imagick and ImageMagick drivers.
+  notes: "[mjr] Fix image watermarking for Imagick and ImageMagick drivers.\n"
 2.0.2:
   api: 1.0.0
   state:
@@ -454,8 +388,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
+  notes: "[jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).\n"
 2.0.1:
   api: 1.0.0
   state:
@@ -465,41 +398,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mms] Use new Horde_Test layout.
-2.0.0beta2:
-  api: 1.0.0
-  state:
-    release: beta
-    api: stable
-  date: 2012-10-12
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Update Japanese translation.
-2.0.0beta1:
-  api: 1.0.0
-  state:
-    release: beta
-    api: stable
-  date: 2012-07-19
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    First beta release for Horde 5.
-2.0.0alpha1:
-  api: 1.0.0
-  state:
-    release: alpha
-    api: stable
-  date: 2012-07-05
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    First alpha release for Horde 5.
+  notes: "[mms] Use new Horde_Test layout.\n"
 2.0.0:
   api: 1.0.0
   state:
@@ -509,8 +408,37 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    First stable release for Horde 5.
+  notes: "First stable release for Horde 5.\n"
+2.0.0beta2:
+  api: 1.0.0
+  state:
+    release: beta
+    api: stable
+  date: 2012-10-12
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "[jan] Update Japanese translation.\n"
+2.0.0beta1:
+  api: 1.0.0
+  state:
+    release: beta
+    api: stable
+  date: 2012-07-19
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "First beta release for Horde 5.\n"
+2.0.0alpha1:
+  api: 1.0.0
+  state:
+    release: alpha
+    api: stable
+  date: 2012-07-05
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "First alpha release for Horde 5.\n"
 1.0.10:
   api: 1.0.0
   state:
@@ -520,8 +448,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Update Spanish translation (Manuel P. Ayala <mayala@unex.es>).
+  notes: "[jan] Update Spanish translation (Manuel P. Ayala <mayala@unex.es>).\n"
 1.0.9:
   api: 1.0.0
   state:
@@ -531,8 +458,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Update Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
+  notes: "[jan] Update Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).\n"
 1.0.8:
   api: 1.0.0
   state:
@@ -542,9 +468,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Update Croatian translation.
-    [jan] Update Latvian translation.
+  notes: "[jan] Update Croatian translation.\n[jan] Update Latvian translation.\n"
 1.0.7:
   api: 1.0.0
   state:
@@ -554,8 +478,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mjr] Add a version of the convert command for center cropping with ImageMagick versions less than 6.3.8 (Bug #10687).
+  notes: "[mjr] Add a version of the convert command for center cropping with ImageMagick versions less than 6.3.8 (Bug #10687).\n"
 1.0.6:
   api: 1.0.0
   state:
@@ -565,8 +488,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mjr] Fix parsing GPS values for locales that do not use the decimal separator (Bug #10643).
+  notes: "[mjr] Fix parsing GPS values for locales that do not use the decimal separator (Bug #10643).\n"
 1.0.5:
   api: 1.0.0
   state:
@@ -576,10 +498,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [mjr] Added support for Lens and LensID EXIF fields)
-    [mjr] Ensure string values are parsed as strings (Bug #10646).
-    [mjr] Add basic unit tests for EXIF data
+  notes: "[mjr] Added support for Lens and LensID EXIF fields)\n[mjr] Ensure string values are parsed as strings (Bug #10646).\n[mjr] Add basic unit tests for EXIF data\n"
 1.0.4:
   api: 1.0.0
   state:
@@ -589,8 +508,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Update Latvian translation.
+  notes: "[jan] Update Latvian translation.\n"
 1.0.3:
   api: 1.0.0
   state:
@@ -600,9 +518,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Update Lithuanian translation.
-    [jan] Update Brazilian Portuguese translation.
+  notes: "[jan] Update Lithuanian translation.\n[jan] Update Brazilian Portuguese translation.\n"
 1.0.2:
   api: 1.0.0
   state:
@@ -612,8 +528,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Updated Slovak translation.
+  notes: "[jan] Updated Slovak translation.\n"
 1.0.1:
   api: 1.0.0
   state:
@@ -623,52 +538,7 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    [jan] Updated Spanish translation.
-1.0.0beta1:
-  api: 1.0.0
-  state:
-    release: beta
-    api: beta
-  date: 2011-03-16
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    First beta release for Horde 4.
-1.0.0alpha1:
-  api: 1.0.0
-  state:
-    release: alpha
-    api: alpha
-  date: 2011-03-08
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    First alpha release for Horde 4.
-1.0.0RC2:
-  api: 1.0.0
-  state:
-    release: beta
-    api: beta
-  date: 2011-03-29
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    Second release candidate for Horde 4.
-1.0.0RC1:
-  api: 1.0.0
-  state:
-    release: beta
-    api: beta
-  date: 2011-03-22
-  license:
-    identifier: LGPL-2.1
-    uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    First release candidate for Horde 4.
+  notes: "[jan] Updated Spanish translation.\n"
 1.0.0:
   api: 1.0.0
   state:
@@ -678,8 +548,47 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    First stable release for Horde 4.
+  notes: "First stable release for Horde 4.\n"
+1.0.0RC2:
+  api: 1.0.0
+  state:
+    release: beta
+    api: beta
+  date: 2011-03-29
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "Second release candidate for Horde 4.\n"
+1.0.0RC1:
+  api: 1.0.0
+  state:
+    release: beta
+    api: beta
+  date: 2011-03-22
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "First release candidate for Horde 4.\n"
+1.0.0beta1:
+  api: 1.0.0
+  state:
+    release: beta
+    api: beta
+  date: 2011-03-16
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "First beta release for Horde 4.\n"
+1.0.0alpha1:
+  api: 1.0.0
+  state:
+    release: alpha
+    api: alpha
+  date: 2011-03-08
+  license:
+    identifier: LGPL-2.1
+    uri: http://www.horde.org/licenses/lgpl21
+  notes: "First alpha release for Horde 4.\n"
 0.0.1:
   api: 0.0.1
   state:
@@ -689,5 +598,4 @@
   license:
     identifier: LGPL-2.1
     uri: http://www.horde.org/licenses/lgpl21
-  notes: |
-    Initial release as a PEAR package
+  notes: "Initial release as a PEAR package\n"
