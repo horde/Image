@@ -111,6 +111,59 @@ class Horde_Image
     }
 
     /**
+     * Returns the WCAG relative luminance of a color (0.0 - 1.0).
+     *
+     * @see https://www.w3.org/TR/WCAG21/#dfn-relative-luminance
+     *
+     * @param string $color  An HTML color, e.g.: #ffffcc.
+     *
+     * @return float  The relative luminance.
+     */
+    public static function relativeLuminance($color)
+    {
+        [$r, $g, $b] = self::getColor($color);
+        $f = function ($c) {
+            $c /= 255;
+            return ($c <= 0.03928)
+                ? $c / 12.92
+                : pow(($c + 0.055) / 1.055, 2.4);
+        };
+
+        return (0.2126 * $f($r)) + (0.7152 * $f($g)) + (0.0722 * $f($b));
+    }
+
+    /**
+     * Picks the foreground color that contrasts best with a background,
+     * using the WCAG contrast-ratio formula.
+     *
+     * This is more accurate than thresholding brightness(): for some
+     * saturated mid-luminance colors a naive brightness threshold picks the
+     * lower-contrast option (e.g. white on bright magenta). Comparing the
+     * actual WCAG contrast ratio against both candidates always picks the
+     * more readable one.
+     *
+     * @param string $bg     The background color, e.g.: #ff00ee.
+     * @param string $light  Candidate light foreground (default white).
+     * @param string $dark   Candidate dark foreground (default black).
+     *
+     * @return string  Either $light or $dark, whichever contrasts best.
+     */
+    public static function contrastColor($bg, $light = '#fff', $dark = '#000')
+    {
+        $lbg = self::relativeLuminance($bg);
+        $ratio = function ($l1, $l2) {
+            $hi = max($l1, $l2);
+            $lo = min($l1, $l2);
+            return ($hi + 0.05) / ($lo + 0.05);
+        };
+
+        $cLight = $ratio($lbg, self::relativeLuminance($light));
+        $cDark = $ratio($lbg, self::relativeLuminance($dark));
+
+        return ($cLight >= $cDark) ? $light : $dark;
+    }
+
+    /**
      * Calculates the grayscale value of a color.
      *
      * @param integer $r  A red value.
